@@ -296,6 +296,44 @@ export const PROJECTS = [
             team: "개인 프로젝트",
             role: "백엔드 API 개발, JWT 인증, WebSocket 실시간 통신, AWS S3 클라우드 저장, 이벤트 알림 시스템, PTZ 카메라 제어"
         }
+    },
+    {
+        id: '7',
+        title: 'Portfolio Website',
+        description: 'React + TypeScript + Vite 기반 개인 포트폴리오 웹사이트',
+        longDescription: 'React 19, TypeScript, Tailwind CSS 4를 활용한 모던 포트폴리오 웹사이트. Apple-inspired 디자인, 다국어 지원(한국어/영어), 반응형 디자인, 스크롤 애니메이션, 이메일 폼, 프로젝트 상세 모달 등 완전한 개인 브랜딩 웹사이트',
+        image: '/projects/portfolio-website.jpg',
+        detailImages: [
+            '/projects/portfolio-website/hero-section.jpg',
+            '/projects/portfolio-website/about-section.jpg',
+            '/projects/portfolio-website/projects-section.jpg',
+            '/projects/portfolio-website/experience-section.jpg',
+            '/projects/portfolio-website/contact-section.jpg',
+            '/projects/portfolio-website/responsive-design.jpg'
+        ],
+        technologies: [
+            { name: 'React', category: 'frontend', color: '#61DAFB' },
+            { name: 'TypeScript', category: 'frontend', color: '#3178C6' },
+            { name: 'Vite', category: 'frontend', color: '#646CFF' },
+            { name: 'Tailwind CSS', category: 'frontend', color: '#06B6D4' },
+            { name: 'Framer Motion', category: 'frontend', color: '#0055FF' },
+            { name: 'React Hook Form', category: 'frontend', color: '#EC5990' },
+            { name: 'EmailJS', category: 'frontend', color: '#FF6B35' },
+            { name: 'Lucide React', category: 'frontend', color: '#00D4FF' }
+        ],
+        github: 'https://github.com/jhnnnp/Jhnnn.park_portfolio_web',
+        live: 'https://jinhanpark.dev',
+        featured: true,
+        category: 'web',
+        status: 'in-progress',
+        year: 2025,
+        team: ['Frontend Developer'],
+        metrics: {
+            note: "React 19, TypeScript, Tailwind CSS 4를 활용한 모던 포트폴리오 웹사이트. Apple-inspired 디자인, 다국어 지원, 반응형 디자인, 스크롤 애니메이션, 이메일 폼 등 완전한 개인 브랜딩 웹사이트",
+            duration: "2025.06 - 진행 중",
+            team: "개인 프로젝트",
+            role: "프론트엔드 개발, React 컴포넌트 설계, Framer Motion 애니메이션, 다국어 지원, 반응형 디자인, 이메일 폼 구현"
+        }
     }
 ] as const
 
