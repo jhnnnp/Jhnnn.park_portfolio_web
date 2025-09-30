@@ -1,0 +1,197 @@
+// components/Hero.tsx
+import { motion } from 'framer-motion';
+import { ChevronDown, ArrowRight, Download } from 'lucide-react';
+import { SITE_CONFIG } from '../../lib/constants';
+import { Button } from '../ui/button';
+import { useFadeInAnimation } from '../../hooks/useScrollAnimation';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../lib/translations';
+
+export const Hero = () => {
+    const fadeInRef = useFadeInAnimation(0.2);
+    const { language } = useLanguage();
+    const t = translations[language];
+
+    const scrollToProjects = () => {
+        const element = document.querySelector('#projects');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const downloadResume = () => {
+        const link = document.createElement('a');
+        link.href = '/resume.pdf';
+        link.download = 'Jinhan_Park_Resume.pdf';
+        link.click();
+    };
+
+    return (
+        <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden heroSection">
+            {/* Background */}
+            <div className="absolute inset-0 gradient-hero opacity-50" />
+
+            {/* Animated Background Elements */}
+            <motion.div
+                className="absolute top-20 left-20 w-32 h-32 bg-pastel-accent rounded-full blur-3xl"
+                animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
+            <motion.div
+                className="absolute bottom-20 right-20 w-40 h-40 bg-pastel-muted rounded-full blur-3xl"
+                animate={{
+                    scale: [1.2, 1, 1.2],
+                    opacity: [0.4, 0.7, 0.4],
+                }}
+                transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
+
+            {/* Content */}
+            <div className="container-apple relative z-10 text-center" ref={fadeInRef}>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="space-y-8"
+                >
+                    {/* Greeting */}
+                    <motion.h2
+                        className="text-lg md:text-xl text-pastel-secondary font-medium"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                    >
+                        {t.hero.greeting}
+                    </motion.h2>
+
+                    {/* Main Title */}
+                    <motion.h1
+                        className="text-4xl md:text-6xl lg:text-7xl font-bold text-pastel-primary leading-tight"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                    >
+                        {SITE_CONFIG.name}
+                    </motion.h1>
+
+                    {/* Subtitle */}
+                    <motion.h2
+                        className="text-2xl md:text-3xl lg:text-4xl font-medium text-pastel-secondary"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.8 }}
+                    >
+                        {t.hero.title}
+                    </motion.h2>
+
+                    {/* Description */}
+                    <motion.p
+                        className="text-lg md:text-xl max-w-3xl mx-auto text-pastel-secondary leading-relaxed"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1.0 }}
+                    >
+                        {t.hero.description}
+                    </motion.p>
+
+                    {/* CTA Buttons */}
+                    <motion.div
+                        className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 1.2 }}
+                    >
+                        <motion.div
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="w-full sm:w-auto"
+                        >
+                            <Button
+                                onClick={scrollToProjects}
+                                size="lg"
+                                className="group bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto min-w-[200px]"
+                            >
+                                <span>{t.hero.viewWork}</span>
+                                <ArrowRight size={20} className="ml-2 transition-transform group-hover:translate-x-1" />
+                            </Button>
+                        </motion.div>
+
+                        <motion.div
+                            whileHover={{ scale: 1.05, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="w-full sm:w-auto"
+                        >
+                            <Button
+                                onClick={downloadResume}
+                                variant="outline"
+                                size="lg"
+                                className="group bg-sky-500/20 backdrop-blur-sm border-2 border-sky-400/50 hover:bg-sky-500/30 hover:border-sky-400/70 text-white shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-xl w-full sm:w-auto min-w-[200px]"
+                            >
+                                <Download size={20} className="mr-2" />
+                                <span>{t.hero.downloadResume}</span>
+                            </Button>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+
+                {/* Scroll Indicator */}
+                <motion.div
+                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 1.5 }}
+                >
+                    <motion.div
+                        className="flex flex-col items-center space-y-2 text-pastel-secondary"
+                        animate={{ y: [0, 10, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                        <span className="text-sm font-medium">{t.hero.scroll}</span>
+                        <ChevronDown size={20} />
+                    </motion.div>
+                </motion.div>
+            </div>
+
+            {/* Floating Elements */}
+            <motion.div
+                className="absolute top-1/4 right-1/4 w-2 h-2 bg-pastel-accent rounded-full"
+                animate={{
+                    y: [0, -20, 0],
+                    opacity: [0.5, 1, 0.5],
+                }}
+                transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
+            <motion.div
+                className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-pastel-muted rounded-full"
+                animate={{
+                    y: [0, 15, 0],
+                    opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
+        </section>
+    );
+};
+
+export default Hero;
