@@ -13,6 +13,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
+    const [naturalSize, setNaturalSize] = useState<{ w: number; h: number } | null>(null);
     const horizontalThumbnailRef = useRef<HTMLDivElement>(null);
     const verticalThumbnailRef = useRef<HTMLDivElement>(null);
     const mobileThumbnailRef = useRef<HTMLDivElement>(null);
@@ -54,19 +55,19 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                 // More precise scrollIntoView with smooth behavior
                 const containerRect = container.getBoundingClientRect();
                 const thumbnailRect = thumbnail.getBoundingClientRect();
-                
+
                 // Check if thumbnail is fully visible
-                const isVisible = 
+                const isVisible =
                     thumbnailRect.left >= containerRect.left &&
                     thumbnailRect.right <= containerRect.right &&
                     thumbnailRect.top >= containerRect.top &&
                     thumbnailRect.bottom <= containerRect.bottom;
 
                 if (!isVisible) {
-                    thumbnail.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest', 
-                        inline: 'center' 
+                    thumbnail.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
                     });
                 }
             }
@@ -79,6 +80,23 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     }, [selectedIndex]);
 
     const currentSrc = useMemo(() => images[selectedIndex], [images, selectedIndex]);
+
+    // iOS safari visibility fix: reset loading when src changes, pre-measure image
+    useEffect(() => {
+        setIsLoading(true);
+        setHasError(false);
+        const img = new Image();
+        img.src = currentSrc;
+        img.onload = () => {
+            setNaturalSize({ w: img.naturalWidth, h: img.naturalHeight });
+            setIsLoading(false);
+        };
+        img.onerror = () => {
+            setHasError(true);
+            setIsLoading(false);
+        };
+        // cleanup not needed for Image object
+    }, [currentSrc]);
 
     // Swipe handler for mobile
     const handleSwipe = useCallback((_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -109,7 +127,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                 // 웹 프로젝트: 메인 위 + 썸네일 아래
                 <div className="hidden md:block space-y-4 md:pb-6">
                     <div className="relative bg-white rounded-xl overflow-hidden border border-gray-100">
-                        <div className="w-full h-[55vh] flex items-center justify-center">
+                        <div className="w-full h-[55svh] md:h-[55vh] flex items-center justify-center">
                             {!hasError ? (
                                 <motion.img
                                     key={selectedIndex}
@@ -191,7 +209,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                 // 모바일 앱: 좌측 메인 + 우측 세로 썸네일
                 <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:gap-3">
                     <div className="relative group bg-white rounded-xl overflow-hidden border border-gray-100">
-                        <div className="w-full h-[70vh] flex items-center justify-center">
+                        <div className="w-full h-[70svh] md:h-[70vh] flex items-center justify-center">
                             {!hasError ? (
                                 <motion.img
                                     key={selectedIndex}
@@ -285,7 +303,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                     dragElastic={0.1}
                     onDragEnd={handleSwipe}
                 >
-                    <div className="w-full h-[50vh] flex items-center justify-center">
+                    <div className="w-full h-[56svh] sm:h-[50vh] flex items-center justify-center">
                         {!hasError ? (
                             <motion.img
                                 key={selectedIndex}
