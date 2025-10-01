@@ -10,7 +10,7 @@ export const translations = {
         },
         about: {
             title: "Full-Stack Developer",
-            description: "I'm a passionate full-stack developer with 5+ years of experience building end-to-end digital solutions. I specialize in React, Node.js, and modern web technologies, leveraging AI-powered code assistants like Cursor and Claude to enhance productivity and deliver exceptional user experiences across the entire application stack.",
+            description: "I create user-centric, innovative web applications as a full-stack developer. I specialize in React, Node.js, and modern web technologies, leveraging AI-powered code assistants like Cursor and Claude to enhance productivity and deliver exceptional user experiences across the entire application stack.",
             skills: "Skills",
             connect: "Connect",
             categories: {
@@ -133,7 +133,7 @@ export const translations = {
         },
         about: {
             title: "풀스택 개발자",
-            description: "저는 5년 이상의 경험을 가진 열정적인 풀스택 개발자로, 처음부터 끝까지 완성된 디지털 솔루션을 구축합니다. React, Node.js, 그리고 현대적인 웹 기술을 전문으로 하며, Cursor와 Claude 같은 AI 기반 코드 어시스턴트를 활용하여 생산성을 향상시키고 전체 애플리케이션 스택에 걸쳐 탁월한 사용자 경험을 제공합니다.",
+            description: "사용자 중심의 혁신적인 웹 애플리케이션을 만드는 풀스택 개발자입니다. React, Node.js, 그리고 현대적인 웹 기술을 전문으로 하며, Cursor와 Claude 같은 AI 기반 코드 어시스턴트를 활용하여 생산성을 향상시키고 전체 애플리케이션 스택에 걸쳐 탁월한 사용자 경험을 제공합니다.",
             skills: "기술",
             connect: "연결",
             categories: {
