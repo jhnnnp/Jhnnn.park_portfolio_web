@@ -90,6 +90,8 @@ export const translations = {
                 phoneValue: "Available upon request"
             },
             form: {
+                title: "Send Message",
+                description: "Leave your project inquiries or collaboration proposals",
                 name: "Name",
                 email: "Email",
                 subject: "Subject",
@@ -211,6 +213,8 @@ export const translations = {
                 phoneValue: "요청 시 제공"
             },
             form: {
+                title: "메시지 보내기",
+                description: "프로젝트 문의나 협업 제안을 남겨주세요",
                 name: "이름",
                 email: "이메일",
                 subject: "제목",

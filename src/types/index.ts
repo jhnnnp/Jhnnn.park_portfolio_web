@@ -10,6 +10,7 @@ export interface Project {
     readonly description: string;
     readonly longDescription?: string;
     readonly image?: string;
+    readonly icon?: string;
     readonly detailImages?: readonly string[];
     readonly technologies: readonly Technology[];
     readonly github?: string;
