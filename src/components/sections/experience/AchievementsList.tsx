@@ -10,13 +10,13 @@ interface AchievementsListProps {
 
 export const AchievementsList = ({ achievements, title }: AchievementsListProps) => {
   return (
-    <div className="space-y-4 relative z-10 pt-6">
+    <div className="space-y-3 sm:space-y-4 relative z-10 pt-4 sm:pt-6">
       <motion.h4
-        className="text-lg font-bold text-apple-black flex items-center gap-3"
+        className="text-base sm:text-lg font-bold text-apple-black flex items-center gap-2 sm:gap-3"
         whileHover={{ x: 5 }}
       >
         <motion.div
-          className="w-4 h-4 bg-gradient-to-br from-sky-300 via-blue-300 to-cyan-300 rounded-full shadow-sm flex items-center justify-center"
+          className="w-3.5 sm:w-4 h-3.5 sm:h-4 bg-gradient-to-br from-sky-300 via-blue-300 to-cyan-300 rounded-full shadow-sm flex items-center justify-center flex-shrink-0"
           animate={{
             rotate: [0, 360],
             scale: [1, 1.1, 1]
@@ -27,19 +27,19 @@ export const AchievementsList = ({ achievements, title }: AchievementsListProps)
             ease: "linear"
           }}
         >
-          <div className="w-2 h-2 bg-white rounded-full" />
+          <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white rounded-full" />
         </motion.div>
-        <span className="flex items-center gap-2">
-          <Award size={18} className="text-blue-400" />
-          {title}
+        <span className="flex items-center gap-1.5 sm:gap-2">
+          <Award size={16} className="sm:w-[18px] sm:h-[18px] text-blue-400 flex-shrink-0" />
+          <span className="truncate">{title}</span>
         </span>
       </motion.h4>
 
-      <div className="grid gap-3">
+      <div className="grid gap-2.5 sm:gap-3">
         {achievements.map((achievement, idx) => (
           <motion.div
             key={idx}
-            className="group/achievement relative px-5 py-4 overflow-hidden cursor-pointer"
+            className="group/achievement relative px-4 sm:px-5 py-3 sm:py-4 overflow-hidden cursor-pointer"
             style={GLASSMORPHISM_ACHIEVEMENT}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -61,9 +61,9 @@ export const AchievementsList = ({ achievements, title }: AchievementsListProps)
             </motion.div>
 
             {/* Enhanced Content */}
-            <div className="flex items-start space-x-3 relative z-10">
+            <div className="flex items-start space-x-2 sm:space-x-3 relative z-10">
               <motion.div
-                className="w-2.5 h-2.5 bg-gradient-to-br from-sky-300 via-blue-300 to-cyan-300 rounded-full mt-1.5 flex-shrink-0 shadow-sm flex items-center justify-center"
+                className="w-2 sm:w-2.5 h-2 sm:h-2.5 bg-gradient-to-br from-sky-300 via-blue-300 to-cyan-300 rounded-full mt-1 sm:mt-1.5 flex-shrink-0 shadow-sm flex items-center justify-center"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: idx * 0.1 + 0.2, type: "spring", stiffness: 200 }}
@@ -74,12 +74,12 @@ export const AchievementsList = ({ achievements, title }: AchievementsListProps)
                   filter: "brightness(1.3)"
                 }}
               >
-                <div className="w-1 h-1 bg-white rounded-full" />
+                <div className="w-0.5 sm:w-1 h-0.5 sm:h-1 bg-white rounded-full" />
               </motion.div>
 
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <motion.p
-                  className="text-apple-gray-700 leading-relaxed font-medium text-sm transition-all duration-300 group-hover/achievement:text-blue-500"
+                  className="text-apple-gray-700 leading-relaxed font-medium text-xs sm:text-sm transition-all duration-300 group-hover/achievement:text-blue-500"
                   whileHover={{
                     x: 5,
                     fontWeight: 600
@@ -90,7 +90,7 @@ export const AchievementsList = ({ achievements, title }: AchievementsListProps)
               </div>
 
               <motion.div
-                className="opacity-0 group-hover/achievement:opacity-100 transition-opacity duration-300 flex-shrink-0"
+                className="hidden sm:block opacity-0 group-hover/achievement:opacity-100 transition-opacity duration-300 flex-shrink-0"
                 whileHover={{ x: 3 }}
               >
                 <ChevronRight size={14} className="text-blue-400" />

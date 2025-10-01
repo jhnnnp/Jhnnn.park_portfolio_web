@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { MapPin, Calendar, Award } from 'lucide-react';
 import { TechnologyBadges } from './TechnologyBadges';
 import { AchievementsList } from './AchievementsList';
@@ -39,6 +39,7 @@ export const ExperienceCard = ({
   imageLayout
 }: ExperienceCardProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     if (contentRef.current) {
@@ -50,17 +51,28 @@ export const ExperienceCard = ({
     }
   }, [index, onHeightMeasured]);
 
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
   return (
     <motion.div
-      className={`relative flex items-start ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+      className={`relative flex flex-col md:flex-row items-start ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
     >
       {/* Content Card */}
-      <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'}`}>
+      <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'} w-full`}>
         <motion.div
-          className="relative p-8 space-y-6 overflow-hidden group cursor-pointer"
+          className="relative p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6 overflow-hidden group cursor-pointer"
           style={GLASSMORPHISM_CARD}
           {...CARD_HOVER_ANIMATION}
         >
@@ -80,31 +92,31 @@ export const ExperienceCard = ({
             </motion.div>
 
             {/* Header */}
-            <div className="space-y-3 relative z-10">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
+            <div className="space-y-2 sm:space-y-3 relative z-10">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+                <div className="flex-1 min-w-0">
                   <motion.h3
-                    className="text-xl font-bold text-apple-black mb-2 group-hover:text-blue-500 transition-colors duration-300"
+                    className="text-lg sm:text-xl font-bold text-apple-black mb-1.5 sm:mb-2 group-hover:text-blue-500 transition-colors duration-300 break-words"
                     whileHover={{ x: 5 }}
                   >
                     {experience.position}
                   </motion.h3>
                   <div className="flex items-center space-x-2 text-apple-gray-600">
                     <motion.div
-                      className="p-1.5 bg-gradient-to-br from-sky-200/30 to-blue-100/50 rounded-lg"
+                      className="p-1.5 bg-gradient-to-br from-sky-200/30 to-blue-100/50 rounded-lg flex-shrink-0"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                     >
                       <MapPin size={14} className="text-blue-400" />
                     </motion.div>
-                    <span className="font-semibold text-base">{experience.company}</span>
+                    <span className="font-semibold text-sm sm:text-base truncate">{experience.company}</span>
                   </div>
                 </div>
                 <motion.div
-                  className="relative flex-shrink-0"
+                  className="relative flex-shrink-0 self-start"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <div className="px-4 py-2 bg-gradient-to-r from-sky-200/30 via-blue-100/50 to-cyan-100/30 text-blue-600 text-xs rounded-full font-semibold border border-sky-300/30 backdrop-blur-sm whitespace-nowrap">
-                    {experience.period}
+                  <div className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-sky-200/30 via-blue-100/50 to-cyan-100/30 text-blue-600 text-xs rounded-full font-semibold border border-sky-300/30 backdrop-blur-sm">
+                    <span className="whitespace-normal sm:whitespace-nowrap text-xs">{experience.period}</span>
                   </div>
                   {/* Subtle glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-sky-200/20 to-blue-100/30 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -114,12 +126,12 @@ export const ExperienceCard = ({
               {/* Project Type Badge */}
               <div className="flex flex-wrap items-center gap-2">
                 <div className="flex items-center space-x-1 text-apple-gray-500">
-                  <Calendar size={13} />
+                  <Calendar size={12} className="sm:w-[13px] sm:h-[13px] flex-shrink-0" />
                   <span className="text-xs">{projectTypeText}</span>
                 </div>
                 {experience.id === 1 && awardText && (
                   <div className="flex items-center space-x-1 text-blue-500">
-                    <Award size={13} />
+                    <Award size={12} className="sm:w-[13px] sm:h-[13px] flex-shrink-0" />
                     <span className="text-xs font-medium">{awardText}</span>
                   </div>
                 )}
@@ -128,7 +140,7 @@ export const ExperienceCard = ({
 
             {/* Description */}
             <div className="relative z-10">
-              <p className="text-apple-gray-600 leading-relaxed text-sm">
+              <p className="text-apple-gray-600 leading-relaxed text-xs sm:text-sm">
                 {experience.description}
               </p>
             </div>
@@ -154,19 +166,19 @@ export const ExperienceCard = ({
         </motion.div>
       </div>
 
-      {/* Project Images - Alternating Side */}
-      <div className={`hidden md:block md:w-1/2 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
+      {/* Project Images - Shows on mobile too, below the card */}
+      <div className={`w-full md:w-1/2 mt-4 md:mt-0 ml-12 md:ml-0 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
         <motion.div
           className="relative group"
           initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: index * 0.2 + 0.3 }}
         >
-          {/* Carousel/Gallery using ImageGallery - height synced to left card */}
+          {/* Carousel/Gallery using ImageGallery - height synced to left card on desktop */}
           <div
             style={{
-              height: cardHeights[index] || 600,
-              minHeight: cardHeights[index] || 600
+              height: isDesktop ? (cardHeights[index] || 600) : 'auto',
+              minHeight: isDesktop ? (cardHeights[index] || 600) : 'auto'
             }}
             className="flex flex-col md:pb-4"
           >

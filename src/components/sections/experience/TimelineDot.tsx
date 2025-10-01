@@ -10,7 +10,7 @@ interface TimelineDotProps {
 export const TimelineDot = ({ index, isAwardWinner }: TimelineDotProps) => {
   return (
     <motion.div
-      className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-6 h-6 z-10"
+      className="absolute left-6 sm:left-8 md:left-1/2 transform -translate-x-1/2 w-5 h-5 sm:w-6 sm:h-6 z-10"
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ delay: index * 0.2 + 0.3, type: "spring", stiffness: 200 }}
@@ -18,21 +18,21 @@ export const TimelineDot = ({ index, isAwardWinner }: TimelineDotProps) => {
     >
       {/* Outer ring with pulsing effect */}
       <motion.div
-        className="absolute inset-0 w-6 h-6 bg-gradient-to-br from-sky-300 to-blue-400 rounded-full border-4 border-white shadow-2xl"
+        className="absolute inset-0 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-br from-sky-300 to-blue-400 rounded-full border-2 sm:border-4 border-white shadow-2xl"
         {...DOT_PULSING_ANIMATION}
       />
-      
+
       {/* Inner core */}
-      <div className="absolute inset-1 bg-white rounded-full shadow-inner" />
-      
+      <div className="absolute inset-0.5 sm:inset-1 bg-white rounded-full shadow-inner" />
+
       {/* Award indicator for first experience */}
       {isAwardWinner && (
         <motion.div
-          className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-blue-300 to-sky-400 rounded-full flex items-center justify-center shadow-lg"
+          className="absolute -top-0.5 sm:-top-1 -right-0.5 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-br from-blue-300 to-sky-400 rounded-full flex items-center justify-center shadow-lg"
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         >
-          <Star size={10} className="text-white fill-white" />
+          <Star size={8} className="sm:w-[10px] sm:h-[10px] text-white fill-white" />
         </motion.div>
       )}
     </motion.div>
