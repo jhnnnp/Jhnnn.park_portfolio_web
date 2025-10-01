@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle, Github, ArrowUpRight, Sparkles, MessageCircle, Smartphone, Navigation } from 'lucide-react';
+import { Mail, Send, CheckCircle, Github, ArrowUpRight, Sparkles, MessageCircle, Smartphone, Navigation } from 'lucide-react';
 import { SITE_CONFIG } from '../../lib/constants';
 import { useStaggerAnimation } from '../../hooks/useScrollAnimation';
 import { useEmailForm } from '../../hooks/useEmailForm';

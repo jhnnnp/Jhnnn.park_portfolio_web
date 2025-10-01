@@ -87,7 +87,6 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
         const img = new Image();
         img.src = currentSrc;
         img.onload = () => {
-            setNaturalSize({ w: img.naturalWidth, h: img.naturalHeight });
             setIsLoading(false);
         };
         img.onerror = () => {
