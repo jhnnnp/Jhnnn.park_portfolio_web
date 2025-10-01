@@ -144,6 +144,30 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     </div>
                 </motion.div>
 
+                {/* 데모 영상 */}
+                {project.demoVideo && (
+                    <motion.div variants={itemVariants} className="space-y-3">
+                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
+                            <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                            </svg>
+                            데모 영상
+                        </h3>
+                        <div className="relative rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-900 to-gray-800" style={{ aspectRatio: '16 / 9' }}>
+                            <video
+                                controls
+                                preload="metadata"
+                                className="w-full h-full object-contain"
+                                poster={project.detailImages?.[0] || project.image}
+                            >
+                                <source src={project.demoVideo} type="video/mp4" />
+                                <source src={project.demoVideo} type="video/quicktime" />
+                                브라우저가 비디오 태그를 지원하지 않습니다.
+                            </video>
+                        </div>
+                    </motion.div>
+                )}
+
                 {/* 이미지 갤러리 */}
                 {project.detailImages && project.detailImages.length > 0 && (
                     <motion.div variants={itemVariants}>

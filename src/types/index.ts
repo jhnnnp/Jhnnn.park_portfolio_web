@@ -12,6 +12,7 @@ export interface Project {
     readonly image?: string;
     readonly icon?: string;
     readonly detailImages?: readonly string[];
+    readonly demoVideo?: string;
     readonly technologies: readonly Technology[];
     readonly github?: string;
     readonly live?: string | null;

@@ -13,7 +13,9 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const thumbnailContainerRef = useRef<HTMLDivElement>(null);
+    const horizontalThumbnailRef = useRef<HTMLDivElement>(null);
+    const verticalThumbnailRef = useRef<HTMLDivElement>(null);
+    const mobileThumbnailRef = useRef<HTMLDivElement>(null);
 
     const resetLoading = () => {
         setIsLoading(true);
@@ -42,14 +44,38 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
         }
     }, [selectedIndex, images]);
 
-    // Auto-scroll thumbnail into view
+    // Auto-scroll thumbnail into view for all layouts
     useEffect(() => {
-        if (!thumbnailContainerRef.current) return;
-        const container = thumbnailContainerRef.current;
-        const thumbnail = container.children[selectedIndex] as HTMLElement;
-        if (thumbnail) {
-            thumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        }
+        const scrollThumbnailIntoView = (containerRef: React.RefObject<HTMLDivElement>) => {
+            if (!containerRef.current) return;
+            const container = containerRef.current;
+            const thumbnail = container.children[selectedIndex] as HTMLElement;
+            if (thumbnail) {
+                // More precise scrollIntoView with smooth behavior
+                const containerRect = container.getBoundingClientRect();
+                const thumbnailRect = thumbnail.getBoundingClientRect();
+
+                // Check if thumbnail is fully visible
+                const isVisible =
+                    thumbnailRect.left >= containerRect.left &&
+                    thumbnailRect.right <= containerRect.right &&
+                    thumbnailRect.top >= containerRect.top &&
+                    thumbnailRect.bottom <= containerRect.bottom;
+
+                if (!isVisible) {
+                    thumbnail.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+        };
+
+        // Apply to all thumbnail containers
+        scrollThumbnailIntoView(horizontalThumbnailRef);
+        scrollThumbnailIntoView(verticalThumbnailRef);
+        scrollThumbnailIntoView(mobileThumbnailRef);
     }, [selectedIndex]);
 
     const currentSrc = useMemo(() => images[selectedIndex], [images, selectedIndex]);
@@ -134,8 +160,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                     {/* 하단 가로 썸네일 (웹용) */}
                     {images.length > 1 && (
                         <div
-                            ref={thumbnailContainerRef}
-                            className="flex gap-3 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+                            ref={horizontalThumbnailRef}
+                            className="flex gap-3 overflow-x-auto pt-2 pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth"
                         >
                             {images.map((image, index) => (
                                 <button
@@ -163,65 +189,65 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                 </div>
             ) : (
                 // 모바일 앱: 좌측 메인 + 우측 세로 썸네일
-            <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:gap-3">
+                <div className="hidden md:grid md:grid-cols-[minmax(0,1fr)_200px] md:gap-3">
                     <div className="relative group bg-white rounded-xl overflow-hidden border border-gray-100">
                         <div className="w-full h-[70vh] flex items-center justify-center">
-                        {!hasError ? (
-                            <motion.img
-                                key={selectedIndex}
-                                src={currentSrc}
-                                alt={`${title || 'Project'} screenshot ${selectedIndex + 1}`}
+                            {!hasError ? (
+                                <motion.img
+                                    key={selectedIndex}
+                                    src={currentSrc}
+                                    alt={`${title || 'Project'} screenshot ${selectedIndex + 1}`}
                                     className="max-w-full max-h-full object-contain select-none"
-                                initial={{ opacity: 0, scale: 0.98 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.2 }}
-                                onLoad={() => setIsLoading(false)}
-                                onError={() => { setHasError(true); setIsLoading(false); }}
-                                draggable={false}
-                            />
-                        ) : (
-                            <div className="flex flex-col items-center justify-center text-gray-400">
-                                <ImageOff className="mb-2" size={32} />
-                                <span className="text-sm">Failed to load</span>
-                            </div>
-                        )}
+                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.2 }}
+                                    onLoad={() => setIsLoading(false)}
+                                    onError={() => { setHasError(true); setIsLoading(false); }}
+                                    draggable={false}
+                                />
+                            ) : (
+                                <div className="flex flex-col items-center justify-center text-gray-400">
+                                    <ImageOff className="mb-2" size={32} />
+                                    <span className="text-sm">Failed to load</span>
+                                </div>
+                            )}
 
-                        {isLoading && (
-                            <div className="absolute inset-0 flex items-center justify-center bg-white/70 backdrop-blur-sm">
-                                <Loader2 className="animate-spin text-blue-500" size={28} />
-                            </div>
+                            {isLoading && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-white/70 backdrop-blur-sm">
+                                    <Loader2 className="animate-spin text-blue-500" size={28} />
+                                </div>
+                            )}
+                        </div>
+
+                        {images.length > 1 && (
+                            <>
+                                <button
+                                    onClick={prevImage}
+                                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
+                                    aria-label="Previous"
+                                >
+                                    <ChevronLeft size={20} />
+                                </button>
+                                <button
+                                    onClick={nextImage}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
+                                    aria-label="Next"
+                                >
+                                    <ChevronRight size={20} />
+                                </button>
+                            </>
                         )}
                     </div>
 
-                    {images.length > 1 && (
-                        <>
-                            <button
-                                onClick={prevImage}
-                                className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
-                                aria-label="Previous"
-                            >
-                                <ChevronLeft size={20} />
-                            </button>
-                            <button
-                                onClick={nextImage}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-all backdrop-blur-sm"
-                                aria-label="Next"
-                            >
-                                <ChevronRight size={20} />
-                            </button>
-                        </>
-                    )}
-                </div>
-
                     {/* 우측 세로 썸네일 (앱용) */}
-                {images.length > 1 && (
-                    <div
-                        ref={thumbnailContainerRef}
-                            className="h-[70vh] bg-white rounded-xl p-2 overflow-y-auto space-y-2 border border-gray-100 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
-                    >
-                        {images.map((image, index) => (
-                            <motion.button
-                                key={index}
+                    {images.length > 1 && (
+                        <div
+                            ref={verticalThumbnailRef}
+                            className="h-[70vh] bg-white rounded-xl p-2 overflow-y-auto space-y-2 border border-gray-100 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth"
+                        >
+                            {images.map((image, index) => (
+                                <motion.button
+                                    key={index}
                                     onClick={(e) => {
                                         setSelectedIndex(index);
                                         resetLoading();
@@ -230,24 +256,24 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                                     className={`relative w-full h-28 rounded-lg overflow-hidden border-2 transition-all focus:outline-none ${index === selectedIndex
                                         ? 'border-blue-500 ring-2 ring-blue-200 shadow-md'
                                         : 'border-transparent hover:border-gray-300'
-                                    }`}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                            >
-                                <img
-                                    src={image}
-                                    alt={`Thumbnail ${index + 1}`}
+                                        }`}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <img
+                                        src={image}
+                                        alt={`Thumbnail ${index + 1}`}
                                         className="w-full h-full object-contain bg-white"
-                                    loading="lazy"
-                                />
-                                {index === selectedIndex && (
-                                    <div className="absolute inset-0 bg-blue-500/10" />
-                                )}
-                            </motion.button>
-                        ))}
-                    </div>
-                )}
-            </div>
+                                        loading="lazy"
+                                    />
+                                    {index === selectedIndex && (
+                                        <div className="absolute inset-0 bg-blue-500/10" />
+                                    )}
+                                </motion.button>
+                            ))}
+                        </div>
+                    )}
+                </div>
             )}
 
             {/* Mobile: 상단 메인 + 하단 가로 썸네일 */}
@@ -291,8 +317,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                 {/* 가로 썸네일 */}
                 {images.length > 1 && (
                     <div
-                        ref={thumbnailContainerRef}
-                        className="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+                        ref={mobileThumbnailRef}
+                        className="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent scroll-smooth"
                     >
                         {images.map((image, index) => (
                             <button
@@ -303,8 +329,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                                     (e.currentTarget as HTMLButtonElement).blur();
                                 }}
                                 className={`flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-all snap-center focus:outline-none ${index === selectedIndex
-                                        ? 'border-blue-500 ring-2 ring-blue-200'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-blue-500 ring-2 ring-blue-200'
+                                    : 'border-gray-200 hover:border-gray-300'
                                     }`}
                             >
                                 <img src={image} alt={`Thumb ${index + 1}`} className="w-full h-full object-contain bg-white" loading="lazy" />

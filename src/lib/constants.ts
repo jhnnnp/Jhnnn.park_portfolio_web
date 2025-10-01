@@ -1,7 +1,7 @@
 export const SITE_CONFIG = {
     name: "Jinhan Park",
-    title: "Jinhan Park - Frontend Developer",
-    description: "Experienced frontend developer specializing in React, TypeScript, and modern web technologies.",
+    title: "Jinhan Park - Full-Stack Developer",
+    description: "Experienced full-stack developer specializing in React, Node.js, TypeScript, and modern web technologies.",
     url: "https://jinhanpark.dev",
     email: "jhnnn.park@gmail.com",
     github: "https://github.com/jhnnnp",
@@ -65,6 +65,7 @@ export const PROJECTS = [
         longDescription: 'Node.js와 Express.js로 구현된 웹서비스 백엔드. JWT 인증, 강의/사용자/커리큘럼 관리 API, MySQL(Sequelize ORM), AWS S3 파일 저장, Swagger(OpenAPI) 문서, Google OAuth 지원.',
         image: '/projects/tuk-navi.jpg',
         icon: '/media/icons/navi_logo.png',
+        demoVideo: '/media/navi/demo.mov',
         detailImages: [
             '/media/navi/1.png',
             '/media/navi/2.png',
@@ -75,7 +76,15 @@ export const PROJECTS = [
             '/media/navi/7.png',
             '/media/navi/8.png',
             '/media/navi/9.png',
-            '/media/navi/10.png'
+            '/media/navi/10.png',
+            '/media/navi/11.png',
+            '/media/navi/12.png',
+            '/media/navi/13.png',
+            '/media/navi/14.png',
+            '/media/navi/15.png',
+            '/media/navi/16.png',
+            '/media/navi/17.png',
+            '/media/navi/18.png'
         ],
         technologies: [
             { name: 'Node.js', category: 'backend', color: '#339933' },
@@ -108,6 +117,7 @@ export const PROJECTS = [
         longDescription: 'React+TypeScript 기반 SPA. 시간표, 커리큘럼, 졸업요건, 과목 검색, 챗봇(AI 학사 상담), 반응형 웹, 사용자별 데이터 분리(LocalStorage) 등 다양한 학사관리 기능 구현. 캡스톤 주제의 대표 학부 프로젝트.',
         image: '/projects/tuk-navi-frontend.jpg',
         icon: '/media/icons/navi_logo.png',
+        demoVideo: '/media/navi/demo.mov',
         detailImages: [
             '/media/navi/1.png',
             '/media/navi/2.png',
@@ -118,7 +128,15 @@ export const PROJECTS = [
             '/media/navi/7.png',
             '/media/navi/8.png',
             '/media/navi/9.png',
-            '/media/navi/10.png'
+            '/media/navi/10.png',
+            '/media/navi/11.png',
+            '/media/navi/12.png',
+            '/media/navi/13.png',
+            '/media/navi/14.png',
+            '/media/navi/15.png',
+            '/media/navi/16.png',
+            '/media/navi/17.png',
+            '/media/navi/18.png'
         ],
         technologies: [
             { name: 'React', category: 'frontend', color: '#61DAFB' },
@@ -406,7 +424,114 @@ export const PROJECTS = [
     }
 ] as const
 
-export const EXPERIENCE = [
+export const EXPERIENCE_EN = [
+    {
+        id: 1,
+        company: "K-Digital Training",
+        position: "Full-Stack Developer",
+        period: "2024 - 2025",
+        description: "Participated in K-Digital Training IoT smart convergence project at K-Hitech Platform. Developed AI-based robot camera monitoring system and won Excellence Award.",
+        technologies: ["React Native", "Node.js", "WebRTC", "MQTT", "AI Detection", "AWS S3"],
+        achievements: [
+            "Won Excellence Award at K-Digital Training IoT Smart Convergence Project Competition",
+            "Developed AI-based sound detection and real-time camera streaming system",
+            "Implemented full-stack mobile application with React Native + Node.js",
+        ],
+        image: "/media/kdigital/1.png",
+        images: [
+            "/media/kdigital/1.png",
+            "/media/kdigital/2.png",
+            "/media/kdigital/3.png",
+            "/media/kdigital/4.png",
+            "/media/kdigital/5.png",
+            "/media/kdigital/6.png",
+            "/media/kdigital/7.png",
+            "/media/kdigital/8.png",
+            "/media/kdigital/9.png",
+            "/media/kdigital/10.png",
+            "/media/kdigital/11.png",
+            "/media/kdigital/12.png",
+            "/media/kdigital/13.png",
+            "/media/kdigital/14.png",
+            "/media/kdigital/15.png",
+            "/media/kdigital/16.png",
+            "/media/kdigital/17.png",
+            "/media/kdigital/18.png",
+            "/media/kdigital/19.png",
+            "/media/kdigital/20.png",
+            "/media/kdigital/21.png",
+            "/media/kdigital/22.png",
+            "/media/kdigital/23.png",
+            "/media/kdigital/24.png",
+            "/media/kdigital/25.png",
+            "/media/kdigital/26.png"
+        ]
+    },
+    {
+        id: 2,
+        company: "TUK Curriculum Project",
+        position: "Full-Stack Developer",
+        period: "2024 - 2025",
+        description: "Korea Polytechnic University Computer Science Capstone Project. Developed comprehensive academic management system with React+TypeScript frontend and Node.js backend.",
+        technologies: ["React", "TypeScript", "Node.js", "MySQL", "Material-UI", "Swagger"],
+        achievements: [
+            "Developed React+TypeScript-based SPA academic management system frontend",
+            "Built Node.js+Express-based RESTful API backend server",
+            "Implemented JWT authentication, AWS S3 file storage, and Swagger API documentation",
+        ],
+        image: "/media/navi/1.png",
+        demoVideo: "/media/navi/demo.mov",
+        images: [
+            "/media/navi/1.png",
+            "/media/navi/2.png",
+            "/media/navi/3.png",
+            "/media/navi/4.png",
+            "/media/navi/5.png",
+            "/media/navi/6.png",
+            "/media/navi/7.png",
+            "/media/navi/8.png",
+            "/media/navi/9.png",
+            "/media/navi/10.png",
+            "/media/navi/11.png",
+            "/media/navi/12.png",
+            "/media/navi/13.png",
+            "/media/navi/14.png",
+            "/media/navi/15.png",
+            "/media/navi/16.png",
+            "/media/navi/17.png",
+            "/media/navi/18.png"
+        ]
+    },
+    {
+        id: 3,
+        company: "MIMO Homecam Project",
+        position: "Full-Stack Developer",
+        period: "2025 - Present",
+        description: "Developed homecam solution using spare smartphones. Implemented complete IoT homecam system with React Native mobile app and Node.js backend API.",
+        technologies: ["React Native", "Expo", "Node.js", "WebRTC", "WebSocket", "Biometric Auth"],
+        achievements: [
+            "Implemented QR/PIN-based viewer connection and WebRTC real-time streaming",
+            "Developed biometric authentication security and PTZ camera control features",
+            "Built WebSocket real-time communication and event notification system",
+        ],
+        image: "/media/mimo/1.png",
+        images: [
+            "/media/mimo/1.png",
+            "/media/mimo/2.png",
+            "/media/mimo/3.png",
+            "/media/mimo/4.png",
+            "/media/mimo/5.png",
+            "/media/mimo/6.png",
+            "/media/mimo/7.png",
+            "/media/mimo/8.png",
+            "/media/mimo/9.png",
+            "/media/mimo/10.png",
+            "/media/mimo/11.png"
+        ]
+    },
+] as const
+
+export const EXPERIENCE_KO = [
     {
         id: 1,
         company: "K-Digital Training",
@@ -462,6 +587,7 @@ export const EXPERIENCE = [
             "JWT 인증, AWS S3 파일 저장, Swagger API 문서화 구현",
         ],
         image: "/media/navi/1.png",
+        demoVideo: "/media/navi/demo.mov",
         images: [
             "/media/navi/1.png",
             "/media/navi/2.png",
@@ -472,7 +598,15 @@ export const EXPERIENCE = [
             "/media/navi/7.png",
             "/media/navi/8.png",
             "/media/navi/9.png",
-            "/media/navi/10.png"
+            "/media/navi/10.png",
+            "/media/navi/11.png",
+            "/media/navi/12.png",
+            "/media/navi/13.png",
+            "/media/navi/14.png",
+            "/media/navi/15.png",
+            "/media/navi/16.png",
+            "/media/navi/17.png",
+            "/media/navi/18.png"
         ]
     },
     {

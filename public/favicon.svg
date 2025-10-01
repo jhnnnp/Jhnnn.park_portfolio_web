@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Gold gradient for 3D effect -->
+    <radialGradient id="goldGradient" cx="40%" cy="30%">
+      <stop offset="0%" style="stop-color:#FFE57F;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:1" />
+    </radialGradient>
+    
+    <!-- Shadow gradient -->
+    <radialGradient id="shadowGradient" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#000000;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Highlight gradient -->
+    <radialGradient id="highlightGradient" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#FFFFFF;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 3D depth filter -->
+    <filter id="depth">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="2" dy="3" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="50" cy="50" r="50" fill="#1A1A2E"/>
+  
+  <!-- Shadow under star -->
+  <ellipse cx="52" cy="75" rx="25" ry="8" fill="url(#shadowGradient)" opacity="0.6"/>
+  
+  <!-- Main star shape (chubby/rounded) -->
+  <path d="M 50,18 
+           C 52,18 54,22 56,28 
+           L 63,40 
+           C 64,42 66,43 70,44 
+           L 82,46 
+           C 84,46 85,48 84,50 
+           L 78,60 
+           C 77,62 77,64 78,66 
+           L 84,78 
+           C 85,80 84,82 82,82 
+           L 70,80 
+           C 68,80 66,81 65,83 
+           L 56,94 
+           C 54,96 52,96 50,94 
+           L 41,83 
+           C 40,81 38,80 36,80 
+           L 24,82 
+           C 22,82 21,80 22,78 
+           L 28,66 
+           C 29,64 29,62 28,60 
+           L 22,50 
+           C 21,48 22,46 24,46 
+           L 36,44 
+           C 38,43 40,42 41,40 
+           L 48,28 
+           C 50,22 52,18 50,18 Z" 
+        fill="url(#goldGradient)" 
+        filter="url(#depth)"
+        stroke="#FFD700" 
+        stroke-width="1.5"
+        stroke-linejoin="round"/>
+  
+  <!-- Top highlight for 3D effect -->
+  <ellipse cx="45" cy="35" rx="12" ry="10" 
+           fill="url(#highlightGradient)" 
+           opacity="0.7"
+           transform="rotate(-20 45 35)"/>
+  
+  <!-- Small sparkles -->
+  <circle cx="40" cy="30" r="2.5" fill="#FFFFFF" opacity="0.9">
+    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="60" cy="45" r="1.8" fill="#FFFFFF" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2.5s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="35" cy="55" r="1.5" fill="#FFFFFF" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.2;0.7" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Glow effect -->
+  <circle cx="50" cy="55" r="35" fill="url(#goldGradient)" opacity="0.15" filter="url(#glow)"/>
+</svg>

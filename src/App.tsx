@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navigation } from './components/layout/Navigation';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
@@ -10,6 +11,14 @@ import { LanguageProvider } from './contexts/LanguageContext';
 
 function App() {
   useSmoothScroll();
+
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <LanguageProvider>
