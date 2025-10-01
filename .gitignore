@@ -23,8 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-# Large media files
-*.mov
-*.mp4
-*.avi
+
 .env

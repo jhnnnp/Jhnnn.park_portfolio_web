@@ -49,20 +49,20 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="px-6 py-6 md:px-8 md:py-8 space-y-8"
+                className="px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 space-y-6 sm:space-y-8"
             >
                 {/* 프로젝트 헤더 */}
-                <motion.div variants={itemVariants} className="space-y-6">
+                <motion.div variants={itemVariants} className="space-y-4 sm:space-y-6">
                     {/* 프로젝트 설명 */}
                     <div className="relative">
-                        <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium tracking-tight">
+                        <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed font-medium tracking-tight">
                             {project.description}
                         </p>
-                        <div className="absolute -bottom-2 left-0 w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+                        <div className="absolute -bottom-2 left-0 w-12 sm:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
                     </div>
 
                     {/* 메타 정보 배지들 */}
-                    <div className="flex flex-wrap items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                         <motion.div
                             className="group relative overflow-hidden"
                             whileHover={{ scale: 1.05 }}
@@ -112,17 +112,17 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     </div>
 
                     {/* 액션 버튼들 */}
-                    <div className="flex flex-wrap gap-3 pt-2">
+                    <div className="flex flex-wrap gap-2 sm:gap-3 pt-2">
                         {project.github && (
                             <motion.a
                                 href={project.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                                className="group relative inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white text-sm sm:text-base font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <Github size={20} className="relative z-10" />
+                                <Github size={18} className="sm:w-5 sm:h-5 relative z-10" />
                                 <span className="relative z-10">GitHub</span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                             </motion.a>
@@ -132,11 +132,11 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                                 href={project.live}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                                className="group relative inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white text-sm sm:text-base font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <ExternalLink size={20} className="relative z-10" />
+                                <ExternalLink size={18} className="sm:w-5 sm:h-5 relative z-10" />
                                 <span className="relative z-10">Live Demo</span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                             </motion.a>
@@ -146,14 +146,14 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
 
                 {/* 데모 영상 */}
                 {project.demoVideo && (
-                    <motion.div variants={itemVariants} className="space-y-3">
-                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
-                            <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                    <motion.div variants={itemVariants} className="space-y-2 sm:space-y-3">
+                        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                             </svg>
-                            데모 영상
+                            <span className="text-sm sm:text-base md:text-lg">데모 영상</span>
                         </h3>
-                        <div className="relative rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-900 to-gray-800" style={{ aspectRatio: '16 / 9' }}>
+                        <div className="relative rounded-lg sm:rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-900 to-gray-800" style={{ aspectRatio: '16 / 9' }}>
                             <video
                                 controls
                                 preload="metadata"
