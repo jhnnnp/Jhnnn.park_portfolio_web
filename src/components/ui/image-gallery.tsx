@@ -46,7 +46,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
 
     // Auto-scroll thumbnail into view for all layouts
     useEffect(() => {
-        const scrollThumbnailIntoView = (containerRef: React.RefObject<HTMLDivElement>) => {
+        const scrollThumbnailIntoView = (containerRef: React.RefObject<HTMLDivElement | null>) => {
             if (!containerRef.current) return;
             const container = containerRef.current;
             const thumbnail = container.children[selectedIndex] as HTMLElement;
@@ -54,19 +54,19 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                 // More precise scrollIntoView with smooth behavior
                 const containerRect = container.getBoundingClientRect();
                 const thumbnailRect = thumbnail.getBoundingClientRect();
-
+                
                 // Check if thumbnail is fully visible
-                const isVisible =
+                const isVisible = 
                     thumbnailRect.left >= containerRect.left &&
                     thumbnailRect.right <= containerRect.right &&
                     thumbnailRect.top >= containerRect.top &&
                     thumbnailRect.bottom <= containerRect.bottom;
 
                 if (!isVisible) {
-                    thumbnail.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest',
-                        inline: 'center'
+                    thumbnail.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest', 
+                        inline: 'center' 
                     });
                 }
             }
