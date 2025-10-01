@@ -19,6 +19,8 @@ const ProjectCard = memo<{
     const [imageLoaded, setImageLoaded] = useState(false);
     const [imageError, setImageError] = useState(false);
     const [showAllTechnologies, setShowAllTechnologies] = useState(false);
+    // 모바일에서 카드 탭 시 오버레이를 열기 위한 상태
+    const [isOverlayVisibleMobile, setIsOverlayVisibleMobile] = useState(false);
     const { language } = useLanguage();
     const t = translations[language];
 
@@ -142,7 +144,15 @@ const ProjectCard = memo<{
                 aria-describedby={`project-desc-${project.id}`}
             >
                 {/* 프로젝트 이미지 */}
-                <div className="relative aspect-video bg-pastel-muted overflow-hidden">
+                <div
+                    className="relative aspect-video bg-pastel-muted overflow-hidden"
+                    onTouchStart={(e) => {
+                        // 모바일 첫 탭에서 오버레이를 열고 버튼들이 터치 가능하도록 설정
+                        e.preventDefault();
+                        setIsOverlayVisibleMobile(true);
+                    }}
+                    onMouseLeave={() => setIsOverlayVisibleMobile(false)}
+                >
                     <ProjectImage />
 
                     {/* 배지들 */}
@@ -173,7 +183,19 @@ const ProjectCard = memo<{
                     </div>
 
                     {/* 오버레이 액션 */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center touch-none pointer-events-none group-hover:pointer-events-auto">
+                    <div
+                        className={`absolute inset-0 bg-black/60 transition-all duration-300 flex items-center justify-center ${isOverlayVisibleMobile ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} group-hover:opacity-100 group-hover:pointer-events-auto`}
+                        onClick={(e) => {
+                            // 배경을 탭하면 닫힘 (버튼 클릭은 전파 방지)
+                            if (e.currentTarget === e.target) {
+                                setIsOverlayVisibleMobile(false);
+                            }
+                        }}
+                        onTouchStart={(e) => {
+                            // 오버레이 내부 터치는 전파하지 않음
+                            e.stopPropagation();
+                        }}
+                    >
                         <div className="flex gap-2 sm:gap-3">
                             {/* 포트폴리오 웹사이트가 아닌 경우에만 Info 버튼 표시 */}
                             {project.id !== '7' && (
@@ -182,7 +204,11 @@ const ProjectCard = memo<{
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`View ${project.title} details`}
-                                    onClick={() => onProjectSelect(project)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onProjectSelect(project);
+                                        setIsOverlayVisibleMobile(false);
+                                    }}
                                 >
                                     <Info size={18} className="sm:w-5 sm:h-5 text-gray-900" />
                                 </motion.button>
@@ -196,6 +222,10 @@ const ProjectCard = memo<{
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`View ${project.title} source code on GitHub`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsOverlayVisibleMobile(false);
+                                    }}
                                 >
                                     <Github size={18} className="sm:w-5 sm:h-5 text-gray-900" />
                                 </motion.a>
@@ -210,6 +240,10 @@ const ProjectCard = memo<{
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`View ${project.title} live demo`}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setIsOverlayVisibleMobile(false);
+                                    }}
                                 >
                                     <Eye size={18} className="sm:w-5 sm:h-5 text-gray-900" />
                                 </motion.a>

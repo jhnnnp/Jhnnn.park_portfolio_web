@@ -60,7 +60,10 @@ export const About = () => {
                                             className="w-full group cursor-pointer"
                                             onMouseEnter={() => handleMouseEnter(category)}
                                             onMouseLeave={handleMouseLeave}
-                                            onTouchStart={() => handleMouseEnter(category)}
+                                            onTouchStart={(e) => {
+                                                e.preventDefault();
+                                                handleMouseEnter(category);
+                                            }}
                                             whileHover={{
                                                 scale: 1.08,
                                                 y: -8,
@@ -130,49 +133,39 @@ export const About = () => {
                                             </div>
                                         </motion.div>
 
-                                        {/* Hover Content */}
+                                        {/* Skills Popup */}
                                         <AnimatePresence>
                                             {hoveredCategory === category && (
                                                 <motion.div
-                                                    initial={{
-                                                        opacity: 0,
-                                                        y: -20,
-                                                        scale: 0.9,
-                                                        rotateX: -15
-                                                    }}
-                                                    animate={{
-                                                        opacity: 1,
-                                                        y: 0,
-                                                        scale: 1,
-                                                        rotateX: 0
-                                                    }}
-                                                    exit={{
-                                                        opacity: 0,
-                                                        y: -20,
-                                                        scale: 0.9,
-                                                        rotateX: -15
-                                                    }}
+                                                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                                    exit={{ opacity: 0, scale: 0.8, y: 20 }}
                                                     transition={{
                                                         type: "spring",
                                                         stiffness: 300,
                                                         damping: 25,
-                                                        duration: 0.4
+                                                        duration: 0.3
                                                     }}
-                                                    className="fixed sm:absolute top-1/2 sm:top-full left-1/2 transform -translate-x-1/2 sm:-translate-x-1/2 -translate-y-1/2 sm:translate-y-0 sm:mt-6 z-50 w-[90vw] sm:w-auto"
+                                                    className="fixed sm:absolute top-1/2 sm:top-full left-1/2 transform -translate-x-1/2 sm:-translate-x-1/2 -translate-y-1/2 sm:translate-y-0 sm:mt-6 z-[9999] w-[90vw] sm:w-auto max-w-[400px]"
                                                     onMouseEnter={() => handleMouseEnter(category)}
                                                     onMouseLeave={handleMouseLeave}
                                                     onTouchEnd={(e) => {
+                                                        e.preventDefault();
                                                         e.stopPropagation();
-                                                        handleMouseLeave();
+                                                        setTimeout(() => handleMouseLeave(), 100);
                                                     }}
                                                 >
-                                                    {/* Backdrop for mobile */}
-                                                    <div className="fixed inset-0 bg-black/50 sm:hidden -z-10" onClick={handleMouseLeave} />
+                                                    {/* Mobile Backdrop */}
+                                                    <div
+                                                        className="fixed inset-0 bg-black/50 sm:hidden -z-10"
+                                                        onClick={handleMouseLeave}
+                                                    />
 
-                                                    {/* Arrow Pointer - hidden on mobile */}
-                                                    <div className="hidden sm:block absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-sky-200/50 rotate-45 shadow-lg"></div>
+                                                    {/* Desktop Arrow */}
+                                                    <div className="hidden sm:block absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-sky-200/50 rotate-45 shadow-lg" />
 
-                                                    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-sky-200/50 p-4 sm:p-5 min-w-[280px] sm:min-w-[320px] max-w-[400px]">
+                                                    {/* Popup Content */}
+                                                    <div className="bg-white shadow-2xl border border-sky-200/50 p-5 sm:p-6 min-w-[280px] sm:min-w-[320px]">
                                                         {/* Header */}
                                                         <div className="mb-4 pb-3 border-b border-sky-100">
                                                             <h6 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
@@ -186,26 +179,15 @@ export const About = () => {
                                                                 <motion.div
                                                                     key={skill.name}
                                                                     className="group flex items-center space-x-2 p-3 rounded-xl hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 transition-all duration-300 cursor-pointer"
-                                                                    initial={{
-                                                                        opacity: 0,
-                                                                        y: 20,
-                                                                        scale: 0.8
-                                                                    }}
-                                                                    animate={{
-                                                                        opacity: 1,
-                                                                        y: 0,
-                                                                        scale: 1
-                                                                    }}
+                                                                    initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
                                                                     transition={{
                                                                         duration: 0.3,
-                                                                        delay: skillIndex * 0.06,
+                                                                        delay: skillIndex * 0.05,
                                                                         type: "spring",
                                                                         stiffness: 300
                                                                     }}
-                                                                    whileHover={{
-                                                                        scale: 1.03,
-                                                                        y: -2
-                                                                    }}
+                                                                    whileHover={{ scale: 1.03, y: -2 }}
                                                                 >
                                                                     <div className="flex-1 min-w-0">
                                                                         <span className="text-sm font-semibold text-gray-800 group-hover:text-sky-600 transition-colors duration-200 truncate block">
@@ -268,4 +250,5 @@ export const About = () => {
             </div>
         </section>
     );
-}; 
+};
+

@@ -13,7 +13,6 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [naturalSize, setNaturalSize] = useState<{ w: number; h: number } | null>(null);
     const horizontalThumbnailRef = useRef<HTMLDivElement>(null);
     const verticalThumbnailRef = useRef<HTMLDivElement>(null);
     const mobileThumbnailRef = useRef<HTMLDivElement>(null);

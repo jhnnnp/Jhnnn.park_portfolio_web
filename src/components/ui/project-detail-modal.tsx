@@ -49,13 +49,13 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="px-4 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 space-y-6 sm:space-y-8"
+                className="px-3 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 space-y-4 sm:space-y-6 md:space-y-8"
             >
                 {/* 프로젝트 헤더 */}
                 <motion.div variants={itemVariants} className="space-y-4 sm:space-y-6">
                     {/* 프로젝트 설명 */}
                     <div className="relative">
-                        <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed font-medium tracking-tight">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed font-medium tracking-tight break-words hyphens-auto">
                             {project.description}
                         </p>
                         <div className="absolute -bottom-2 left-0 w-12 sm:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
@@ -68,9 +68,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200/60 rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
-                                <Calendar size={16} className="text-slate-600" />
-                                <span className="font-semibold text-slate-700 text-sm">{project.year}</span>
+                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
+                                <Calendar size={14} className="sm:w-4 sm:h-4 text-slate-600" />
+                                <span className="font-semibold text-slate-700 text-xs sm:text-sm">{project.year}</span>
                             </div>
                         </motion.div>
 
@@ -79,9 +79,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200/60 rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
-                                <Code size={16} className="text-blue-600" />
-                                <span className="font-semibold text-blue-700 text-sm capitalize">{project.category}</span>
+                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
+                                <Code size={14} className="sm:w-4 sm:h-4 text-blue-600" />
+                                <span className="font-semibold text-blue-700 text-xs sm:text-sm capitalize">{project.category}</span>
                             </div>
                         </motion.div>
 
@@ -90,9 +90,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200/60 rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
-                                <Clock size={16} className="text-green-600" />
-                                <span className="font-semibold text-green-700 text-sm capitalize">{project.status.replace('-', ' ')}</span>
+                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
+                                <Clock size={14} className="sm:w-4 sm:h-4 text-green-600" />
+                                <span className="font-semibold text-green-700 text-xs sm:text-sm capitalize">{project.status.replace('-', ' ')}</span>
                             </div>
                         </motion.div>
 
@@ -102,9 +102,9 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
-                                <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-amber-100 via-yellow-100 to-amber-100 border border-amber-300/60 rounded-xl backdrop-blur-sm shadow-lg group-hover:shadow-xl transition-all duration-300">
-                                    <Award size={16} className="text-amber-700" />
-                                    <span className="font-bold text-amber-800 text-sm">{project.award}</span>
+                                <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-amber-100 via-yellow-100 to-amber-100 border border-amber-300/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-lg group-hover:shadow-xl transition-all duration-300">
+                                    <Award size={14} className="sm:w-4 sm:h-4 text-amber-700" />
+                                    <span className="font-bold text-amber-800 text-xs sm:text-sm">{project.award}</span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                                 </div>
                             </motion.div>
@@ -112,17 +112,17 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     </div>
 
                     {/* 액션 버튼들 */}
-                    <div className="flex flex-wrap gap-2 sm:gap-3 pt-2">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
                         {project.github && (
                             <motion.a
                                 href={project.github}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white text-sm sm:text-base font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
+                                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <Github size={18} className="sm:w-5 sm:h-5 relative z-10" />
+                                <Github size={16} className="sm:w-5 sm:h-5 relative z-10" />
                                 <span className="relative z-10">GitHub</span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                             </motion.a>
@@ -132,11 +132,11 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                                 href={project.live}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group relative inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white text-sm sm:text-base font-semibold rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
+                                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
                                 whileHover={{ scale: 1.02, y: -2 }}
                                 whileTap={{ scale: 0.98 }}
                             >
-                                <ExternalLink size={18} className="sm:w-5 sm:h-5 relative z-10" />
+                                <ExternalLink size={16} className="sm:w-5 sm:h-5 relative z-10" />
                                 <span className="relative z-10">Live Demo</span>
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                             </motion.a>
@@ -185,7 +185,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <Target size={20} className="text-blue-600" />
                             프로젝트 개요
                         </h3>
-                        <p className="text-gray-700 leading-relaxed text-sm md:text-base pl-7">
+                        <p className="text-gray-700 leading-relaxed text-sm md:text-base pl-0 sm:pl-7">
                             {project.longDescription}
                         </p>
                     </motion.div>
@@ -197,7 +197,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         <Code size={20} className="text-purple-600" />
                         기술 스택
                     </h3>
-                    <div className="flex flex-wrap gap-2 pl-7">
+                    <div className="flex flex-wrap gap-2 pl-0 sm:pl-7">
                         {project.technologies.map((tech, index) => (
                             <motion.span
                                 key={index}
@@ -222,7 +222,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <Lightbulb size={20} className="text-amber-600" />
                             프로젝트 정보
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-7">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-0 sm:pl-7">
                             {project.metrics.duration && (
                                 <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-xl">
                                     <div className="flex items-center gap-2 mb-2">

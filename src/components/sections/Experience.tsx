@@ -53,6 +53,19 @@ export const Experience = () => {
     return (
         <section id="experience" className="section-padding bg-apple-gray-50">
             <div className="container-apple">
+                {/* 구분선 - 모바일에서만 표시 */}
+                <div className="block sm:hidden mb-8">
+                    <div className="flex items-center justify-center px-4">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-apple-gray-300 to-transparent"></div>
+                        <div className="mx-4 px-3 py-1 bg-apple-gray-100 rounded-full">
+                            <span className="text-xs font-medium text-apple-gray-500 uppercase tracking-wider">
+                                {t.experience.title}
+                            </span>
+                        </div>
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-apple-gray-300 to-transparent"></div>
+                    </div>
+                </div>
+
                 <div ref={staggerRef} className="space-y-12">
                     {/* Header */}
                     <div className="text-center space-y-3 sm:space-y-4 px-4">
@@ -66,8 +79,8 @@ export const Experience = () => {
 
                     {/* Timeline */}
                     <div className="relative max-w-6xl mx-auto px-4">
-                        {/* Enhanced Timeline Line with Animated Gradient */}
-                        <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-0.5 md:w-1 transform -translate-x-1/2">
+                        {/* Enhanced Timeline Line with Animated Gradient - Hidden on mobile */}
+                        <div className="hidden sm:block absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-0.5 md:w-1 transform -translate-x-1/2">
                             <motion.div
                                 className="w-full h-full bg-gradient-to-b from-sky-300 via-blue-200 to-cyan-200 rounded-full shadow-lg"
                                 initial={{ scaleY: 0 }}

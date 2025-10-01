@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle, Github, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, Github, ArrowUpRight, Sparkles, MessageCircle, Smartphone, Navigation } from 'lucide-react';
 import { SITE_CONFIG } from '../../lib/constants';
 import { useStaggerAnimation } from '../../hooks/useScrollAnimation';
 import { useEmailForm } from '../../hooks/useEmailForm';
@@ -16,25 +16,25 @@ export const Contact = () => {
 
     const contactInfo = [
         {
-            icon: Mail,
+            icon: MessageCircle,
             title: t.contact.contactInfo.email,
             value: SITE_CONFIG.email,
             href: `mailto:${SITE_CONFIG.email}`,
-            color: 'from-blue-500 to-blue-600'
+            color: 'from-sky-400 to-blue-500'
         },
         {
-            icon: Phone,
+            icon: Smartphone,
             title: t.contact.contactInfo.phone,
             value: '010-3283-9307',
             href: 'tel:010-3283-9307',
-            color: 'from-green-500 to-green-600'
+            color: 'from-emerald-400 to-green-500'
         },
         {
-            icon: MapPin,
+            icon: Navigation,
             title: t.contact.contactInfo.location,
             value: 'Seoul, South Korea',
             href: 'https://maps.google.com/?q=Seoul,South+Korea',
-            color: 'from-purple-500 to-purple-600'
+            color: 'from-violet-400 to-purple-500'
         }
     ];
 
@@ -101,14 +101,14 @@ export const Contact = () => {
                             </div>
 
                             {/* Contact Info Cards */}
-                            <div className="space-y-3 sm:space-y-4">
+                            <div className="space-y-4 sm:space-y-5">
                                 {contactInfo.map((info, index) => (
                                     <motion.a
                                         key={info.title}
                                         href={info.href}
                                         target={info.href.startsWith('http') ? '_blank' : undefined}
                                         rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                        className="group relative flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-white rounded-xl sm:rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-300 overflow-hidden touch-manipulation"
+                                        className="group relative flex items-center gap-4 sm:gap-5 p-5 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl border border-gray-100/50 transition-all duration-500 overflow-hidden touch-manipulation hover:scale-[1.02] hover:-translate-y-1"
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
@@ -116,15 +116,33 @@ export const Contact = () => {
                                         whileHover={{ x: 8 }}
                                         whileTap={{ scale: 0.98 }}
                                     >
-                                        <div className={`relative w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br ${info.color} rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg flex-shrink-0`}>
-                                            <info.icon size={20} className="sm:w-6 sm:h-6 text-white relative z-10" />
-                                            <div className="absolute inset-0 bg-white/20 rounded-lg sm:rounded-xl group-hover:scale-110 transition-transform" />
+                                        {/* 배경 그라데이션 효과 */}
+                                        <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-gray-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                        {/* 아이콘 컨테이너 */}
+                                        <div className={`relative w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br ${info.color} rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl flex-shrink-0 transition-all duration-300 group-hover:scale-105 overflow-hidden`}>
+                                            <info.icon size={22} className="sm:w-6 sm:h-6 text-white relative z-10 drop-shadow-sm" />
+                                            {/* 미묘한 내부 하이라이트 */}
+                                            <div className="absolute top-1 left-1 right-1 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-t-2xl sm:rounded-t-3xl" />
+                                            {/* 호버 시 반짝임 효과 */}
+                                            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-0.5 sm:mb-1">{info.title}</h4>
-                                            <p className="text-gray-600 text-xs sm:text-sm truncate">{info.value}</p>
+
+                                        {/* 텍스트 정보 */}
+                                        <div className="flex-1 min-w-0 relative z-10">
+                                            <h4 className="font-bold text-base sm:text-lg text-gray-900 mb-1 sm:mb-2 group-hover:text-gray-800 transition-colors duration-300">{info.title}</h4>
+                                            <p className="text-gray-600 text-sm sm:text-base font-medium truncate group-hover:text-gray-700 transition-colors duration-300">{info.value}</p>
                                         </div>
-                                        <ArrowUpRight size={18} className="sm:w-5 sm:h-5 text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all flex-shrink-0" />
+
+                                        {/* 액션 아이콘 */}
+                                        <div className="relative z-10 flex-shrink-0">
+                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 group-hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                                                <ArrowUpRight size={20} className="sm:w-6 sm:h-6 text-gray-500 group-hover:text-blue-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                                            </div>
+                                        </div>
+
+                                        {/* 호버 시 나타나는 미묘한 테두리 */}
+                                        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border-2 border-transparent group-hover:border-blue-200/50 transition-colors duration-500" />
                                     </motion.a>
                                 ))}
                             </div>
@@ -253,10 +271,10 @@ export const Contact = () => {
                                                 transition-all duration-500
                                                 ${isSubmitted
                                                     ? 'bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 shadow-lg shadow-green-500/30'
-                                                    : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:via-indigo-700 hover:to-blue-800 shadow-xl shadow-blue-500/40 hover:shadow-2xl hover:shadow-blue-600/50'
+                                                    : 'bg-gradient-to-r from-sky-300 via-blue-300 to-indigo-300 hover:from-sky-400 hover:via-blue-400 hover:to-indigo-400 shadow-xl shadow-blue-300/40 hover:shadow-2xl hover:shadow-blue-400/50'
                                                 }
                                                 disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none
-                                                text-white
+                                                text-blue-800 hover:text-blue-900
                                                 transform hover:-translate-y-0.5
                                                 touch-manipulation
                                             `}
@@ -270,7 +288,7 @@ export const Contact = () => {
                                                 {isSubmitting ? (
                                                     <>
                                                         <div className="relative">
-                                                            <div className="w-5 h-5 sm:w-6 sm:h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+                                                            <div className="w-5 h-5 sm:w-6 sm:h-6 border-3 border-blue-400/30 border-t-blue-600 rounded-full animate-spin" />
                                                         </div>
                                                         <span className="font-semibold text-sm sm:text-base">{t.contact.form.sending}</span>
                                                     </>

@@ -70,7 +70,7 @@ export const ExperienceCard = ({
       transition={{ duration: 0.6, delay: index * 0.2 }}
     >
       {/* Content Card */}
-      <div className={`ml-12 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'} w-full`}>
+      <div className={`md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'} w-full`}>
         <motion.div
           className="relative p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 md:space-y-6 overflow-hidden group cursor-pointer"
           style={GLASSMORPHISM_CARD}
@@ -167,7 +167,7 @@ export const ExperienceCard = ({
       </div>
 
       {/* Project Images - Shows on mobile too, below the card */}
-      <div className={`w-full md:w-1/2 mt-4 md:mt-0 ml-12 md:ml-0 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
+      <div className={`w-full md:w-1/2 mt-4 md:mt-0 md:ml-0 ${index % 2 === 0 ? 'md:pl-8' : 'md:pr-8'}`}>
         <motion.div
           className="relative group"
           initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}

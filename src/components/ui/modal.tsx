@@ -175,18 +175,18 @@ export const Modal: React.FC<ModalProps> = ({
                         {/* 헤더 */}
                         {title && (
                             <div
-                                className="sticky top-0 z-10 flex items-center justify-between px-5 sm:px-6 py-3 sm:py-4 border-b border-gray-200/70 bg-gradient-to-b from-white/95 to-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75"
-                                style={{ paddingTop: 'calc(env(safe-area-inset-top))' }}
+                                className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 py-4 sm:py-4 border-b border-gray-200/70 bg-gradient-to-b from-white/95 to-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75"
+                                style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.5rem)' }}
                             >
-                                <h2 id={modalTitleId} className="text-xl font-bold text-gray-900 pr-4">
+                                <h2 id={modalTitleId} className="text-lg sm:text-xl font-bold text-gray-900 pr-4 leading-tight break-words">
                                     {title}
                                 </h2>
                                 <button
                                     onClick={onClose}
-                                    className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60"
+                                    className="p-2 sm:p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 touch-manipulation"
                                     aria-label="Close modal"
                                 >
-                                    <X size={20} />
+                                    <X size={18} className="sm:w-5 sm:h-5" />
                                 </button>
                             </div>
                         )}
