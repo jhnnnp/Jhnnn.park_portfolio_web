@@ -146,44 +146,45 @@ const ProjectCard = memo<{
                     <ProjectImage />
 
                     {/* 배지들 */}
-                    <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="absolute top-2 sm:top-4 left-2 sm:left-4 flex flex-wrap gap-1.5 sm:gap-2 max-w-[calc(100%-1rem)] sm:max-w-none">
                         {project.award && (
                             <motion.span
-                                className="px-3 py-1.5 bg-gradient-to-r from-amber-300 to-amber-400 text-amber-900 text-xs font-bold rounded-full flex items-center gap-1.5 shadow-lg"
+                                className="px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-amber-300 to-amber-400 text-amber-900 text-[10px] sm:text-xs font-bold rounded-full flex items-center gap-1 sm:gap-1.5 shadow-lg"
                                 whileHover={{ scale: 1.05 }}
                                 aria-label="Award winning project"
                             >
-                                <Award size={14} /> {project.award}
+                                <Award size={12} className="sm:w-[14px] sm:h-[14px]" />
+                                <span className="hidden sm:inline">{project.award}</span>
                             </motion.span>
                         )}
                         {project.featured && (
                             <motion.span
-                                className="px-3 py-1.5 bg-pastel-accent text-pastel-primary text-xs font-semibold rounded-full flex items-center gap-1.5 shadow-lg"
+                                className="px-2 sm:px-3 py-1 sm:py-1.5 bg-pastel-accent text-pastel-primary text-[10px] sm:text-xs font-semibold rounded-full flex items-center gap-1 sm:gap-1.5 shadow-lg"
                                 whileHover={{ scale: 1.05 }}
                                 aria-label="Featured project"
                             >
-                                <Star size={12} />
-                                {t.projects.featured}
+                                <Star size={10} className="sm:w-3 sm:h-3" />
+                                <span className="hidden sm:inline">{t.projects.featured}</span>
                             </motion.span>
                         )}
-                        <span className={`px-3 py-1.5 text-xs font-medium rounded-full ${getStatusColor(project.status)}`}>
+                        <span className={`px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium rounded-full ${getStatusColor(project.status)}`}>
                             {project.status.replace('-', ' ')}
                         </span>
                     </div>
 
                     {/* 오버레이 액션 */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                        <div className="flex gap-3">
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center touch-none pointer-events-none group-hover:pointer-events-auto">
+                        <div className="flex gap-2 sm:gap-3">
                             {/* 포트폴리오 웹사이트가 아닌 경우에만 Info 버튼 표시 */}
                             {project.id !== '7' && (
                                 <motion.button
-                                    className="p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors"
+                                    className="p-2.5 sm:p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors touch-manipulation"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`View ${project.title} details`}
                                     onClick={() => onProjectSelect(project)}
                                 >
-                                    <Info size={20} className="text-gray-900" />
+                                    <Info size={18} className="sm:w-5 sm:h-5 text-gray-900" />
                                 </motion.button>
                             )}
                             {project.github && (
@@ -191,12 +192,12 @@ const ProjectCard = memo<{
                                     href={project.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors"
+                                    className="p-2.5 sm:p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors touch-manipulation"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`View ${project.title} source code on GitHub`}
                                 >
-                                    <Github size={20} className="text-gray-900" />
+                                    <Github size={18} className="sm:w-5 sm:h-5 text-gray-900" />
                                 </motion.a>
                             )}
                             {/* 포트폴리오 웹사이트가 아닌 경우에만 Live Demo 버튼 표시 */}
@@ -205,12 +206,12 @@ const ProjectCard = memo<{
                                     href={project.live}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors"
+                                    className="p-2.5 sm:p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors touch-manipulation"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={`View ${project.title} live demo`}
                                 >
-                                    <Eye size={20} className="text-gray-900" />
+                                    <Eye size={18} className="sm:w-5 sm:h-5 text-gray-900" />
                                 </motion.a>
                             )}
                         </div>
@@ -218,31 +219,31 @@ const ProjectCard = memo<{
                 </div>
 
                 {/* 프로젝트 내용 */}
-                <div className="p-6 space-y-4">
+                <div className="p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4">
                     <div>
-                        <div className="flex items-start justify-between mb-2">
+                        <div className="flex items-start justify-between mb-2 gap-2">
                             <h3
                                 id={`project-title-${project.id}`}
-                                className="text-xl font-bold text-pastel-primary group-hover:text-blue-600 transition-colors"
+                                className="text-lg sm:text-xl font-bold text-pastel-primary group-hover:text-blue-600 transition-colors flex-1 min-w-0 break-words"
                             >
                                 {project.title}
                             </h3>
-                            <span className="text-sm text-pastel-secondary font-medium">{project.year}</span>
+                            <span className="text-xs sm:text-sm text-pastel-secondary font-medium flex-shrink-0">{project.year}</span>
                         </div>
                         <p
                             id={`project-desc-${project.id}`}
-                            className="text-pastel-secondary text-sm leading-relaxed"
+                            className="text-pastel-secondary text-xs sm:text-sm leading-relaxed"
                         >
                             {project.description}
                         </p>
                     </div>
 
                     {/* 기술 스택 */}
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {(showAllTechnologies ? project.technologies : project.technologies.slice(0, 4)).map((tech, idx) => (
                             <span
                                 key={`${tech.name}-${idx}`}
-                                className="px-3 py-1.5 bg-pastel-muted text-pastel-primary text-xs font-medium rounded-full hover:bg-pastel-accent transition-colors"
+                                className="px-2 sm:px-3 py-1 sm:py-1.5 bg-pastel-muted text-pastel-primary text-[10px] sm:text-xs font-medium rounded-full hover:bg-pastel-accent transition-colors"
                                 style={{ backgroundColor: tech.color ? `${tech.color}20` : undefined }}
                             >
                                 {tech.name}
@@ -250,7 +251,7 @@ const ProjectCard = memo<{
                         ))}
                         {project.technologies.length > 4 && (
                             <motion.button
-                                className="px-3 py-1.5 bg-pastel-muted text-pastel-primary text-xs font-medium rounded-full hover:bg-pastel-accent transition-colors cursor-pointer"
+                                className="px-2 sm:px-3 py-1 sm:py-1.5 bg-pastel-muted text-pastel-primary text-[10px] sm:text-xs font-medium rounded-full hover:bg-pastel-accent transition-colors cursor-pointer touch-manipulation"
                                 onClick={() => setShowAllTechnologies(!showAllTechnologies)}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -265,8 +266,8 @@ const ProjectCard = memo<{
 
                     {/* 기타 사항 (있는 경우) */}
                     {project.metrics && (
-                        <div className="pt-4 border-t border-pastel-muted">
-                            <div className="text-xs text-pastel-secondary space-y-1">
+                        <div className="pt-3 sm:pt-4 border-t border-pastel-muted">
+                            <div className="text-[10px] sm:text-xs text-pastel-secondary space-y-1">
                                 {project.metrics.note && (
                                     <p className="leading-relaxed">{project.metrics.note}</p>
                                 )}
@@ -277,10 +278,10 @@ const ProjectCard = memo<{
                                     <p><span className="font-medium">{t.projects.metrics.team}:</span> {project.metrics.team}</p>
                                 )}
                                 {project.metrics.role && (
-                                    <p><span className="font-medium">{t.projects.metrics.role}:</span> {project.metrics.role}</p>
+                                    <p className="leading-relaxed"><span className="font-medium">{t.projects.metrics.role}:</span> {project.metrics.role}</p>
                                 )}
                                 {project.metrics.award && (
-                                    <p><span className="font-medium flex items-center gap-1"><Award size={14} /> {t.projects.metrics.award}:</span> {project.metrics.award}</p>
+                                    <p><span className="font-medium flex items-center gap-1"><Award size={12} className="sm:w-[14px] sm:h-[14px]" /> {t.projects.metrics.award}:</span> {project.metrics.award}</p>
                                 )}
                             </div>
                         </div>
@@ -441,22 +442,22 @@ export const Projects = memo<ProjectsProps>(({
                     {/* 검색 및 필터 */}
                     {(showSearch || showFilters) && (
                         <motion.div
-                            className="card-pastel p-6"
+                            className="card-pastel p-4 sm:p-5 md:p-6"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                                 {/* 검색 */}
                                 {showSearch && (
                                     <div className="relative">
-                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary" size={18} />
+                                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={16} />
                                         <input
                                             type="text"
                                             placeholder={t.projects.searchPlaceholder}
                                             value={searchQuery}
                                             onChange={handleSearchChange}
-                                            className="w-full pl-10 pr-4 py-3 border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                                            className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white touch-manipulation"
                                             aria-label="Search projects"
                                         />
                                     </div>
@@ -468,7 +469,7 @@ export const Projects = memo<ProjectsProps>(({
                                         <select
                                             value={selectedCategory}
                                             onChange={(e) => handleCategoryChange(e.target.value)}
-                                            className="w-full appearance-none px-4 py-3 border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                                            className="w-full appearance-none px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white touch-manipulation"
                                             aria-label="Filter by category"
                                         >
                                             {categories.map(category => (
@@ -477,7 +478,7 @@ export const Projects = memo<ProjectsProps>(({
                                                 </option>
                                             ))}
                                         </select>
-                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={18} />
+                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={16} />
                                     </div>
                                 )}
 
@@ -487,7 +488,7 @@ export const Projects = memo<ProjectsProps>(({
                                         <select
                                             value={selectedTech}
                                             onChange={(e) => handleTechChange(e.target.value)}
-                                            className="w-full appearance-none px-4 py-3 border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                                            className="w-full appearance-none px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white touch-manipulation"
                                             aria-label="Filter by technology"
                                         >
                                             {technologies.map(tech => (
@@ -496,7 +497,7 @@ export const Projects = memo<ProjectsProps>(({
                                                 </option>
                                             ))}
                                         </select>
-                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={18} />
+                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={16} />
                                     </div>
                                 )}
 
@@ -506,7 +507,7 @@ export const Projects = memo<ProjectsProps>(({
                                         <select
                                             value={sortBy}
                                             onChange={(e) => setSortBy(e.target.value as any)}
-                                            className="w-full appearance-none px-4 py-3 border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white"
+                                            className="w-full appearance-none px-3 sm:px-4 py-2.5 sm:py-3 text-sm border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white touch-manipulation"
                                             aria-label="Sort projects"
                                         >
                                             <option value="status">{t.projects.sortOptions.status}</option>
@@ -514,13 +515,13 @@ export const Projects = memo<ProjectsProps>(({
                                             <option value="oldest">{t.projects.sortOptions.oldest}</option>
                                             <option value="featured">{t.projects.sortOptions.featured}</option>
                                         </select>
-                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={18} />
+                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-pastel-secondary pointer-events-none" size={16} />
                                     </div>
                                 )}
                             </div>
 
                             {/* 필터 결과 */}
-                            <div className="mt-4 flex items-center justify-between text-sm text-pastel-secondary">
+                            <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm text-pastel-secondary">
                                 <span>
                                     {t.projects.showing} {filteredAndSortedProjects.length} {t.projects.of} {projects.length} {t.projects.projects}
                                 </span>
@@ -531,7 +532,7 @@ export const Projects = memo<ProjectsProps>(({
                                             setSelectedTech('all');
                                             setSearchQuery('');
                                         }}
-                                        className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                                        className="text-blue-600 hover:text-blue-700 font-medium transition-colors touch-manipulation px-2 py-1 -ml-2 sm:ml-0"
                                     >
                                         {t.projects.clearFilters}
                                     </button>
@@ -541,7 +542,7 @@ export const Projects = memo<ProjectsProps>(({
                     )}
 
                     {/* 프로젝트 그리드 */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                         <AnimatePresence mode="wait">
                             {filteredAndSortedProjects.map((project, index) => (
                                 <ProjectCard
@@ -591,7 +592,7 @@ export const Projects = memo<ProjectsProps>(({
                     {/* 더 보기 버튼 */}
                     {filteredAndSortedProjects.length > 0 && (
                         <motion.div
-                            className="text-center pt-12"
+                            className="text-center pt-8 sm:pt-12 px-4"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
@@ -600,12 +601,12 @@ export const Projects = memo<ProjectsProps>(({
                                 variant="outline"
                                 size="lg"
                                 onClick={handleViewMoreProjects}
-                                className="group relative overflow-hidden btn-pastel px-8 py-4 transition-all duration-300"
+                                className="group relative overflow-hidden btn-pastel px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base transition-all duration-300 touch-manipulation"
                             >
                                 <span className="relative z-10 font-semibold">{t.projects.exploreAllProjects}</span>
                                 <ExternalLink
-                                    size={20}
-                                    className="ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                                    size={18}
+                                    className="sm:w-5 sm:h-5 ml-2 sm:ml-3 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
                                 />
                                 <div className="absolute inset-0 bg-pastel-accent opacity-0 group-hover:opacity-100 transition-opacity" />
                             </Button>
