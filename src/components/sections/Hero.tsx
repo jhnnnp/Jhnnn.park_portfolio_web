@@ -1,6 +1,6 @@
 // components/Hero.tsx
 import { motion } from 'framer-motion';
-import { ChevronDown, ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 import { SITE_CONFIG } from '../../lib/constants';
 import { Button } from '../ui/button';
 import { useFadeInAnimation } from '../../hooks/useScrollAnimation';
@@ -147,22 +147,6 @@ export const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Scroll Indicator */}
-                <motion.div
-                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 1.5 }}
-                >
-                    <motion.div
-                        className="flex flex-col items-center space-y-2 text-pastel-secondary"
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <span className="text-sm font-medium">{t.hero.scroll}</span>
-                        <ChevronDown size={20} />
-                    </motion.div>
-                </motion.div>
             </div>
 
             {/* Floating Elements */}

@@ -8,12 +8,16 @@ import { translations } from '../../lib/translations';
 
 export const About = () => {
     const staggerRef = useStaggerAnimation(0.1);
-    const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+    const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
     const { language } = useLanguage();
     const t = translations[language];
 
-    const toggleCategory = (category: string) => {
-        setExpandedCategory(expandedCategory === category ? null : category);
+    const handleMouseEnter = (category: string) => {
+        setHoveredCategory(category);
+    };
+
+    const handleMouseLeave = () => {
+        setHoveredCategory(null);
     };
 
     return (
@@ -24,16 +28,16 @@ export const About = () => {
                     <div className="space-y-12">
                         {/* Header */}
                         <div className="text-center space-y-6">
-                        <div className="space-y-4">
+                            <div className="space-y-4">
                                 <h2 className="text-5xl md:text-6xl font-bold text-apple-black">
-                                {SITE_CONFIG.name}
-                            </h2>
+                                    {SITE_CONFIG.name}
+                                </h2>
                                 <h3 className="text-2xl md:text-3xl text-apple-blue font-semibold">
                                     {t.about.title}
-                            </h3>
-                        </div>
+                                </h3>
+                            </div>
 
-                        {/* Description */}
+                            {/* Description */}
                             <p className="text-xl text-apple-gray-600 leading-relaxed max-w-3xl mx-auto">
                                 {t.about.description}
                             </p>
@@ -52,16 +56,16 @@ export const About = () => {
                                         transition={{ duration: 0.5, delay: index * 0.1 }}
                                     >
                                         {/* Folder Icon */}
-                                        <motion.button
+                                        <motion.div
                                             className="w-full group cursor-pointer"
-                                            onClick={() => toggleCategory(category)}
+                                            onMouseEnter={() => handleMouseEnter(category)}
+                                            onMouseLeave={handleMouseLeave}
                                             whileHover={{
                                                 scale: 1.08,
                                                 y: -8,
                                                 rotateY: 5,
                                                 rotateX: 5
                                             }}
-                                            whileTap={{ scale: 0.92 }}
                                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                         >
                                             <div className="relative perspective-1000">
@@ -96,9 +100,9 @@ export const About = () => {
                                                     {/* Folder Highlight */}
                                                     <div className="absolute top-1 left-1 right-1 h-2 bg-gradient-to-r from-white/60 via-white/30 to-transparent rounded-t-2xl"></div>
 
-                                                    {/* Active State Indicator */}
+                                                    {/* Hover State Indicator */}
                                                     <AnimatePresence>
-                                                        {expandedCategory === category && (
+                                                        {hoveredCategory === category && (
                                                             <motion.div
                                                                 className="absolute inset-0 bg-gradient-to-br from-sky-300/20 to-blue-400/20 rounded-t-3xl rounded-b-xl border-2 border-sky-300/50"
                                                                 initial={{ opacity: 0, scale: 0.8 }}
@@ -122,11 +126,11 @@ export const About = () => {
                                                     <div className="mt-1 w-8 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                                 </motion.div>
                                             </div>
-                                        </motion.button>
+                                        </motion.div>
 
-                                        {/* Expanded Content */}
+                                        {/* Hover Content */}
                                         <AnimatePresence>
-                                            {expandedCategory === category && (
+                                            {hoveredCategory === category && (
                                                 <motion.div
                                                     initial={{
                                                         opacity: 0,
@@ -153,6 +157,8 @@ export const About = () => {
                                                         duration: 0.4
                                                     }}
                                                     className="absolute top-full left-1/2 transform -translate-x-1/2 mt-6 z-20"
+                                                    onMouseEnter={() => handleMouseEnter(category)}
+                                                    onMouseLeave={handleMouseLeave}
                                                 >
                                                     {/* Arrow Pointer */}
                                                     <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-sky-200/50 rotate-45 shadow-lg"></div>
@@ -196,8 +202,8 @@ export const About = () => {
                                                                         <span className="text-sm font-semibold text-gray-800 group-hover:text-sky-600 transition-colors duration-200 truncate block">
                                                                             {skill.name}
                                                                         </span>
-                                                    </div>
-                                                        <motion.div
+                                                                    </div>
+                                                                    <motion.div
                                                                         className="w-2 h-2 bg-gradient-to-r from-sky-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 flex-shrink-0 shadow-sm"
                                                                         initial={{ scale: 0 }}
                                                                         whileHover={{ scale: 1.2 }}

@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, ExternalLink } from 'lucide-react';
+import React, { useEffect, useRef, useId } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { createPortal } from 'react-dom';
+import { X } from 'lucide-react';
 
 interface ModalProps {
     isOpen: boolean;
@@ -8,6 +9,9 @@ interface ModalProps {
     children: React.ReactNode;
     title?: string;
     size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    closeOnOverlayClick?: boolean;
+    ariaLabel?: string;
+    ariaDescribedBy?: string;
 }
 
 const sizeClasses = {
@@ -15,42 +19,88 @@ const sizeClasses = {
     md: 'max-w-2xl',
     lg: 'max-w-4xl',
     xl: 'max-w-6xl',
-    full: 'max-w-7xl'
+    full: 'max-w-[95vw]',
 };
 
-const backdropVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
-};
+// 접근성 및 포커스 관리 커스텀 훅
+const useModalAccessibility = (
+    isOpen: boolean,
+    onClose: () => void,
+    options?: { closeOnOverlayClick: boolean }
+) => {
+    const modalContentRef = useRef<HTMLDivElement>(null);
+    const previouslyFocusedRef = useRef<Element | null>(null);
+    const { closeOnOverlayClick = true } = options || {};
 
-const modalVariants = {
-    hidden: {
-        opacity: 0,
-        scale: 0.8,
-        y: 50,
-        rotateX: -15
-    },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        rotateX: 0,
-        transition: {
-            type: "spring",
-            stiffness: 300,
-            damping: 30,
-            duration: 0.4
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+
+        if (isOpen) {
+            previouslyFocusedRef.current = document.activeElement;
+            document.addEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'hidden';
+
+            // 스크롤바 너비만큼 padding 추가
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            if (scrollbarWidth > 0) {
+                document.body.style.paddingRight = `${scrollbarWidth}px`;
+            }
+
+            // 100ms 후에 모달 내부로 포커스 이동
+            setTimeout(() => modalContentRef.current?.focus(), 100);
         }
-    },
-    exit: {
-        opacity: 0,
-        scale: 0.8,
-        y: 50,
-        rotateX: -15,
-        transition: {
-            duration: 0.3
-        }
-    }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+
+            if (previouslyFocusedRef.current instanceof HTMLElement) {
+                previouslyFocusedRef.current.focus();
+            }
+        };
+    }, [isOpen, onClose]);
+
+    // 포커스 트랩: 모달 내부에서 탭 키 이동 무한루프 유지
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const root = modalContentRef.current;
+
+        const handleTabKey = (e: KeyboardEvent) => {
+            if (e.key !== 'Tab' || !root) return;
+
+            const focusableElements = root.querySelectorAll<HTMLElement>(
+                'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+            );
+
+            if (focusableElements.length === 0) return;
+
+            const first = focusableElements[0];
+            const last = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        };
+
+        document.addEventListener('keydown', handleTabKey);
+        return () => document.removeEventListener('keydown', handleTabKey);
+    }, [isOpen]);
+
+    // 오버레이 클릭 시 모달 닫기 (옵션)
+    const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!closeOnOverlayClick) return;
+        if (e.target === e.currentTarget) onClose();
+    };
+
+    return { modalContentRef, handleOverlayClick };
 };
 
 export const Modal: React.FC<ModalProps> = ({
@@ -58,31 +108,50 @@ export const Modal: React.FC<ModalProps> = ({
     onClose,
     children,
     title,
-    size = 'lg'
+    size = 'lg',
+    closeOnOverlayClick = true,
+    ariaLabel,
+    ariaDescribedBy,
 }) => {
-    // ESC 키로 모달 닫기
-    useEffect(() => {
-        const handleEscape = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') {
-                onClose();
-            }
-        };
+    const reduceMotion = useReducedMotion();
+    const modalTitleId = useId();
+    const { modalContentRef, handleOverlayClick } = useModalAccessibility(isOpen, onClose, { closeOnOverlayClick });
+    const scrollAreaRef = useRef<HTMLDivElement>(null);
 
-        if (isOpen) {
-            document.addEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'hidden';
+    const backdropVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+    };
+
+    const modalVariants = reduceMotion
+        ? {
+            hidden: { opacity: 0 },
+            visible: { opacity: 1 },
+            exit: { opacity: 0 },
         }
-
-        return () => {
-            document.removeEventListener('keydown', handleEscape);
-            document.body.style.overflow = 'unset';
+        : {
+            hidden: { opacity: 0, scale: 0.95, y: 20 },
+            visible: {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                transition: { type: 'spring' as const, stiffness: 300, damping: 30 },
+            },
+            exit: { opacity: 0, scale: 0.95, y: 10 },
         };
-    }, [isOpen, onClose]);
 
-    return (
-        <AnimatePresence mode="wait">
+    const content = (
+        <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 perspective-1000">
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center p-4 overscroll-none"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby={title ? modalTitleId : undefined}
+                    aria-label={ariaLabel ?? (title ? undefined : 'Modal Window')}
+                    aria-describedby={ariaDescribedBy}
+                    onClick={handleOverlayClick}
+                >
                     {/* 배경 오버레이 */}
                     <motion.div
                         className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70 backdrop-blur-md"
@@ -90,56 +159,51 @@ export const Modal: React.FC<ModalProps> = ({
                         initial="hidden"
                         animate="visible"
                         exit="hidden"
-                        transition={{ duration: 0.3 }}
-                        onClick={onClose}
                     />
 
                     {/* 모달 컨텐츠 */}
                     <motion.div
-                        className={`relative w-full ${sizeClasses[size]} max-h-[90vh] bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden transform-gpu`}
+                        className={`relative w-full ${sizeClasses[size]} bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200 ring-1 ring-black/5 flex flex-col max-h-[90vh] outline-none overflow-hidden`}
                         variants={modalVariants}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        style={{
-                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-                        }}
+                        tabIndex={-1}
+                        ref={modalContentRef}
                     >
-                        {/* 글래스모피즘 효과 */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
-
                         {/* 헤더 */}
                         {title && (
-                            <div className="relative flex items-center justify-between p-8 border-b border-gray-200/30 bg-white/50 backdrop-blur-sm">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full shadow-sm" />
-                                    <h2 className="text-2xl font-bold text-gray-900 tracking-tight">{title}</h2>
-                                </div>
-                                <motion.button
+                            <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 border-b border-gray-200/70 bg-gradient-to-b from-white/95 to-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
+                                <h2 id={modalTitleId} className="text-xl font-bold text-gray-900 pr-4">
+                                    {title}
+                                </h2>
+                                <button
                                     onClick={onClose}
-                                    className="p-3 text-gray-400 hover:text-gray-600 hover:bg-white/50 rounded-2xl transition-all duration-300 backdrop-blur-sm border border-transparent hover:border-gray-200/50"
+                                    className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60"
                                     aria-label="Close modal"
-                                    whileHover={{ scale: 1.05, rotate: 90 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
                                 >
                                     <X size={20} />
-                                </motion.button>
+                                </button>
                             </div>
                         )}
 
-                        {/* 컨텐츠 */}
-                        <div className="relative overflow-y-auto max-h-[calc(90vh-120px)] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-                            <div className="p-8">
-                                {children}
-                            </div>
+                        {/* 컨텐츠 영역 */}
+                        <div
+                            ref={scrollAreaRef}
+                            className="flex-1 overflow-y-auto"
+                            style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}
+                            onWheel={(e) => e.stopPropagation()}
+                            onTouchMove={(e) => e.stopPropagation()}
+                        >
+                            {children}
                         </div>
-
-                        {/* 하단 그라데이션 페이드 */}
-                        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
+                        {/* 하단 스크롤 힌트 그라데이션 */}
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white/95 to-transparent" />
                     </motion.div>
                 </div>
             )}
         </AnimatePresence>
     );
+
+    return createPortal(content, document.body);
 };

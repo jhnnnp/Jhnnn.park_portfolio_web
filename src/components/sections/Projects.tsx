@@ -61,34 +61,55 @@ const ProjectCard = memo<{
 
     // 프로젝트 이미지 또는 플레이스홀더
     const ProjectImage = useCallback(() => {
-        if (imageError || !project.image) {
+        // icon이 있으면 icon을 우선적으로 표시 (전체 크기로)
+        if (project.icon) {
+            // MIMO와 K-Digital 프로젝트는 아이콘 크기를 살짝 줄임
+            const iconPadding = ['3', '4', '5', '6'].includes(project.id) ? 'p-8' : 'p-6';
+
             return (
-                <div className="absolute inset-0 flex items-center justify-center bg-pastel-gradient">
-                    <div className="text-center">
-                        <div className="w-16 h-16 bg-pastel-accent rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
-                            <span className="text-pastel-primary font-bold text-xl">
-                                {project.title.charAt(0)}
-                            </span>
-                        </div>
-                        <p className="text-pastel-secondary text-sm font-medium">{project.category.toUpperCase()}</p>
-                    </div>
+                <div className={`absolute inset-0 flex items-center justify-center bg-pastel-gradient ${iconPadding}`}>
+                    <img
+                        src={project.icon}
+                        alt={`${project.title} icon`}
+                        className="w-full h-full object-contain rounded-3xl"
+                        loading="lazy"
+                        decoding="async"
+                        fetchPriority="low"
+                    />
                 </div>
             );
         }
 
+        // icon이 없고 image가 있으면 image 표시
+        if (project.image && !imageError) {
+            return (
+                <img
+                    src={project.image}
+                    alt={`${project.title} preview`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => setImageLoaded(true)}
+                    onError={() => setImageError(true)}
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
+                />
+            );
+        }
+
+        // icon도 없고 image도 없거나 에러나면 기본 플레이스홀더
         return (
-            <img
-                src={project.image}
-                alt={`${project.title} preview`}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                onLoad={() => setImageLoaded(true)}
-                onError={() => setImageError(true)}
-                loading="lazy"
-                decoding="async"
-                fetchPriority="low"
-            />
+            <div className="absolute inset-0 flex items-center justify-center bg-pastel-gradient">
+                <div className="text-center">
+                    <div className="w-24 h-24 bg-white/90 backdrop-blur-sm rounded-3xl mx-auto mb-4 flex items-center justify-center shadow-2xl border border-white/20">
+                        <span className="text-pastel-primary font-bold text-2xl">
+                            {project.title.charAt(0)}
+                        </span>
+                    </div>
+                    <p className="text-pastel-secondary text-sm font-medium">{project.category.toUpperCase()}</p>
+                </div>
+            </div>
         );
-    }, [project.image, project.title, project.category, imageLoaded, imageError]);
+    }, [project.image, project.icon, project.title, project.category, imageLoaded, imageError]);
 
     // 상태 배지 색상
     const getStatusColor = (status: Project['status']) => {
@@ -153,15 +174,18 @@ const ProjectCard = memo<{
                     {/* 오버레이 액션 */}
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                         <div className="flex gap-3">
-                            <motion.button
-                                className="p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label={`View ${project.title} details`}
-                                onClick={() => onProjectSelect(project)}
-                            >
-                                <Info size={20} className="text-gray-900" />
-                            </motion.button>
+                            {/* 포트폴리오 웹사이트가 아닌 경우에만 Info 버튼 표시 */}
+                            {project.id !== '7' && (
+                                <motion.button
+                                    className="p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors"
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    aria-label={`View ${project.title} details`}
+                                    onClick={() => onProjectSelect(project)}
+                                >
+                                    <Info size={20} className="text-gray-900" />
+                                </motion.button>
+                            )}
                             {project.github && (
                                 <motion.a
                                     href={project.github}
@@ -175,7 +199,8 @@ const ProjectCard = memo<{
                                     <Github size={20} className="text-gray-900" />
                                 </motion.a>
                             )}
-                            {project.live && (
+                            {/* 포트폴리오 웹사이트가 아닌 경우에만 Live Demo 버튼 표시 */}
+                            {project.live && project.id !== '7' && (
                                 <motion.a
                                     href={project.live}
                                     target="_blank"
