@@ -23,30 +23,30 @@ export const About = () => {
     return (
         <section id="about" className="section-padding bg-apple-gray-50">
             <div className="container-apple">
-                <div ref={staggerRef} className="max-w-4xl mx-auto">
+                <div ref={staggerRef} className="max-w-4xl mx-auto px-4">
                     {/* Content Section */}
-                    <div className="space-y-12">
+                    <div className="space-y-8 sm:space-y-12">
                         {/* Header */}
-                        <div className="text-center space-y-6">
-                            <div className="space-y-4">
-                                <h2 className="text-5xl md:text-6xl font-bold text-apple-black">
+                        <div className="text-center space-y-4 sm:space-y-6">
+                            <div className="space-y-3 sm:space-y-4">
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-apple-black">
                                     {SITE_CONFIG.name}
                                 </h2>
-                                <h3 className="text-2xl md:text-3xl text-apple-blue font-semibold">
+                                <h3 className="text-xl sm:text-2xl md:text-3xl text-apple-blue font-semibold">
                                     {t.about.title}
                                 </h3>
                             </div>
 
                             {/* Description */}
-                            <p className="text-xl text-apple-gray-600 leading-relaxed max-w-3xl mx-auto">
+                            <p className="text-base sm:text-lg md:text-xl text-apple-gray-600 leading-relaxed max-w-3xl mx-auto">
                                 {t.about.description}
                             </p>
                         </div>
 
                         {/* Skills */}
-                        <div className="space-y-8">
-                            <h4 className="text-2xl font-semibold text-apple-black text-center">{t.about.skills}</h4>
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="space-y-6 sm:space-y-8">
+                            <h4 className="text-xl sm:text-2xl font-semibold text-apple-black text-center">{t.about.skills}</h4>
+                            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                                 {Object.entries(SKILLS).map(([category, skills], index) => (
                                     <motion.div
                                         key={category}
@@ -60,30 +60,32 @@ export const About = () => {
                                             className="w-full group cursor-pointer"
                                             onMouseEnter={() => handleMouseEnter(category)}
                                             onMouseLeave={handleMouseLeave}
+                                            onTouchStart={() => handleMouseEnter(category)}
                                             whileHover={{
                                                 scale: 1.08,
                                                 y: -8,
                                                 rotateY: 5,
                                                 rotateX: 5
                                             }}
+                                            whileTap={{ scale: 0.95 }}
                                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                         >
                                             <div className="relative perspective-1000">
                                                 {/* Folder Shadow */}
-                                                <div className="absolute top-2 left-1 w-28 h-22 bg-black/10 rounded-t-3xl rounded-b-xl blur-sm transform rotate-1"></div>
+                                                <div className="absolute top-2 left-1 w-24 sm:w-28 h-20 sm:h-22 bg-black/10 rounded-t-3xl rounded-b-xl blur-sm transform rotate-1"></div>
 
                                                 {/* Folder Shape */}
-                                                <div className="relative w-28 h-22 mx-auto bg-gradient-to-br from-sky-100 via-sky-50 to-blue-100 rounded-t-3xl rounded-b-xl shadow-2xl border border-sky-200/50 group-hover:shadow-sky-200/50 group-hover:shadow-3xl transition-all duration-500 transform-gpu">
+                                                <div className="relative w-24 sm:w-28 h-20 sm:h-22 mx-auto bg-gradient-to-br from-sky-100 via-sky-50 to-blue-100 rounded-t-2xl sm:rounded-t-3xl rounded-b-xl shadow-2xl border border-sky-200/50 group-hover:shadow-sky-200/50 group-hover:shadow-3xl transition-all duration-500 transform-gpu">
                                                     {/* Folder Tab */}
-                                                    <div className="absolute -top-1.5 left-3 w-10 h-4 bg-gradient-to-br from-sky-200 via-sky-100 to-blue-200 rounded-t-xl border-l border-r border-t border-sky-200/50 shadow-sm"></div>
+                                                    <div className="absolute -top-1 sm:-top-1.5 left-2 sm:left-3 w-8 sm:w-10 h-3 sm:h-4 bg-gradient-to-br from-sky-200 via-sky-100 to-blue-200 rounded-t-lg sm:rounded-t-xl border-l border-r border-t border-sky-200/50 shadow-sm"></div>
 
                                                     {/* Folder Inner Shadow */}
-                                                    <div className="absolute inset-1 bg-gradient-to-br from-white/40 to-transparent rounded-t-2xl rounded-b-lg"></div>
+                                                    <div className="absolute inset-1 bg-gradient-to-br from-white/40 to-transparent rounded-t-xl sm:rounded-t-2xl rounded-b-lg"></div>
 
                                                     {/* Category Icon Container */}
                                                     <div className="relative flex items-center justify-center h-full">
                                                         <motion.div
-                                                            className="w-14 h-14 bg-gradient-to-br from-sky-300 via-sky-400 to-blue-400 rounded-2xl flex items-center justify-center shadow-xl border border-sky-300/30"
+                                                            className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-sky-300 via-sky-400 to-blue-400 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-xl border border-sky-300/30"
                                                             whileHover={{
                                                                 scale: 1.1,
                                                                 rotate: [0, -5, 5, 0],
@@ -91,7 +93,7 @@ export const About = () => {
                                                             }}
                                                             transition={{ duration: 0.3 }}
                                                         >
-                                                            <span className="text-white text-xl font-bold drop-shadow-sm">
+                                                            <span className="text-white text-lg sm:text-xl font-bold drop-shadow-sm">
                                                                 {category.charAt(0).toUpperCase()}
                                                             </span>
                                                         </motion.div>
@@ -116,14 +118,14 @@ export const About = () => {
 
                                                 {/* Category Label */}
                                                 <motion.div
-                                                    className="mt-4 text-center"
+                                                    className="mt-3 sm:mt-4 text-center"
                                                     whileHover={{ y: -2 }}
                                                     transition={{ duration: 0.2 }}
                                                 >
-                                                    <span className="text-sm font-bold text-gray-700 uppercase tracking-wider drop-shadow-sm group-hover:text-sky-600 transition-colors duration-300">
+                                                    <span className="text-xs sm:text-sm font-bold text-gray-700 uppercase tracking-wider drop-shadow-sm group-hover:text-sky-600 transition-colors duration-300 block px-1">
                                                         {t.about.categories[category as keyof typeof t.about.categories]}
                                                     </span>
-                                                    <div className="mt-1 w-8 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                                    <div className="mt-1 w-6 sm:w-8 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                                 </motion.div>
                                             </div>
                                         </motion.div>
@@ -156,14 +158,21 @@ export const About = () => {
                                                         damping: 25,
                                                         duration: 0.4
                                                     }}
-                                                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-6 z-20"
+                                                    className="fixed sm:absolute top-1/2 sm:top-full left-1/2 transform -translate-x-1/2 sm:-translate-x-1/2 -translate-y-1/2 sm:translate-y-0 sm:mt-6 z-50 w-[90vw] sm:w-auto"
                                                     onMouseEnter={() => handleMouseEnter(category)}
                                                     onMouseLeave={handleMouseLeave}
+                                                    onTouchEnd={(e) => {
+                                                        e.stopPropagation();
+                                                        handleMouseLeave();
+                                                    }}
                                                 >
-                                                    {/* Arrow Pointer */}
-                                                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-sky-200/50 rotate-45 shadow-lg"></div>
+                                                    {/* Backdrop for mobile */}
+                                                    <div className="fixed inset-0 bg-black/50 sm:hidden -z-10" onClick={handleMouseLeave} />
 
-                                                    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-sky-200/50 p-5 min-w-[320px] max-w-[400px]">
+                                                    {/* Arrow Pointer - hidden on mobile */}
+                                                    <div className="hidden sm:block absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-l border-t border-sky-200/50 rotate-45 shadow-lg"></div>
+
+                                                    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl border border-sky-200/50 p-4 sm:p-5 min-w-[280px] sm:min-w-[320px] max-w-[400px]">
                                                         {/* Header */}
                                                         <div className="mb-4 pb-3 border-b border-sky-100">
                                                             <h6 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
@@ -229,26 +238,28 @@ export const About = () => {
                         </div>
 
                         {/* Social Links */}
-                        <div className="space-y-6 text-center">
-                            <h4 className="text-2xl font-semibold text-apple-black">{t.about.connect}</h4>
-                            <div className="flex justify-center space-x-6">
+                        <div className="space-y-4 sm:space-y-6 text-center">
+                            <h4 className="text-xl sm:text-2xl font-semibold text-apple-black">{t.about.connect}</h4>
+                            <div className="flex justify-center space-x-4 sm:space-x-6">
                                 <motion.a
                                     href={SITE_CONFIG.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="p-3 bg-white rounded-apple shadow-apple border border-apple-gray-100 hover:shadow-apple-lg transition-all duration-300"
+                                    className="p-3 sm:p-4 bg-white rounded-apple shadow-apple border border-apple-gray-100 hover:shadow-apple-lg transition-all duration-300 touch-manipulation"
                                     whileHover={{ scale: 1.1, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
+                                    aria-label="GitHub"
                                 >
-                                    <Github size={20} />
+                                    <Github size={20} className="sm:w-6 sm:h-6" />
                                 </motion.a>
                                 <motion.a
                                     href={`mailto:${SITE_CONFIG.email}`}
-                                    className="p-3 bg-white rounded-apple shadow-apple border border-apple-gray-100 hover:shadow-apple-lg transition-all duration-300"
+                                    className="p-3 sm:p-4 bg-white rounded-apple shadow-apple border border-apple-gray-100 hover:shadow-apple-lg transition-all duration-300 touch-manipulation"
                                     whileHover={{ scale: 1.1, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
+                                    aria-label="Email"
                                 >
-                                    <Mail size={20} />
+                                    <Mail size={20} className="sm:w-6 sm:h-6" />
                                 </motion.a>
                             </div>
                         </div>
