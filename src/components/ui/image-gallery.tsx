@@ -329,6 +329,26 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                                 <Loader2 className="animate-spin text-blue-500" />
                             </div>
                         )}
+
+                        {/* Mobile navigation arrows */}
+                        {images.length > 1 && (
+                            <>
+                                <button
+                                    onClick={prevImage}
+                                    className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-lg transition-all backdrop-blur-sm touch-manipulation"
+                                    aria-label="Previous"
+                                >
+                                    <ChevronLeft size={18} />
+                                </button>
+                                <button
+                                    onClick={nextImage}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/60 hover:bg-black/80 text-white rounded-lg transition-all backdrop-blur-sm touch-manipulation"
+                                    aria-label="Next"
+                                >
+                                    <ChevronRight size={18} />
+                                </button>
+                            </>
+                        )}
                     </div>
                 </motion.div>
 
