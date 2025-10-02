@@ -5,7 +5,7 @@ import { ExternalLink, Github, Eye, Star, Filter, Search, ChevronDown, Info, Awa
 import { Button } from '../ui/button';
 import { ProjectDetailModal } from '../ui/project-detail-modal';
 import { useStaggerAnimation } from '../../hooks/useScrollAnimation';
-import { PROJECTS, SKILLS } from '../../lib/constants';
+import { PROJECTS } from '../../lib/constants';
 import type { Project, ProjectsProps } from '../../types';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
