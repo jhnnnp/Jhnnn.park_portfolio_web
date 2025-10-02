@@ -23,7 +23,9 @@ export const Hero = () => {
         const link = document.createElement('a');
         link.href = '/resume.pdf';
         link.download = 'Jinhan_Park_Resume.pdf';
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
     };
 
     return (

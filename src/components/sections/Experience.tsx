@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { EXPERIENCE_EN, EXPERIENCE_KO } from '../../lib/constants';
 import { useStaggerAnimation } from '../../hooks/useScrollAnimation';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -48,6 +48,15 @@ export const Experience = () => {
 
     const getImageLayout = (id: number): 'horizontal' | 'vertical' => {
         return id === 2 ? 'horizontal' : 'vertical';
+    };
+
+    const downloadResume = () => {
+        const link = document.createElement('a');
+        link.href = '/resume.pdf';
+        link.download = 'Jinhan_Park_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     return (
@@ -140,11 +149,9 @@ export const Experience = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.8, duration: 0.6 }}
                         >
-                            <motion.a
-                                href="/resume.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group/resume relative inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base font-semibold rounded-full overflow-hidden"
+                            <motion.button
+                                onClick={downloadResume}
+                                className="group/resume relative inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 text-white text-sm sm:text-base font-semibold rounded-full overflow-hidden cursor-pointer"
                                 style={GRADIENT_RESUME_BUTTON}
                                 whileHover={{
                                     scale: 1.05,
@@ -154,13 +161,13 @@ export const Experience = () => {
                             >
                                 <span className="relative z-10 flex items-center gap-2 sm:gap-3">
                                     {t.experience.downloadResume}
-                                    <ExternalLink size={18} className="sm:w-5 sm:h-5 group-hover/resume:rotate-12 transition-transform duration-300" />
+                                    <Download size={18} className="sm:w-5 sm:h-5 group-hover/resume:rotate-12 transition-transform duration-300" />
                                 </span>
                                 {/* Animated background gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-sky-300 via-blue-400 to-cyan-300 opacity-0 group-hover/resume:opacity-100 transition-opacity duration-500" />
                                 {/* Subtle glow effect */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-sky-300/30 to-blue-400/30 blur-xl opacity-0 group-hover/resume:opacity-100 transition-opacity duration-500" />
-                            </motion.a>
+                            </motion.button>
                         </motion.div>
                     </div>
                 </div>

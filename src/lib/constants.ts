@@ -65,7 +65,7 @@ export const PROJECTS = [
         longDescription: 'Node.js와 Express.js로 구현된 AI 챗봇 기반 스마트 학사관리 백엔드. OpenAI GPT API를 활용한 커리큘럼 추천, 시간표 최적화, JWT 인증, 강의/사용자 관리 API, MySQL(Sequelize ORM), AWS S3 파일 저장, Swagger(OpenAPI) 문서, Google OAuth 지원.',
         image: '/projects/tuk-navi.jpg',
         icon: '/media/icons/navi_logo.png',
-        demoVideo: '/media/navi/demo.mov',
+        demoVideo: '/media/navi/demo.mp4',
         detailImages: [
             '/media/navi/1.png',
             '/media/navi/2.png',
@@ -117,7 +117,7 @@ export const PROJECTS = [
         longDescription: 'React+TypeScript 기반 SPA. AI 챗봇을 활용한 커리큘럼 추천, 시간표 최적화, 졸업요건 분석, 과목 검색, 반응형 웹, 다크모드, 사용자별 데이터 분리(LocalStorage) 등 다양한 스마트 학사관리 기능 구현. 캡스톤 주제의 대표 학부 프로젝트.',
         image: '/projects/tuk-navi-frontend.jpg',
         icon: '/media/icons/navi_logo.png',
-        demoVideo: '/media/navi/demo.mov',
+        demoVideo: '/media/navi/demo.mp4',
         detailImages: [
             '/media/navi/1.png',
             '/media/navi/2.png',

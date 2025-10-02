@@ -161,7 +161,6 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                                 poster={project.detailImages?.[0] || project.image}
                             >
                                 <source src={project.demoVideo} type="video/mp4" />
-                                <source src={project.demoVideo} type="video/quicktime" />
                                 브라우저가 비디오 태그를 지원하지 않습니다.
                             </video>
                         </div>
