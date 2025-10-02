@@ -423,7 +423,7 @@ export const Projects = memo<ProjectsProps>(({
     }, []);
 
     const handleViewMoreProjects = useCallback(() => {
-        window.open('https://github.com/jinhanpark', '_blank', 'noopener,noreferrer');
+        window.open('https://github.com/jhnnnp?tab=repositories', '_blank', 'noopener,noreferrer');
     }, []);
 
     // 컨테이너 애니메이션
