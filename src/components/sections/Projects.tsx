@@ -349,26 +349,16 @@ export const Projects = memo<ProjectsProps>(({
     // 카테고리 및 기술 옵션
     const categories = ['all', 'web', 'mobile', 'api'];
     const technologies = useMemo(() => {
-        // SKILLS에서 주요 기술들을 우선적으로 사용
-        const skillNames = new Set<string>();
-        Object.values(SKILLS).forEach(skillArray => {
-            skillArray.forEach(skill => skillNames.add(skill.name));
-        });
-
-        // 프로젝트에서 사용된 기술들 중 SKILLS에 없는 것들만 추가
+        // 실제 프로젝트에서 사용된 기술들만 수집
+        const usedTechnologies = new Set<string>();
         projects.forEach(project => {
             project.technologies.forEach(tech => {
-                if (!skillNames.has(tech.name)) {
-                    skillNames.add(tech.name);
-                }
+                usedTechnologies.add(tech.name);
             });
         });
 
-        // SKILLS에 있는 기술들을 먼저, 그 다음 나머지 기술들을 정렬
-        const skillsArray = Object.values(SKILLS).flat().map(skill => skill.name);
-        const otherTechs = Array.from(skillNames).filter(tech => !skillsArray.includes(tech as any));
-
-        return ['all', ...skillsArray.sort(), ...otherTechs.sort()];
+        // 사용된 기술들을 정렬하여 반환
+        return ['all', ...Array.from(usedTechnologies).sort()];
     }, [projects]);
 
     // 프로젝트 필터링 및 정렬
