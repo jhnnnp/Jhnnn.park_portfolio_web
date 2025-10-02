@@ -1,276 +1,96 @@
-# 🍎 Apple-Style Portfolio
+# Portfolio Website
 
-A modern, minimalist portfolio website built with React, TypeScript, and Tailwind CSS, inspired by Apple's design philosophy.
+React, TypeScript, Tailwind CSS로 구축된 개인 포트폴리오 웹사이트입니다.
 
-![Portfolio Preview](https://img.shields.io/badge/Status-Live-green)
-![React](https://img.shields.io/badge/React-19.1.1-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.11-38B2AC)
+## 기술 스택
 
-## ✨ Features
+- **React 19** - UI 라이브러리
+- **TypeScript** - 타입 안전성
+- **Tailwind CSS 4** - 스타일링
+- **Vite** - 빌드 도구
+- **Framer Motion** - 애니메이션
+- **EmailJS** - 이메일 폼
 
-- **🎨 Apple-Inspired Design**: Clean, minimalist interface with Apple's design language
-- **⚡ Modern Tech Stack**: React 19, TypeScript, Tailwind CSS 4
-- **🎭 Smooth Animations**: Framer Motion and GSAP for fluid interactions
-- **📱 Fully Responsive**: Optimized for all devices and screen sizes
-- **🚀 Performance Optimized**: Fast loading with optimized assets
-- **📧 Contact Form**: EmailJS integration for seamless communication
-- **🎯 SEO Ready**: Meta tags and structured data for search engines
-- **♿ Accessibility**: WCAG 2.1 AA compliant
+## 주요 기능
 
-## 🛠️ Tech Stack
+- 반응형 디자인
+- 다국어 지원 (한국어/영어)
+- 프로젝트 필터링 및 검색
+- 이메일 연락 폼
+- 스크롤 애니메이션
+- 이력서 다운로드
 
-### Frontend
-- **React 19.1.1** - Modern UI library
-- **TypeScript 5.8.3** - Type-safe development
-- **Tailwind CSS 4.1.11** - Utility-first CSS framework
-- **Vite 7.1.0** - Fast build tool
+## 설치 및 실행
 
-### Animation & Interactions
-- **Framer Motion 12.23.12** - React animation library
-- **GSAP 3.12.0** - Professional animation library
-- **React Intersection Observer** - Scroll-based animations
-- **Lenis** - Smooth scrolling
-
-### Forms & Validation
-- **React Hook Form 7.51.0** - Performant forms
-- **Zod 3.23.0** - TypeScript-first schema validation
-- **EmailJS** - Email service integration
-
-### UI Components
-- **Lucide React** - Beautiful icons
-- **Class Variance Authority** - Type-safe component variants
-- **Tailwind Merge** - Utility class merging
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/jinhanpark/portfolio.git
-   cd portfolio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Edit `.env.local` with your EmailJS credentials:
-   ```env
-   VITE_EMAILJS_SERVICE_ID=your_service_id
-   VITE_EMAILJS_TEMPLATE_ID=your_template_id
-   VITE_EMAILJS_PUBLIC_KEY=your_public_key
-   ```
-
-4. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   Navigate to `http://localhost:5173`
-
-## 📁 Project Structure
-
-```
-portfolio/
-├── src/
-│   ├── components/
-│   │   ├── ui/              # Reusable UI components
-│   │   │   ├── button.tsx
-│   │   │   ├── input.tsx
-│   │   │   └── textarea.tsx
-│   │   ├── layout/          # Layout components
-│   │   │   ├── Navigation.tsx
-│   │   │   └── Footer.tsx
-│   │   └── sections/        # Page sections
-│   │       ├── Hero.tsx
-│   │       ├── About.tsx
-│   │       ├── Projects.tsx
-│   │       ├── Experience.tsx
-│   │       └── Contact.tsx
-│   ├── hooks/               # Custom React hooks
-│   │   ├── useScrollAnimation.ts
-│   │   └── useEmailForm.ts
-│   ├── lib/                 # Utilities and constants
-│   │   ├── utils.ts
-│   │   └── constants.ts
-│   └── styles/              # Global styles
-├── public/                  # Static assets
-├── tailwind.config.js       # Tailwind configuration
-└── package.json
+1. 저장소 클론
+```bash
+git clone https://github.com/jhnnnp/Jhnnn.park_portfolio_web.git
+cd portfolio
 ```
 
-## 🎨 Design System
-
-### Color Palette
-```css
-/* Apple-inspired colors */
---apple-gray-50: #F5F5F7
---apple-gray-100: #E5E5E7
---apple-gray-200: #D1D1D6
---apple-gray-300: #C7C7CC
---apple-gray-400: #AEAEB2
---apple-gray-500: #8E8E93
---apple-gray-600: #636366
---apple-gray-700: #48484A
---apple-gray-800: #3A3A3C
---apple-gray-900: #1D1D1F
---apple-blue: #007AFF
---apple-green: #30D158
---apple-orange: #FF9500
---apple-red: #FF3B30
---apple-purple: #AF52DE
+2. 의존성 설치
+```bash
+npm install
 ```
 
-### Typography
-- **Font Family**: SF Pro Display, Inter, system-ui
-- **Font Sizes**: 12px to 72px (responsive scale)
-- **Line Heights**: Optimized for readability
+3. 환경 변수 설정
+```bash
+cp .env.example .env.local
+```
 
-### Spacing System
-- **Base Unit**: 8px
-- **Spacing Scale**: 8, 16, 24, 32, 48, 64, 80, 120, 160, 200px
-
-## 📱 Responsive Design
-
-### Breakpoints
-- **Mobile**: 320px - 639px
-- **Tablet**: 640px - 1023px
-- **Desktop**: 1024px - 1279px
-- **Large Desktop**: 1280px+
-
-### Mobile-First Approach
-- Touch-friendly interactions (44px minimum touch targets)
-- Optimized typography scaling
-- Efficient navigation patterns
-
-## 🎭 Animation System
-
-### Scroll Animations
-- **Fade In**: Elements appear as they enter viewport
-- **Stagger**: Sequential animation of child elements
-- **Parallax**: Background elements move at different speeds
-- **Counter**: Animated number counting
-
-### Interaction Animations
-- **Hover Effects**: Scale, color, and shadow transitions
-- **Button States**: Loading, success, and error states
-- **Page Transitions**: Smooth navigation between sections
-
-## 📧 Contact Form
-
-### EmailJS Integration
-The contact form uses EmailJS for reliable email delivery:
-
-1. **Sign up** at [EmailJS](https://www.emailjs.com/)
-2. **Create** an email service (Gmail, Outlook, etc.)
-3. **Design** an email template
-4. **Configure** environment variables
-
-### Form Features
-- **Real-time validation** with Zod schemas
-- **Loading states** with spinner animations
-- **Success/error feedback** with toast notifications
-- **Accessibility** with ARIA labels and keyboard navigation
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-1. **Connect** your GitHub repository to Vercel
-2. **Configure** build settings:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-3. **Deploy** with automatic previews
-
-### Netlify
-1. **Connect** your repository
-2. **Set** build command: `npm run build`
-3. **Set** publish directory: `dist`
-4. **Deploy** with form handling
-
-### Environment Variables
-Set these in your deployment platform:
+`.env.local` 파일에 EmailJS 설정 추가:
 ```env
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-## 🧪 Testing
-
-### Run Tests
+4. 개발 서버 실행
 ```bash
-npm run test
+npm run dev
 ```
 
-### Run Linter
-```bash
-npm run lint
+## 프로젝트 구조
+
+```
+src/
+├── components/
+│   ├── ui/              # 재사용 가능한 UI 컴포넌트
+│   ├── layout/          # 레이아웃 컴포넌트
+│   └── sections/        # 페이지 섹션
+├── hooks/               # 커스텀 훅
+├── lib/                 # 유틸리티 및 상수
+└── types/               # TypeScript 타입 정의
 ```
 
-### Build for Production
+## 배포
+
+### Vercel
+1. GitHub 저장소를 Vercel에 연결
+2. 빌드 설정:
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+3. 환경 변수 설정 후 배포
+
+### Netlify
+1. 저장소 연결
+2. 빌드 명령어: `npm run build`
+3. 배포 디렉토리: `dist`
+
+## 스크립트
+
 ```bash
-npm run build
+npm run dev      # 개발 서버 실행
+npm run build    # 프로덕션 빌드
+npm run preview  # 빌드 미리보기
+npm run lint     # 린터 실행
 ```
 
-## 📈 Performance
+## 라이선스
 
-### Lighthouse Scores
-- **Performance**: 95+
-- **Accessibility**: 100
-- **Best Practices**: 100
-- **SEO**: 100
+MIT License
 
-### Optimizations
-- **Code Splitting**: Lazy-loaded components
-- **Image Optimization**: WebP format with responsive sizes
-- **Font Loading**: Preloaded critical fonts
-- **Bundle Analysis**: Tree-shaking and minification
+## 연락처
 
-## 🤝 Contributing
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Code Style
-- **TypeScript**: Strict mode enabled
-- **ESLint**: Airbnb configuration
-- **Prettier**: Consistent formatting
-- **Conventional Commits**: Standard commit messages
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Apple Design Team** - For the inspiring design language
-- **Framer Motion** - For the amazing animation library
-- **Tailwind CSS** - For the utility-first CSS framework
-- **Vite** - For the lightning-fast build tool
-
-## 📞 Contact
-
-- **Email**: contact@jinhanpark.dev
-- **GitHub**: [@jinhanpark](https://github.com/jinhanpark)
-- **LinkedIn**: [Jinhan Park](https://linkedin.com/in/jinhanpark)
-
----
-
-Made with ❤️ by Jinhan Park
+- **Email**: jhnnn.park@gmail.com
+- **GitHub**: [@jhnnnp](https://github.com/jhnnnp)
