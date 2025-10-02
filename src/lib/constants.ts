@@ -87,6 +87,7 @@ export const PROJECTS = [
             '/media/navi/18.png'
         ],
         technologies: [
+            { name: 'JavaScript', category: 'backend', color: '#F7DF1E' },
             { name: 'Node.js', category: 'backend', color: '#339933' },
             { name: 'Express.js', category: 'backend', color: '#000000' },
             { name: 'MySQL', category: 'backend', color: '#4479A1' },
@@ -196,6 +197,7 @@ export const PROJECTS = [
             '/media/kdigital/26.png'
         ],
         technologies: [
+            { name: 'JavaScript', category: 'backend', color: '#F7DF1E' },
             { name: 'Node.js', category: 'backend', color: '#339933' },
             { name: 'Express.js', category: 'backend', color: '#000000' },
             { name: 'MySQL', category: 'backend', color: '#4479A1' },
@@ -357,6 +359,7 @@ export const PROJECTS = [
             '/media/mimo/11.png'
         ],
         technologies: [
+            { name: 'JavaScript', category: 'backend', color: '#F7DF1E' },
             { name: 'Node.js', category: 'backend', color: '#339933' },
             { name: 'Express.js', category: 'backend', color: '#000000' },
             { name: 'MySQL', category: 'backend', color: '#4479A1' },
