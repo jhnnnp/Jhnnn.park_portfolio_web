@@ -118,6 +118,15 @@ export const Modal: React.FC<ModalProps> = ({
     const { modalContentRef, handleOverlayClick } = useModalAccessibility(isOpen, onClose, { closeOnOverlayClick });
     const scrollAreaRef = useRef<HTMLDivElement>(null);
 
+    // Open 시 스크롤을 항상 상단으로 이동 (모바일에서 이전 위치 유지되는 현상 방지)
+    useEffect(() => {
+        if (isOpen) {
+            requestAnimationFrame(() => {
+                scrollAreaRef.current?.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+            });
+        }
+    }, [isOpen]);
+
     const backdropVariants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
@@ -144,7 +153,7 @@ export const Modal: React.FC<ModalProps> = ({
         <AnimatePresence>
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-50 flex sm:items-center items-end sm:justify-center justify-center sm:p-4 p-0 overscroll-none"
+                    className="fixed inset-0 z-50 flex sm:items-center items-start sm:justify-center justify-center sm:p-4 pt-12 pb-2 px-3 overscroll-none"
                     role="dialog"
                     aria-modal="true"
                     aria-labelledby={title ? modalTitleId : undefined}
@@ -163,7 +172,7 @@ export const Modal: React.FC<ModalProps> = ({
 
                     {/* 모달 컨텐츠 */}
                     <motion.div
-                        className={`relative w-full sm:${sizeClasses[size]} bg-white/95 backdrop-blur-sm sm:rounded-3xl rounded-t-3xl sm:rounded-b-3xl shadow-2xl border border-gray-200 ring-1 ring-black/5 flex flex-col sm:max-h-[90vh] max-h-[92svh] outline-none overflow-hidden`}
+                        className={`relative w-full sm:${sizeClasses[size]} bg-white/95 backdrop-blur-sm sm:rounded-3xl rounded-3xl shadow-2xl border border-gray-200 ring-1 ring-black/5 flex flex-col sm:max-h-[90vh] max-h-[92svh] outline-none overflow-hidden`}
                         variants={modalVariants}
                         initial="hidden"
                         animate="visible"
@@ -175,12 +184,18 @@ export const Modal: React.FC<ModalProps> = ({
                         {/* 헤더 */}
                         {title && (
                             <div
-                                className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 py-4 sm:py-4 border-b border-gray-200/70 bg-gradient-to-b from-white/95 to-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75"
-                                style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.5rem)' }}
+                                className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-200/70 bg-gradient-to-b from-white/90 to-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/70 shadow-sm relative"
+                                style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.25rem)' }}
                             >
-                                <h2 id={modalTitleId} className="text-lg sm:text-xl font-bold text-gray-900 pr-4 leading-tight break-words">
-                                    {title}
-                                </h2>
+                                {/* iOS-style grabber */}
+                                <div className="absolute left-1/2 -translate-x-1/2 -top-2 w-12 h-1.5 rounded-full bg-gray-300/70" />
+                                <div className="min-w-0 flex-1 pr-4 flex flex-col justify-center pt-4">
+                                    <h2 id={modalTitleId} className="text-lg sm:text-xl font-bold text-gray-900 leading-tight break-words">
+                                        {title}
+                                    </h2>
+                                    {/* accent underline */}
+                                    <div className="mt-1 w-16 h-0.5 bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 rounded-full" />
+                                </div>
                                 <button
                                     onClick={onClose}
                                     className="p-2 sm:p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 touch-manipulation"

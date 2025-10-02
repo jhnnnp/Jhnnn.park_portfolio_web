@@ -61,8 +61,8 @@ export const PROJECTS = [
     {
         id: '1',
         title: 'Backend TUK Navi',
-        description: 'Node.js 기반 학사관리 시스템 API 서버',
-        longDescription: 'Node.js와 Express.js로 구현된 웹서비스 백엔드. JWT 인증, 강의/사용자/커리큘럼 관리 API, MySQL(Sequelize ORM), AWS S3 파일 저장, Swagger(OpenAPI) 문서, Google OAuth 지원.',
+        description: 'Node.js 기반 AI 챗봇을 활용한 스마트 학사관리 시스템 API 서버',
+        longDescription: 'Node.js와 Express.js로 구현된 AI 챗봇 기반 스마트 학사관리 백엔드. OpenAI GPT API를 활용한 커리큘럼 추천, 시간표 최적화, JWT 인증, 강의/사용자 관리 API, MySQL(Sequelize ORM), AWS S3 파일 저장, Swagger(OpenAPI) 문서, Google OAuth 지원.',
         image: '/projects/tuk-navi.jpg',
         icon: '/media/icons/navi_logo.png',
         demoVideo: '/media/navi/demo.mov',
@@ -107,14 +107,14 @@ export const PROJECTS = [
             note: "한국공학대학교 컴퓨터공학과 학생들을 위한 종합 학사 관리 시스템. 캡스톤 프로젝트로 진행된 풀스택 웹 애플리케이션",
             duration: "2024.09 - 2025.09",
             team: "팀 프로젝트",
-            role: "백엔드 API 개발, 데이터베이스 설계, JWT 인증, AWS S3 파일 저장, Swagger API 문서화"
+            role: "백엔드 API 개발, OpenAI GPT API 연동, AI 챗봇 커리큘럼 추천 시스템, 데이터베이스 설계, JWT 인증, AWS S3 파일 저장, Swagger API 문서화"
         }
     },
     {
         id: '2',
         title: 'Frontend TUK Navi',
-        description: 'React와 TypeScript로 만든 학사관리 웹 프론트엔드',
-        longDescription: 'React+TypeScript 기반 SPA. 시간표, 커리큘럼, 졸업요건, 과목 검색, 챗봇(AI 학사 상담), 반응형 웹, 사용자별 데이터 분리(LocalStorage) 등 다양한 학사관리 기능 구현. 캡스톤 주제의 대표 학부 프로젝트.',
+        description: 'React와 TypeScript로 만든 AI 챗봇 기반 스마트 학사관리 웹 프론트엔드',
+        longDescription: 'React+TypeScript 기반 SPA. AI 챗봇을 활용한 커리큘럼 추천, 시간표 최적화, 졸업요건 분석, 과목 검색, 반응형 웹, 다크모드, 사용자별 데이터 분리(LocalStorage) 등 다양한 스마트 학사관리 기능 구현. 캡스톤 주제의 대표 학부 프로젝트.',
         image: '/projects/tuk-navi-frontend.jpg',
         icon: '/media/icons/navi_logo.png',
         demoVideo: '/media/navi/demo.mov',
@@ -154,17 +154,17 @@ export const PROJECTS = [
         year: 2024,
         team: ['Frontend Developer'],
         metrics: {
-            note: "React+TypeScript 기반 SPA. 시간표, 커리큘럼, 졸업요건, 과목 검색, AI 챗봇, 반응형 웹, 다크모드 등 다양한 학사관리 기능 구현",
+            note: "React+TypeScript 기반 SPA. AI 챗봇을 활용한 커리큘럼 추천, 시간표 최적화, 졸업요건 분석, 과목 검색, 반응형 웹, 다크모드 등 다양한 스마트 학사관리 기능 구현",
             duration: "2024.09 - 2025.09",
             team: "팀 프로젝트",
-            role: "프론트엔드 개발, React Query 상태관리, Material-UI 컴포넌트 설계, Framer Motion 애니메이션 구현"
+            role: "프론트엔드 개발, AI 챗봇 UI/UX 설계, React Query 상태관리, Material-UI 컴포넌트 설계, Framer Motion 애니메이션 구현"
         }
     },
     {
         id: '3',
         title: 'TUK K-Digital Backend API Server',
-        description: 'Node.js 기반 IoT 로봇 카메라 모니터링 시스템 API 서버',
-        longDescription: 'Node.js와 Express.js로 구현된 스마트 홈 로봇 카메라 백엔드 시스템. 실시간 카메라 스트리밍, AI 기반 소리 감지, 이벤트 녹화, 사용자 인증, MQTT 통신 등을 제공하는 종합적인 IoT 플랫폼',
+        description: 'Node.js 기반 AI 스마트 로봇 홈캠 모니터링 시스템 API 서버',
+        longDescription: 'Node.js와 Express.js로 구현된 AI 스마트 로봇 홈캠 백엔드 시스템. YOLOv5 객체인식, 실시간 카메라 스트리밍, AI 기반 소리 감지, 이벤트 녹화, 사용자 인증, MQTT 통신 등을 제공하는 모니터링 백엔드 서비스',
         image: '/media/kdigital/1.png',
         icon: '/media/icons/kdigital_app_logo.png',
         detailImages: [
@@ -217,18 +217,18 @@ export const PROJECTS = [
         team: ['Backend Developer'],
         award: '최우수상',
         metrics: {
-            note: "K-Digital Training 캡스톤 프로젝트. AI 기반 소리 감지, 실시간 카메라 스트리밍, MQTT 통신을 활용한 IoT 로봇 카메라 모니터링 시스템",
+            note: "K-Digital Training 캡스톤 프로젝트. YOLOv5 객체인식, AI 기반 소리 감지, 실시간 카메라 스트리밍, MQTT 통신을 활용한 AI 스마트 로봇 홈캠 모니터링 시스템",
             duration: "2024.09 - 2025.06",
             team: "팀 프로젝트",
-            role: "백엔드 API 개발, AI 소리 감지 시스템, MQTT 통신, AWS S3 클라우드 저장, JWT 인증, Twilio SMS 알림",
+            role: "백엔드 API 개발, YOLOv5 객체인식 시스템, AI 소리 감지 시스템, MQTT 통신, AWS S3 클라우드 저장, JWT 인증, Twilio SMS 알림",
             award: "K-하이테크 플랫폼 사업단에서 시행한 K-Digital Training 「IoT 스마트 융합 프로젝트 경진대회」 최우수상 수상"
         }
     },
     {
         id: '4',
         title: 'TUK K-Digital Frontend APP - TIBO',
-        description: 'React Native 기반 AI 로봇 카메라 관리 모바일 애플리케이션',
-        longDescription: 'React Native와 Expo를 기반으로 한 로봇 카메라 관리 앱. 실시간 PTZ 제어, WebRTC 스트리밍, AI 기반 모션/소리 감지, 생체 인증 앱 잠금, 녹화 관리 등을 제공하는 Apple-inspired 모던 모바일 애플리케이션',
+        description: 'React Native 기반 AI 스마트 로봇 홈캠 관리 모바일 애플리케이션',
+        longDescription: 'React Native와 Expo를 기반으로 한 AI 스마트 로봇 홈캠 관리 앱. 실시간 PTZ 제어, WebRTC 스트리밍, AI 기반 모션/소리 감지, 생체 인증 앱 잠금, 녹화 관리 등을 제공하는 Apple-inspired 모던 모바일 애플리케이션',
         image: '/projects/tibo-mobile.jpg',
         icon: '/media/icons/kdigital_app_logo.png',
         detailImages: [
@@ -541,7 +541,7 @@ export const EXPERIENCE_KO = [
         technologies: ["React Native", "Node.js", "WebRTC", "MQTT", "AI Detection", "AWS S3"],
         achievements: [
             "K-Digital Training IoT 스마트 융합 프로젝트 경진대회 최우수상 수상",
-            "AI 기반 소리 감지 및 실시간 카메라 스트리밍 시스템 개발",
+            "YOLOv5 객체인식 및 AI 기반 소리 감지, 실시간 카메라 스트리밍 시스템 개발",
             "React Native + Node.js 풀스택 모바일 애플리케이션 구현",
         ],
         image: "/media/kdigital/1.png",
