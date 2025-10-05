@@ -107,12 +107,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     }, [currentSrc]);
 
     // Lightbox interactions
-    const handleWheelZoom = (e: React.WheelEvent) => {
-        if (!isLightboxOpen) return;
-        e.preventDefault();
-        const factor = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
-        setZoom((z) => clamp(parseFloat((z + factor).toFixed(2)), ZOOM_MIN, ZOOM_MAX));
-    };
+    // Wheel zoom disabled - removed handleWheelZoom function
 
     const handleDoubleClick = () => {
         setZoom((z) => (z === ZOOM_MIN ? 2 : ZOOM_MIN));
@@ -445,7 +440,6 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onWheel={handleWheelZoom}
                         onClick={(e) => {
                             // 버튼이나 컨트롤 요소가 아닌 경우에만 모달 닫기
                             if (e.target === e.currentTarget) {
