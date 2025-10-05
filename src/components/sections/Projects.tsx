@@ -349,17 +349,21 @@ export const Projects = memo<ProjectsProps>(({
     // 카테고리 및 기술 옵션
     const categories = ['all', 'web', 'mobile', 'api'];
     const technologies = useMemo(() => {
-        // 실제 프로젝트에서 사용된 기술들만 수집
+        // 선택된 카테고리에 따라 기술 목록을 필터링
         const usedTechnologies = new Set<string>();
+
         projects.forEach(project => {
-            project.technologies.forEach(tech => {
-                usedTechnologies.add(tech.name);
-            });
+            // 카테고리가 'all'이거나 선택된 카테고리와 일치하는 프로젝트만 고려
+            if (selectedCategory === 'all' || project.category === selectedCategory) {
+                project.technologies.forEach(tech => {
+                    usedTechnologies.add(tech.name);
+                });
+            }
         });
 
         // 사용된 기술들을 정렬하여 반환
         return ['all', ...Array.from(usedTechnologies).sort()];
-    }, [projects]);
+    }, [projects, selectedCategory]);
 
     // 프로젝트 필터링 및 정렬
     const filteredAndSortedProjects = useMemo(() => {
@@ -402,7 +406,24 @@ export const Projects = memo<ProjectsProps>(({
     // 이벤트 핸들러
     const handleCategoryChange = useCallback((category: string) => {
         setSelectedCategory(category);
-    }, []);
+
+        // 카테고리가 변경되면 해당 카테고리에 속한 기술들만 필터에 표시
+        // 현재 선택된 기술이 새로운 카테고리에 없으면 'all'로 리셋
+        if (selectedTech !== 'all') {
+            const availableTechs = new Set<string>();
+            projects.forEach(project => {
+                if (category === 'all' || project.category === category) {
+                    project.technologies.forEach(tech => {
+                        availableTechs.add(tech.name);
+                    });
+                }
+            });
+
+            if (!availableTechs.has(selectedTech)) {
+                setSelectedTech('all');
+            }
+        }
+    }, [selectedTech, projects]);
 
     const handleTechChange = useCallback((tech: string) => {
         setSelectedTech(tech);

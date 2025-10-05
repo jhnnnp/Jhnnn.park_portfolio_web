@@ -5,9 +5,10 @@ import { GRADIENT_BUTTON } from './styles';
 interface ProjectLinkProps {
   projectName: string;
   linkText: string;
+  onViewProject: () => void;
 }
 
-export const ProjectLink = ({ projectName, linkText }: ProjectLinkProps) => {
+export const ProjectLink = ({ projectName, linkText, onViewProject }: ProjectLinkProps) => {
   return (
     <div className="pt-4 sm:pt-6 border-t border-gradient-to-r from-apple-gray-100/50 to-transparent relative z-10">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
@@ -21,8 +22,8 @@ export const ProjectLink = ({ projectName, linkText }: ProjectLinkProps) => {
           </span>
         </motion.div>
 
-        <motion.a
-          href="#projects"
+        <motion.button
+          onClick={onViewProject}
           className="group/link relative px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-blue-500 hover:text-white transition-all duration-300 font-semibold flex items-center gap-1.5 sm:gap-2 rounded-full overflow-hidden touch-manipulation w-full sm:w-auto justify-center sm:justify-start"
           style={GRADIENT_BUTTON}
           whileHover={{
@@ -43,7 +44,7 @@ export const ProjectLink = ({ projectName, linkText }: ProjectLinkProps) => {
           </motion.div>
           {/* Hover background effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-sky-300 to-blue-400 opacity-0 group-hover/link:opacity-100 transition-opacity duration-300" />
-        </motion.a>
+        </motion.button>
       </div>
     </div>
   );

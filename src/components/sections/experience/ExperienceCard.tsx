@@ -22,6 +22,7 @@ interface ExperienceCardProps {
   awardText?: string;
   imageTitle: string;
   imageLayout: 'horizontal' | 'vertical';
+  onViewProject: () => void;
 }
 
 export const ExperienceCard = ({
@@ -36,7 +37,8 @@ export const ExperienceCard = ({
   keyAchievementsText,
   awardText,
   imageTitle,
-  imageLayout
+  imageLayout,
+  onViewProject
 }: ExperienceCardProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -161,6 +163,7 @@ export const ExperienceCard = ({
             <ProjectLink
               projectName={projectNameText}
               linkText={viewProjectText}
+              onViewProject={onViewProject}
             />
           </div>
         </motion.div>

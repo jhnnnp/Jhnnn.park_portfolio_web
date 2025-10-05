@@ -1,7 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { PanInfo } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Loader2, ImageOff } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Loader2, ImageOff, Maximize2, X, Plus, Minus } from 'lucide-react';
+
+// Zoom constants and helpers
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 3;
+const ZOOM_STEP = 0.1;
+
+const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
+
+const preloadImage = (src: string) => {
+    const img = new Image();
+    img.src = src;
+};
 
 interface ImageGalleryProps {
     images: readonly string[];
@@ -16,11 +28,13 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     const horizontalThumbnailRef = useRef<HTMLDivElement>(null);
     const verticalThumbnailRef = useRef<HTMLDivElement>(null);
     const mobileThumbnailRef = useRef<HTMLDivElement>(null);
+    const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+    const [zoom, setZoom] = useState(1);
 
-    const resetLoading = () => {
+    const resetLoading = useCallback(() => {
         setIsLoading(true);
         setHasError(false);
-    };
+    }, []);
 
     const nextImage = useCallback(() => {
         setSelectedIndex((prev) => (prev + 1) % images.length);
@@ -34,13 +48,9 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
 
     // Preload adjacent images
     useEffect(() => {
-        const preload = (src: string) => {
-            const img = new Image();
-            img.src = src;
-        };
         if (images.length > 1) {
-            preload(images[(selectedIndex + 1) % images.length]);
-            preload(images[(selectedIndex - 1 + images.length) % images.length]);
+            preloadImage(images[(selectedIndex + 1) % images.length]);
+            preloadImage(images[(selectedIndex - 1 + images.length) % images.length]);
         }
     }, [selectedIndex, images]);
 
@@ -95,6 +105,33 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
         };
         // cleanup not needed for Image object
     }, [currentSrc]);
+
+    // Lightbox interactions
+    const handleWheelZoom = (e: React.WheelEvent) => {
+        if (!isLightboxOpen) return;
+        e.preventDefault();
+        const factor = e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP;
+        setZoom((z) => clamp(parseFloat((z + factor).toFixed(2)), ZOOM_MIN, ZOOM_MAX));
+    };
+
+    const handleDoubleClick = () => {
+        setZoom((z) => (z === ZOOM_MIN ? 2 : ZOOM_MIN));
+    };
+
+    useEffect(() => {
+        if (!isLightboxOpen) return;
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsLightboxOpen(false);
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        };
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
+    }, [isLightboxOpen, nextImage, prevImage]);
 
     // Swipe handler for mobile
     const handleSwipe = useCallback((_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
@@ -171,6 +208,14 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                                 </button>
                             </>
                         )}
+                        {/* 확대 보기 버튼 */}
+                        <button
+                            onClick={() => { setIsLightboxOpen(true); setZoom(1); }}
+                            className="absolute top-3 right-3 p-2 bg-white/80 hover:bg-white text-gray-800 rounded-lg shadow transition-colors"
+                            aria-label="Open fullscreen"
+                        >
+                            <Maximize2 size={18} />
+                        </button>
                     </div>
 
                     {/* 하단 가로 썸네일 (웹용) */}
@@ -253,6 +298,14 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                                 </button>
                             </>
                         )}
+                        {/* 확대 보기 버튼 */}
+                        <button
+                            onClick={() => { setIsLightboxOpen(true); setZoom(1); }}
+                            className="absolute top-3 right-3 p-2 bg-white/80 hover:bg-white text-gray-800 rounded-lg shadow transition-colors"
+                            aria-label="Open fullscreen"
+                        >
+                            <Maximize2 size={18} />
+                        </button>
                     </div>
 
                     {/* 우측 세로 썸네일 (앱용) */}
@@ -347,6 +400,14 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                                 </button>
                             </>
                         )}
+                        {/* 확대 보기 버튼 (모바일) */}
+                        <button
+                            onClick={() => { setIsLightboxOpen(true); setZoom(1); }}
+                            className="absolute top-2 right-2 p-2 bg-white/80 hover:bg-white text-gray-800 rounded-lg shadow transition-colors"
+                            aria-label="Open fullscreen"
+                        >
+                            <Maximize2 size={16} />
+                        </button>
                     </div>
                 </motion.div>
 
@@ -375,6 +436,96 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
                     </div>
                 )}
             </div>
+
+            {/* Lightbox Overlay */}
+            <AnimatePresence>
+                {isLightboxOpen && (
+                    <motion.div
+                        className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onWheel={handleWheelZoom}
+                        onClick={(e) => {
+                            // 버튼이나 컨트롤 요소가 아닌 경우에만 모달 닫기
+                            if (e.target === e.currentTarget) {
+                                setIsLightboxOpen(false);
+                                setZoom(1);
+                            }
+                        }}
+                    >
+                        {/* Controls */}
+                        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 pointer-events-auto">
+                            <button
+                                onClick={() => setZoom((z) => clamp(parseFloat((z - ZOOM_STEP).toFixed(2)), ZOOM_MIN, ZOOM_MAX))}
+                                className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
+                                aria-label="Zoom out"
+                            >
+                                <Minus size={18} />
+                            </button>
+                            <span className="px-2 py-1 bg-white/70 text-gray-800 rounded-md text-xs font-semibold select-none">{Math.round(zoom * 100)}%</span>
+                            <button
+                                onClick={() => setZoom((z) => clamp(parseFloat((z + ZOOM_STEP).toFixed(2)), ZOOM_MIN, ZOOM_MAX))}
+                                className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
+                                aria-label="Zoom in"
+                            >
+                                <Plus size={18} />
+                            </button>
+                            <button
+                                onClick={() => { setIsLightboxOpen(false); setZoom(ZOOM_MIN); }}
+                                className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
+                                aria-label="Close"
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+
+                        {/* Navigation */}
+                        {images.length > 1 && (
+                            <>
+                                <button
+                                    onClick={() => prevImage()}
+                                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-white text-gray-900 rounded-xl shadow pointer-events-auto"
+                                    aria-label="Previous"
+                                >
+                                    <ChevronLeft size={22} />
+                                </button>
+                                <button
+                                    onClick={() => nextImage()}
+                                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-white text-gray-900 rounded-xl shadow pointer-events-auto"
+                                    aria-label="Next"
+                                >
+                                    <ChevronRight size={22} />
+                                </button>
+                            </>
+                        )}
+
+                        {/* Fullscreen image */}
+                        <div className="relative max-w-[95vw] max-h-[90vh] w-full h-full flex items-center justify-center z-0" aria-live="polite">
+                            {!hasError ? (
+                                <motion.img
+                                    key={`lightbox-${selectedIndex}`}
+                                    src={currentSrc}
+                                    alt={`${title || 'Project'} screenshot ${selectedIndex + 1}`}
+                                    className="pointer-events-auto select-none"
+                                    style={{ maxWidth: '95vw', maxHeight: '90vh', transform: `scale(${zoom})` } as React.CSSProperties}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.2 }}
+                                    drag={zoom > 1}
+                                    dragElastic={0.1}
+                                    onDoubleClick={handleDoubleClick}
+                                />
+                            ) : (
+                                <div className="flex flex-col items-center justify-center text-white/90">
+                                    <ImageOff className="mb-2" size={36} />
+                                    <span className="text-sm">Failed to load</span>
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
