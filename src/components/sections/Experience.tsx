@@ -235,47 +235,47 @@ export const Experience = () => {
 
             {/* Project Selector Modal */}
             {showProjectSelector && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
                     <div
                         className="absolute inset-0 bg-gradient-to-br from-white/8 via-white/3 to-white/8 backdrop-blur-lg"
                         onClick={handleCloseProjectSelector}
                     />
                     <motion.div
-                        className="relative bg-white/95 backdrop-blur-xl rounded-3xl p-8 max-w-4xl w-full max-h-[85vh] overflow-y-auto shadow-2xl border border-white/20"
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        className="relative bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 max-w-4xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto shadow-2xl border border-white/20"
+                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center border border-gray-200/50">
-                                    <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex items-center justify-between mb-4 sm:mb-6 px-1">
+                            <div className="flex items-center gap-3 sm:gap-4">
+                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl flex items-center justify-center border border-gray-200/50">
+                                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
-                                <div>
-                                    <h2 className="text-2xl font-bold text-apple-black">관련 프로젝트</h2>
-                                    <p className="text-apple-gray-600 text-lg">프로젝트를 선택해주세요</p>
+                                <div className="text-left">
+                                    <h2 className="text-xl sm:text-2xl font-bold text-apple-black leading-snug tracking-tight">관련 프로젝트</h2>
+                                    <p className="text-apple-gray-600 text-sm sm:text-base md:text-lg leading-relaxed break-keep">프로젝트를 선택해주세요</p>
                                 </div>
                             </div>
                             <button
                                 onClick={handleCloseProjectSelector}
-                                className="p-2 hover:bg-apple-gray-100 rounded-full transition-colors"
+                                className="p-2 hover:bg-apple-gray-100 active:bg-apple-gray-200 rounded-full transition-colors touch-manipulation"
                             >
-                                <svg className="w-6 h-6 text-apple-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-apple-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </div>
 
                         {/* Project Cards */}
-                        <div className="grid gap-4 md:grid-cols-2">
+                        <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
                             {relatedProjects.map((project) => (
                                 <motion.div
                                     key={project.id}
-                                    className="group relative p-6 rounded-2xl text-left transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 cursor-pointer"
+                                    className="group relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl text-left transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 active:scale-[0.98] cursor-pointer touch-manipulation focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300/60"
                                     style={{
                                         background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0.8) 100%)',
                                         backdropFilter: 'blur(20px)',
@@ -285,34 +285,36 @@ export const Experience = () => {
                                     whileHover={{ scale: 1.02, y: -4 }}
                                     whileTap={{ scale: 0.98 }}
                                 >
-                                    <div className="flex items-start gap-4">
-                                        <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
+                                    {/* Pastel blue accent stripe */}
+                                    <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-1.5 sm:w-2 rounded-l-xl bg-gradient-to-b from-sky-200/80 via-sky-200/60 to-cyan-200/70" />
+                                    <div className="flex items-start gap-3 sm:gap-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0">
                                             {project.icon ? (
                                                 <img
                                                     src={project.icon}
                                                     alt={project.title}
-                                                    className="w-12 h-12 object-contain"
+                                                    className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
                                                 />
                                             ) : (
-                                                <div className="w-12 h-12 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center">
-                                                    <span className="text-white font-bold text-lg">{project.id}</span>
+                                                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center">
+                                                    <span className="text-white font-bold text-sm sm:text-lg">{project.id}</span>
                                                 </div>
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <h3 className="text-lg font-semibold text-apple-black mb-2">{project.title}</h3>
-                                            <p className="text-apple-gray-600 text-sm mb-3 line-clamp-2">{project.description}</p>
+                                            <h3 className="text-base sm:text-lg font-semibold text-apple-black mb-1 sm:mb-2 leading-snug tracking-tight">{project.title}</h3>
+                                            <p className="text-apple-gray-700 text-[13px] sm:text-sm mb-2 sm:mb-3 leading-relaxed break-keep">{project.description}</p>
                                             <div className="flex flex-wrap gap-1">
                                                 {project.technologies.slice(0, 3).map((tech) => (
                                                     <span
                                                         key={tech.name}
-                                                        className="px-2 py-1 bg-white/60 backdrop-blur-sm text-apple-gray-700 text-xs font-medium rounded-lg border border-white/30"
+                                                        className="px-2 py-1 bg-white/60 backdrop-blur-sm text-apple-gray-700 text-xs font-medium rounded-md sm:rounded-lg border border-white/30"
                                                     >
                                                         {tech.name}
                                                     </span>
                                                 ))}
                                                 {project.technologies.length > 3 && (
-                                                    <span className="px-2 py-1 bg-white/60 backdrop-blur-sm text-apple-gray-700 text-xs font-medium rounded-lg border border-white/30">
+                                                    <span className="px-2 py-1 bg-white/60 backdrop-blur-sm text-apple-gray-700 text-xs font-medium rounded-md sm:rounded-lg border border-white/30">
                                                         +{project.technologies.length - 3}
                                                     </span>
                                                 )}
@@ -324,10 +326,10 @@ export const Experience = () => {
                         </div>
 
                         {/* Close Button */}
-                        <div className="flex justify-center mt-8">
+                        <div className="flex justify-center mt-6 sm:mt-8">
                             <button
                                 onClick={handleCloseProjectSelector}
-                                className="px-6 py-3 bg-gradient-to-r from-apple-gray-100 to-apple-gray-200 hover:from-apple-gray-200 hover:to-apple-gray-300 text-apple-gray-700 font-medium rounded-xl transition-all duration-200"
+                                className="px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-apple-gray-100 to-apple-gray-200 hover:from-apple-gray-200 hover:to-apple-gray-300 active:from-apple-gray-300 active:to-apple-gray-400 text-apple-gray-700 text-sm sm:text-base font-medium rounded-lg sm:rounded-xl transition-all duration-200 touch-manipulation"
                             >
                                 닫기
                             </button>
