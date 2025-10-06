@@ -117,7 +117,7 @@ export const Experience = () => {
                     <div className="flex items-center justify-center px-4">
                         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-apple-gray-300 to-transparent"></div>
                         <div className="mx-4 px-3 py-1 bg-apple-gray-100 rounded-full">
-                            <span className="text-xs font-medium text-apple-gray-500 uppercase tracking-wider">
+                            <span className="text-xs font-medium text-apple-gray-500 uppercase tracking-wider pl-1">
                                 {t.experience.title}
                             </span>
                         </div>
@@ -128,10 +128,10 @@ export const Experience = () => {
                 <div ref={staggerRef} className="space-y-12">
                     {/* Header */}
                     <div className="text-center space-y-3 sm:space-y-4 px-4">
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-apple-black">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-apple-black pl-2 sm:pl-4">
                             {t.experience.title}
                         </h2>
-                        <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-apple-gray-600">
+                        <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-apple-gray-600 pl-4 sm:pl-6">
                             {t.experience.subtitle}
                         </p>
                     </div>
@@ -194,7 +194,7 @@ export const Experience = () => {
                     </div>
 
                     {/* Enhanced Call to Action */}
-                    <div className="text-center pt-8 sm:pt-12 px-4">
+                    <div className="text-center pt-8 sm:pt-12 px-4 pl-6 sm:pl-8">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -256,8 +256,8 @@ export const Experience = () => {
                                     </svg>
                                 </div>
                                 <div className="text-left">
-                                    <h2 className="text-xl sm:text-2xl font-bold text-apple-black leading-snug tracking-tight">관련 프로젝트</h2>
-                                    <p className="text-apple-gray-600 text-sm sm:text-base md:text-lg leading-relaxed break-keep">프로젝트를 선택해주세요</p>
+                                    <h2 className="text-xl sm:text-2xl font-bold text-apple-black leading-snug tracking-tight pl-2">관련 프로젝트</h2>
+                                    <p className="text-apple-gray-600 text-sm sm:text-base md:text-lg leading-relaxed break-keep pl-2">프로젝트를 선택해주세요</p>
                                 </div>
                             </div>
                             <button
@@ -302,8 +302,8 @@ export const Experience = () => {
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <h3 className="text-base sm:text-lg font-semibold text-apple-black mb-1 sm:mb-2 leading-snug tracking-tight">{project.title}</h3>
-                                            <p className="text-apple-gray-700 text-[13px] sm:text-sm mb-2 sm:mb-3 leading-relaxed break-keep">{project.description}</p>
+                                            <h3 className="text-base sm:text-lg font-semibold text-apple-black mb-1 sm:mb-2 leading-snug tracking-tight pl-1">{project.title}</h3>
+                                            <p className="text-apple-gray-700 text-[13px] sm:text-sm mb-2 sm:mb-3 leading-relaxed break-keep pl-1">{project.description}</p>
                                             <div className="flex flex-wrap gap-1">
                                                 {project.technologies.slice(0, 3).map((tech) => (
                                                     <span

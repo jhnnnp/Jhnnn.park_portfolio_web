@@ -151,7 +151,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <svg className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                             </svg>
-                            <span className="text-sm sm:text-base md:text-lg">데모 영상</span>
+                            <span className="text-sm sm:text-base md:text-lg pl-1">데모 영상</span>
                         </h3>
                         <div className="relative rounded-lg sm:rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-900 to-gray-800" style={{ aspectRatio: '16 / 9' }}>
                             <video
@@ -184,7 +184,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <Target size={20} className="text-blue-600" />
                             프로젝트 개요
                         </h3>
-                        <p className="text-gray-700 leading-relaxed text-sm md:text-base pl-0 sm:pl-7">
+                        <p className="text-gray-700 leading-relaxed text-sm md:text-base pl-2 sm:pl-7">
                             {project.longDescription}
                         </p>
                     </motion.div>
@@ -196,7 +196,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                         <Code size={20} className="text-purple-600" />
                         기술 스택
                     </h3>
-                    <div className="flex flex-wrap gap-2 pl-0 sm:pl-7">
+                    <div className="flex flex-wrap gap-2 pl-2 sm:pl-7">
                         {project.technologies.map((tech, index) => (
                             <motion.span
                                 key={index}
@@ -221,7 +221,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <Lightbulb size={20} className="text-amber-600" />
                             프로젝트 정보
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-0 sm:pl-7">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-2 sm:pl-7">
                             {project.metrics.duration && (
                                 <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-xl">
                                     <div className="flex items-center gap-2 mb-2">

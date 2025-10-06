@@ -69,7 +69,7 @@ export const Hero = () => {
                 >
                     {/* Greeting */}
                     <motion.h2
-                        className="text-base sm:text-lg md:text-xl text-pastel-secondary font-medium"
+                        className="text-base sm:text-lg md:text-xl text-pastel-secondary font-medium pl-2 sm:pl-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
@@ -79,7 +79,7 @@ export const Hero = () => {
 
                     {/* Main Title */}
                     <motion.h1
-                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-pastel-primary leading-tight px-4"
+                        className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-pastel-primary leading-tight px-4 pl-6 sm:pl-8"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.6 }}
@@ -89,7 +89,7 @@ export const Hero = () => {
 
                     {/* Subtitle */}
                     <motion.h2
-                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-pastel-secondary px-4"
+                        className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium text-pastel-secondary px-4 pl-8 sm:pl-12"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.8 }}
@@ -99,7 +99,7 @@ export const Hero = () => {
 
                     {/* Description */}
                     <motion.p
-                        className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-pastel-secondary leading-relaxed px-4"
+                        className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-pastel-secondary leading-relaxed px-4 pl-10 sm:pl-16"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.0 }}
@@ -109,7 +109,7 @@ export const Hero = () => {
 
                     {/* CTA Buttons */}
                     <motion.div
-                        className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-6 sm:pt-8 px-4"
+                        className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-6 sm:pt-8 px-4 pl-12 sm:pl-20"
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 1.2 }}

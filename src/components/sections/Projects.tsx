@@ -174,7 +174,7 @@ const ProjectCard = memo<{
                                 aria-label="Featured project"
                             >
                                 <Star size={10} className="sm:w-3 sm:h-3" />
-                                <span className="hidden sm:inline">{t.projects.featured}</span>
+                                <span className="hidden sm:inline pl-1">{t.projects.featured}</span>
                             </motion.span>
                         )}
                         <span className={`px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium rounded-full ${getStatusColor(project.status)}`}>
@@ -266,7 +266,7 @@ const ProjectCard = memo<{
                         </div>
                         <p
                             id={`project-desc-${project.id}`}
-                            className="text-pastel-secondary text-xs sm:text-sm leading-relaxed"
+                            className="text-pastel-secondary text-xs sm:text-sm leading-relaxed pl-1"
                         >
                             {project.description}
                         </p>
@@ -303,19 +303,19 @@ const ProjectCard = memo<{
                         <div className="pt-3 sm:pt-4 border-t border-pastel-muted">
                             <div className="text-[10px] sm:text-xs text-pastel-secondary space-y-1">
                                 {project.metrics.note && (
-                                    <p className="leading-relaxed">{project.metrics.note}</p>
+                                    <p className="leading-relaxed pl-1">{project.metrics.note}</p>
                                 )}
                                 {project.metrics.duration && (
-                                    <p><span className="font-medium">{t.projects.metrics.duration}:</span> {project.metrics.duration}</p>
+                                    <p className="pl-1"><span className="font-medium">{t.projects.metrics.duration}:</span> {project.metrics.duration}</p>
                                 )}
                                 {project.metrics.team && (
-                                    <p><span className="font-medium">{t.projects.metrics.team}:</span> {project.metrics.team}</p>
+                                    <p className="pl-1"><span className="font-medium">{t.projects.metrics.team}:</span> {project.metrics.team}</p>
                                 )}
                                 {project.metrics.role && (
-                                    <p className="leading-relaxed"><span className="font-medium">{t.projects.metrics.role}:</span> {project.metrics.role}</p>
+                                    <p className="leading-relaxed pl-1"><span className="font-medium">{t.projects.metrics.role}:</span> {project.metrics.role}</p>
                                 )}
                                 {project.metrics.award && (
-                                    <p><span className="font-medium flex items-center gap-1"><Award size={12} className="sm:w-[14px] sm:h-[14px]" /> {t.projects.metrics.award}:</span> {project.metrics.award}</p>
+                                    <p className="pl-1"><span className="font-medium flex items-center gap-1"><Award size={12} className="sm:w-[14px] sm:h-[14px]" /> {t.projects.metrics.award}:</span> {project.metrics.award}</p>
                                 )}
                             </div>
                         </div>
@@ -467,7 +467,7 @@ export const Projects = memo<ProjectsProps>(({
                     <div className="text-center space-y-6 max-w-4xl mx-auto">
                         <motion.h2
                             id="projects-heading"
-                            className="text-4xl md:text-5xl lg:text-6xl font-bold text-pastel-primary"
+                            className="text-4xl md:text-5xl lg:text-6xl font-bold text-pastel-primary pl-2 sm:pl-4"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
@@ -475,7 +475,7 @@ export const Projects = memo<ProjectsProps>(({
                             {t.projects.title}
                         </motion.h2>
                         <motion.p
-                            className="text-lg md:text-xl text-pastel-secondary leading-relaxed"
+                            className="text-lg md:text-xl text-pastel-secondary leading-relaxed pl-4 sm:pl-6"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.1 }}
@@ -502,7 +502,7 @@ export const Projects = memo<ProjectsProps>(({
                                             placeholder={t.projects.searchPlaceholder}
                                             value={searchQuery}
                                             onChange={handleSearchChange}
-                                            className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white touch-manipulation"
+                                            className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm border border-pastel-muted rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white touch-manipulation pl-11 sm:pl-12"
                                             aria-label="Search projects"
                                         />
                                     </div>
@@ -567,7 +567,7 @@ export const Projects = memo<ProjectsProps>(({
 
                             {/* 필터 결과 */}
                             <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm text-pastel-secondary">
-                                <span>
+                                <span className="pl-1">
                                     {t.projects.showing} {filteredAndSortedProjects.length} {t.projects.of} {projects.length} {t.projects.projects}
                                 </span>
                                 {(selectedCategory !== 'all' || selectedTech !== 'all' || searchQuery) && (
@@ -615,8 +615,8 @@ export const Projects = memo<ProjectsProps>(({
                                 <div className="w-24 h-24 bg-pastel-muted rounded-full flex items-center justify-center mx-auto mb-6">
                                     <Filter size={32} className="text-pastel-secondary" />
                                 </div>
-                                <h3 className="text-xl font-semibold text-pastel-primary mb-2">{t.projects.noProjectsFound}</h3>
-                                <p className="text-pastel-secondary mb-6">
+                                <h3 className="text-xl font-semibold text-pastel-primary mb-2 pl-2">{t.projects.noProjectsFound}</h3>
+                                <p className="text-pastel-secondary mb-6 pl-3">
                                     {t.projects.noProjectsDescription}
                                 </p>
                                 <Button
@@ -637,7 +637,7 @@ export const Projects = memo<ProjectsProps>(({
                     {/* 더 보기 버튼 */}
                     {filteredAndSortedProjects.length > 0 && (
                         <motion.div
-                            className="text-center pt-8 sm:pt-12 px-4"
+                            className="text-center pt-8 sm:pt-12 px-4 pl-6 sm:pl-8"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}

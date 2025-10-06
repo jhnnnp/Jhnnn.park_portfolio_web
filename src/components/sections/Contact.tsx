@@ -74,10 +74,10 @@ export const Contact = () => {
                             <Sparkles size={14} className="sm:w-4 sm:h-4 text-blue-600" />
                             <span className="text-xs sm:text-sm font-semibold text-blue-700">Contact Me</span>
                         </div>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight pl-2 sm:pl-4">
                             {t.contact.title}
                         </h2>
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-gray-600 leading-relaxed px-4">
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto text-gray-600 leading-relaxed px-4 pl-6 sm:pl-8">
                             {t.contact.subtitle}
                         </p>
                     </motion.div>
@@ -92,10 +92,10 @@ export const Contact = () => {
                         >
                             {/* Intro */}
                             <div className="space-y-3 sm:space-y-4">
-                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 pl-8 sm:pl-10">
                                     {t.contact.workTogether}
                                 </h3>
-                                <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+                                <p className="text-base sm:text-lg text-gray-600 leading-relaxed pl-10 sm:pl-12">
                                     {t.contact.workDescription}
                                 </p>
                             </div>
@@ -154,7 +154,7 @@ export const Contact = () => {
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                             >
-                                <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-5">{t.contact.followMe}</h4>
+                                <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-5 pl-12 sm:pl-14">{t.contact.followMe}</h4>
                                 <div className="flex gap-3">
                                     {socialLinks.map((social, index) => (
                                         <motion.a
@@ -191,10 +191,10 @@ export const Contact = () => {
 
                                 {/* 폼 헤더 */}
                                 <div className="relative mb-6 sm:mb-8">
-                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 pl-2">
                                         {t.contact.form.title}
                                     </h3>
-                                    <p className="text-sm sm:text-base text-gray-600">
+                                    <p className="text-sm sm:text-base text-gray-600 pl-3">
                                         {t.contact.form.description}
                                     </p>
                                 </div>
@@ -208,7 +208,7 @@ export const Contact = () => {
                                             animate={{ opacity: 1, y: 0 }}
                                         >
                                             <CheckCircle size={20} className="sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
-                                            <p className="text-sm sm:text-base text-green-800 font-medium">메시지가 성공적으로 전송되었습니다!</p>
+                                            <p className="text-sm sm:text-base text-green-800 font-medium pl-1">메시지가 성공적으로 전송되었습니다!</p>
                                         </motion.div>
                                     )}
 
