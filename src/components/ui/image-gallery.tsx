@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { PanInfo } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Loader2, ImageOff, Maximize2, X, Plus, Minus } from 'lucide-react';
@@ -30,6 +31,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
     const mobileThumbnailRef = useRef<HTMLDivElement>(null);
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
     const [zoom, setZoom] = useState(1);
+    const [viewportHeight, setViewportHeight] = useState<number | null>(null);
 
     const resetLoading = useCallback(() => {
         setIsLoading(true);
@@ -121,9 +123,15 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
             if (e.key === 'ArrowLeft') prevImage();
         };
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overscrollBehaviorY = 'contain';
+        const setVh = () => setViewportHeight(window.innerHeight);
+        setVh();
+        window.addEventListener('resize', setVh);
         window.addEventListener('keydown', onKey);
         return () => {
             document.body.style.overflow = '';
+            document.documentElement.style.overscrollBehaviorY = '';
+            window.removeEventListener('resize', setVh);
             window.removeEventListener('keydown', onKey);
         };
     }, [isLightboxOpen, nextImage, prevImage]);
@@ -433,93 +441,99 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, title, layou
             </div>
 
             {/* Lightbox Overlay */}
-            <AnimatePresence>
-                {isLightboxOpen && (
-                    <motion.div
-                        className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={(e) => {
-                            // 버튼이나 컨트롤 요소가 아닌 경우에만 모달 닫기
-                            if (e.target === e.currentTarget) {
-                                setIsLightboxOpen(false);
-                                setZoom(1);
-                            }
-                        }}
-                    >
-                        {/* Controls */}
-                        <div className="absolute top-4 right-4 z-10 flex items-center gap-2 pointer-events-auto">
-                            <button
-                                onClick={() => setZoom((z) => clamp(parseFloat((z - ZOOM_STEP).toFixed(2)), ZOOM_MIN, ZOOM_MAX))}
-                                className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
-                                aria-label="Zoom out"
-                            >
-                                <Minus size={18} />
-                            </button>
-                            <span className="px-2 py-1 bg-white/70 text-gray-800 rounded-md text-xs font-semibold select-none">{Math.round(zoom * 100)}%</span>
-                            <button
-                                onClick={() => setZoom((z) => clamp(parseFloat((z + ZOOM_STEP).toFixed(2)), ZOOM_MIN, ZOOM_MAX))}
-                                className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
-                                aria-label="Zoom in"
-                            >
-                                <Plus size={18} />
-                            </button>
-                            <button
-                                onClick={() => { setIsLightboxOpen(false); setZoom(ZOOM_MIN); }}
-                                className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
-                                aria-label="Close"
-                            >
-                                <X size={18} />
-                            </button>
-                        </div>
-
-                        {/* Navigation */}
-                        {images.length > 1 && (
-                            <>
+            {typeof document !== 'undefined' && createPortal(
+                <AnimatePresence>
+                    {isLightboxOpen && (
+                        <motion.div
+                            className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={(e) => {
+                                if (e.target === e.currentTarget) {
+                                    setIsLightboxOpen(false);
+                                    setZoom(1);
+                                }
+                            }}
+                            style={{
+                                paddingTop: 'env(safe-area-inset-top)',
+                                paddingBottom: 'env(safe-area-inset-bottom)'
+                            }}
+                        >
+                            {/* Controls */}
+                            <div className="absolute top-3 right-3 md:top-4 md:right-4 z-10 flex items-center gap-2 pointer-events-auto" style={{ paddingTop: 'env(safe-area-inset-top)', paddingRight: 'env(safe-area-inset-right)' }}>
                                 <button
-                                    onClick={() => prevImage()}
-                                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-white text-gray-900 rounded-xl shadow pointer-events-auto"
-                                    aria-label="Previous"
+                                    onClick={() => setZoom((z) => clamp(parseFloat((z - ZOOM_STEP).toFixed(2)), ZOOM_MIN, ZOOM_MAX))}
+                                    className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
+                                    aria-label="Zoom out"
                                 >
-                                    <ChevronLeft size={22} />
+                                    <Minus size={18} />
+                                </button>
+                                <span className="px-2 py-1 bg-white/70 text-gray-800 rounded-md text-xs font-semibold select-none">{Math.round(zoom * 100)}%</span>
+                                <button
+                                    onClick={() => setZoom((z) => clamp(parseFloat((z + ZOOM_STEP).toFixed(2)), ZOOM_MIN, ZOOM_MAX))}
+                                    className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
+                                    aria-label="Zoom in"
+                                >
+                                    <Plus size={18} />
                                 </button>
                                 <button
-                                    onClick={() => nextImage()}
-                                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-white text-gray-900 rounded-xl shadow pointer-events-auto"
-                                    aria-label="Next"
+                                    onClick={() => { setIsLightboxOpen(false); setZoom(ZOOM_MIN); }}
+                                    className="p-2 bg-white/80 hover:bg-white text-gray-900 rounded-lg shadow"
+                                    aria-label="Close"
                                 >
-                                    <ChevronRight size={22} />
+                                    <X size={18} />
                                 </button>
-                            </>
-                        )}
+                            </div>
 
-                        {/* Fullscreen image */}
-                        <div className="relative max-w-[95vw] max-h-[90vh] w-full h-full flex items-center justify-center z-0" aria-live="polite">
-                            {!hasError ? (
-                                <motion.img
-                                    key={`lightbox-${selectedIndex}`}
-                                    src={currentSrc}
-                                    alt={`${title || 'Project'} screenshot ${selectedIndex + 1}`}
-                                    className="pointer-events-auto select-none"
-                                    style={{ maxWidth: '95vw', maxHeight: '90vh', transform: `scale(${zoom})` } as React.CSSProperties}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.2 }}
-                                    drag={zoom > 1}
-                                    dragElastic={0.1}
-                                    onDoubleClick={handleDoubleClick}
-                                />
-                            ) : (
-                                <div className="flex flex-col items-center justify-center text-white/90">
-                                    <ImageOff className="mb-2" size={36} />
-                                    <span className="text-sm">Failed to load</span>
-                                </div>
+                            {/* Navigation */}
+                            {images.length > 1 && (
+                                <>
+                                    <button
+                                        onClick={() => prevImage()}
+                                        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-white text-gray-900 rounded-xl shadow pointer-events-auto"
+                                        aria-label="Previous"
+                                    >
+                                        <ChevronLeft size={22} />
+                                    </button>
+                                    <button
+                                        onClick={() => nextImage()}
+                                        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/80 hover:bg-white text-gray-900 rounded-xl shadow pointer-events-auto"
+                                        aria-label="Next"
+                                    >
+                                        <ChevronRight size={22} />
+                                    </button>
+                                </>
                             )}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+
+                            {/* Fullscreen image */}
+                            <div className="relative w-full h-full flex items-center justify-center z-0" aria-live="polite">
+                                {!hasError ? (
+                                    <motion.img
+                                        key={`lightbox-${selectedIndex}`}
+                                        src={currentSrc}
+                                        alt={`${title || 'Project'} screenshot ${selectedIndex + 1}`}
+                                        className="pointer-events-auto select-none"
+                                        style={{ maxWidth: '100vw', maxHeight: viewportHeight ? `${viewportHeight}px` : '100vh', transform: `scale(${zoom})` } as React.CSSProperties}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.2 }}
+                                        drag={zoom > 1}
+                                        dragElastic={0.1}
+                                        onDoubleClick={handleDoubleClick}
+                                    />
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center text-white/90">
+                                        <ImageOff className="mb-2" size={36} />
+                                        <span className="text-sm">Failed to load</span>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
         </div>
     );
 };
