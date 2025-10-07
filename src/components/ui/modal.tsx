@@ -206,6 +206,16 @@ export const Modal: React.FC<ModalProps> = ({
                             </div>
                         )}
 
+                        {/* 항상 보이는 플로팅 닫기 버튼 */}
+                        <button
+                            onClick={onClose}
+                            className="absolute top-2 right-2 sm:top-3 sm:right-3 p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 touch-manipulation z-20"
+                            aria-label="Close modal"
+                            style={{ top: 'calc(env(safe-area-inset-top) + 0.25rem)' }}
+                        >
+                            <X size={18} className="sm:w-5 sm:h-5" />
+                        </button>
+
                         {/* 컨텐츠 영역 */}
                         <div
                             ref={scrollAreaRef}
