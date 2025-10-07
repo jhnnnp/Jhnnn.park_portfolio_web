@@ -61,6 +61,23 @@ const ProjectCard = memo<{
         }
     };
 
+    // 언어에 따른 프로젝트 텍스트 선택
+    const localized = useMemo(() => {
+        const loc = project.translations?.[language];
+        return {
+            title: loc?.title || project.title,
+            description: loc?.description || project.description,
+            longDescription: loc?.longDescription || project.longDescription,
+            metrics: {
+                note: loc?.metrics?.note || project.metrics?.note,
+                duration: loc?.metrics?.duration || project.metrics?.duration,
+                team: loc?.metrics?.team || project.metrics?.team,
+                role: loc?.metrics?.role || project.metrics?.role,
+                award: loc?.metrics?.award || project.metrics?.award,
+            }
+        } as const;
+    }, [project, language]);
+
     // 프로젝트 이미지 또는 플레이스홀더
     const ProjectImage = useCallback(() => {
         // icon이 있으면 icon을 우선적으로 표시 (전체 크기로)
@@ -72,7 +89,7 @@ const ProjectCard = memo<{
                 <div className={`absolute inset-0 flex items-center justify-center bg-pastel-gradient ${iconPadding}`}>
                     <img
                         src={project.icon}
-                        alt={`${project.title} icon`}
+                        alt={`${localized.title} icon`}
                         className="w-full h-full object-contain rounded-3xl"
                         loading="lazy"
                         decoding="async"
@@ -87,7 +104,7 @@ const ProjectCard = memo<{
             return (
                 <img
                     src={project.image}
-                    alt={`${project.title} preview`}
+                    alt={`${localized.title} preview`}
                     className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                     onLoad={() => setImageLoaded(true)}
                     onError={() => setImageError(true)}
@@ -178,7 +195,7 @@ const ProjectCard = memo<{
                             </motion.span>
                         )}
                         <span className={`px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium rounded-full ${getStatusColor(project.status)}`}>
-                            {project.status.replace('-', ' ')}
+                            {t.projects.statusLabels?.[project.status] ?? project.status.replace('-', ' ')}
                         </span>
                     </div>
 
@@ -203,7 +220,7 @@ const ProjectCard = memo<{
                                     className="p-2.5 sm:p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors touch-manipulation"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
-                                    aria-label={`View ${project.title} details`}
+                                    aria-label={`View ${localized.title} details`}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onProjectSelect(project);
@@ -221,7 +238,7 @@ const ProjectCard = memo<{
                                     className="p-2.5 sm:p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors touch-manipulation"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
-                                    aria-label={`View ${project.title} source code on GitHub`}
+                                    aria-label={`View ${localized.title} source code on GitHub`}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setIsOverlayVisibleMobile(false);
@@ -239,7 +256,7 @@ const ProjectCard = memo<{
                                     className="p-2.5 sm:p-3 bg-white rounded-full shadow-lg hover:bg-gray-50 transition-colors touch-manipulation"
                                     whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.95 }}
-                                    aria-label={`View ${project.title} live demo`}
+                                    aria-label={`View ${localized.title} live demo`}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         setIsOverlayVisibleMobile(false);
@@ -260,7 +277,7 @@ const ProjectCard = memo<{
                                 id={`project-title-${project.id}`}
                                 className="text-lg sm:text-xl font-bold text-pastel-primary group-hover:text-blue-600 transition-colors flex-1 min-w-0 break-words"
                             >
-                                {project.title}
+                                {localized.title}
                             </h3>
                             <span className="text-xs sm:text-sm text-pastel-secondary font-medium flex-shrink-0">{project.year}</span>
                         </div>
@@ -268,7 +285,7 @@ const ProjectCard = memo<{
                             id={`project-desc-${project.id}`}
                             className="text-pastel-secondary text-xs sm:text-sm leading-relaxed pl-1"
                         >
-                            {project.description}
+                            {localized.description}
                         </p>
                     </div>
 
@@ -299,23 +316,23 @@ const ProjectCard = memo<{
                     </div>
 
                     {/* 기타 사항 (있는 경우) */}
-                    {project.metrics && (
+                    {(localized.metrics.note || localized.metrics.duration || localized.metrics.team || localized.metrics.role || localized.metrics.award) && (
                         <div className="pt-3 sm:pt-4 border-t border-pastel-muted">
                             <div className="text-[10px] sm:text-xs text-pastel-secondary space-y-1">
-                                {project.metrics.note && (
-                                    <p className="leading-relaxed pl-1">{project.metrics.note}</p>
+                                {localized.metrics.note && (
+                                    <p className="leading-relaxed pl-1">{localized.metrics.note}</p>
                                 )}
-                                {project.metrics.duration && (
-                                    <p className="pl-1"><span className="font-medium">{t.projects.metrics.duration}:</span> {project.metrics.duration}</p>
+                                {localized.metrics.duration && (
+                                    <p className="pl-1"><span className="font-medium">{t.projects.metrics.duration}:</span> {localized.metrics.duration}</p>
                                 )}
-                                {project.metrics.team && (
-                                    <p className="pl-1"><span className="font-medium">{t.projects.metrics.team}:</span> {project.metrics.team}</p>
+                                {localized.metrics.team && (
+                                    <p className="pl-1"><span className="font-medium">{t.projects.metrics.team}:</span> {localized.metrics.team}</p>
                                 )}
-                                {project.metrics.role && (
-                                    <p className="leading-relaxed pl-1"><span className="font-medium">{t.projects.metrics.role}:</span> {project.metrics.role}</p>
+                                {localized.metrics.role && (
+                                    <p className="leading-relaxed pl-1"><span className="font-medium">{t.projects.metrics.role}:</span> {localized.metrics.role}</p>
                                 )}
-                                {project.metrics.award && (
-                                    <p className="pl-1"><span className="font-medium flex items-center gap-1"><Award size={12} className="sm:w-[14px] sm:h-[14px]" /> {t.projects.metrics.award}:</span> {project.metrics.award}</p>
+                                {localized.metrics.award && (
+                                    <p className="pl-1"><span className="font-medium flex items-center gap-1"><Award size={12} className="sm:w-[14px] sm:h-[14px]" /> {t.projects.metrics.award}:</span> {localized.metrics.award}</p>
                                 )}
                             </div>
                         </div>

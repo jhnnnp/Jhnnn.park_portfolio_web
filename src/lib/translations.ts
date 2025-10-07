@@ -1,5 +1,20 @@
 export const translations = {
     en: {
+        modal: {
+            github: "GitHub",
+            liveDemo: "Live Demo",
+            demoVideo: "Demo Video",
+            projectScreenshots: "Project Screenshots",
+            overview: "Overview",
+            techStack: "Tech Stack",
+            projectInfo: "Project Info",
+            developmentPeriod: "Development Period",
+            team: "Team",
+            background: "Background",
+            role: "Role",
+            awards: "Awards",
+            videoUnsupported: "Your browser does not support the video tag."
+        },
         hero: {
             greeting: "Hello, I'm",
             title: "Full-Stack Developer",
@@ -34,6 +49,11 @@ export const translations = {
             downloadResume: "Download Resume",
             technologies: "Technologies",
             keyAchievements: "Key Achievements",
+            modal: {
+                title: "Related Projects",
+                subtitle: "Please select a project",
+                close: "Close"
+            },
             projectTypes: {
                 kDigital: "K-Digital Training",
                 capstone: "University Capstone",
@@ -70,11 +90,16 @@ export const translations = {
             featured: "Featured",
             showLess: "Show less",
             more: "more",
+            statusLabels: {
+                'in-progress': 'In Progress',
+                'completed': 'Completed',
+                'maintenance': 'Maintenance'
+            },
             metrics: {
-                duration: "개발 기간",
-                team: "팀 구성",
-                role: "담당 역할",
-                award: "수상 내역"
+                duration: "Development Period",
+                team: "Team",
+                role: "Role",
+                award: "Awards"
             }
         },
         contact: {
@@ -123,6 +148,21 @@ export const translations = {
         }
     },
     ko: {
+        modal: {
+            github: "깃허브",
+            liveDemo: "라이브 데모",
+            demoVideo: "데모 영상",
+            projectScreenshots: "프로젝트 스크린샷",
+            overview: "프로젝트 개요",
+            techStack: "기술 스택",
+            projectInfo: "프로젝트 정보",
+            developmentPeriod: "개발 기간",
+            team: "팀 구성",
+            background: "프로젝트 배경",
+            role: "담당 역할",
+            awards: "수상 내역",
+            videoUnsupported: "브라우저가 비디오 태그를 지원하지 않습니다."
+        },
         hero: {
             greeting: "안녕하세요, 저는",
             title: "풀스택 개발자",
@@ -157,6 +197,11 @@ export const translations = {
             downloadResume: "이력서 다운로드",
             technologies: "기술",
             keyAchievements: "주요 성과",
+            modal: {
+                title: "관련 프로젝트",
+                subtitle: "프로젝트를 선택해주세요",
+                close: "닫기"
+            },
             projectTypes: {
                 kDigital: "K-디지털 트레이닝",
                 capstone: "대학교 캡스톤",
@@ -193,6 +238,11 @@ export const translations = {
             featured: "추천",
             showLess: "간략히",
             more: "더 보기",
+            statusLabels: {
+                'in-progress': '진행 중',
+                'completed': '완료',
+                'maintenance': '유지보수'
+            },
             metrics: {
                 duration: "개발 기간",
                 team: "팀 구성",

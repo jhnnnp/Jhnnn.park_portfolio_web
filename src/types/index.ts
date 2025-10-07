@@ -29,6 +29,23 @@ export interface Project {
         readonly role?: string;
         readonly award?: string;
     };
+    readonly translations?: {
+        readonly en?: ProjectLocale;
+        readonly ko?: ProjectLocale;
+    };
+}
+
+export interface ProjectLocale {
+    readonly title?: string;
+    readonly description?: string;
+    readonly longDescription?: string;
+    readonly metrics?: {
+        readonly note?: string;
+        readonly duration?: string;
+        readonly team?: string;
+        readonly role?: string;
+        readonly award?: string;
+    };
 }
 
 export interface ProjectsProps {

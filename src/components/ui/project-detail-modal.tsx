@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Github, ExternalLink, Calendar, Code, Award, Target, Lightbulb, Clock, Users as UsersIcon } from 'lucide-react';
 import { Modal } from './modal';
 import { ImageGallery } from './image-gallery';
 import type { Project } from '../../types';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../lib/translations';
 
 interface ProjectDetailModalProps {
     project: Project | null;
@@ -17,6 +19,24 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
     onClose
 }) => {
     if (!project) return null;
+
+    const { language } = useLanguage();
+    const t = translations[language];
+    const localized = useMemo(() => {
+        const loc = project.translations?.[language];
+        return {
+            title: loc?.title || project.title,
+            description: loc?.description || project.description,
+            longDescription: loc?.longDescription || project.longDescription,
+            metrics: {
+                note: loc?.metrics?.note || project.metrics?.note,
+                duration: loc?.metrics?.duration || project.metrics?.duration,
+                team: loc?.metrics?.team || project.metrics?.team,
+                role: loc?.metrics?.role || project.metrics?.role,
+                award: loc?.metrics?.award || project.metrics?.award,
+            }
+        } as const;
+    }, [language, project]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -42,7 +62,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
         <Modal
             isOpen={isOpen}
             onClose={onClose}
-            title={project.title}
+            ariaLabel={localized.title}
             size="xl"
         >
             <motion.div
@@ -51,96 +71,108 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 animate="visible"
                 className="px-3 py-4 sm:px-6 sm:py-6 md:px-8 md:py-8 space-y-4 sm:space-y-6 md:space-y-8"
             >
-                {/* 프로젝트 헤더 */}
-                <motion.div variants={itemVariants} className="space-y-4 sm:space-y-6">
-                    {/* 프로젝트 설명 */}
-                    <div className="relative">
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed font-medium tracking-tight break-words hyphens-auto">
-                            {project.description}
-                        </p>
-                        <div className="absolute -bottom-2 left-0 w-12 sm:w-16 h-0.5 sm:h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
-                    </div>
+                {/* 프로젝트 헤더 - 프로페셔널 디자인 */}
+                <motion.div variants={itemVariants} className="relative">
+                    {/* 헤더 배경 */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-slate-50 via-blue-50 to-slate-50 rounded-t-2xl -mx-3 sm:-mx-6 md:-mx-8 -mt-3 sm:-mt-6 md:-mt-8 pt-3 sm:pt-6 md:pt-8" />
 
-                    {/* 메타 정보 배지들 */}
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                        <motion.div
-                            className="group relative overflow-hidden"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
-                                <Calendar size={14} className="sm:w-4 sm:h-4 text-slate-600" />
-                                <span className="font-semibold text-slate-700 text-xs sm:text-sm">{project.year}</span>
+                    {/* 헤더 콘텐츠 */}
+                    <div className="relative z-10 space-y-6">
+                        {/* 프로젝트 제목과 설명 */}
+                        <div className="space-y-4">
+                            <div className="space-y-2">
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                                    {localized.title}
+                                </h1>
+                                <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
                             </div>
-                        </motion.div>
 
-                        <motion.div
-                            className="group relative overflow-hidden"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
-                                <Code size={14} className="sm:w-4 sm:h-4 text-blue-600" />
-                                <span className="font-semibold text-blue-700 text-xs sm:text-sm capitalize">{project.category}</span>
-                            </div>
-                        </motion.div>
+                            <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed font-medium max-w-4xl">
+                                {localized.description}
+                            </p>
+                        </div>
 
-                        <motion.div
-                            className="group relative overflow-hidden"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-sm group-hover:shadow-md transition-all duration-300">
-                                <Clock size={14} className="sm:w-4 sm:h-4 text-green-600" />
-                                <span className="font-semibold text-green-700 text-xs sm:text-sm capitalize">{project.status.replace('-', ' ')}</span>
-                            </div>
-                        </motion.div>
-
-                        {project.award && (
+                        {/* 메타 정보 배지들 */}
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                             <motion.div
                                 className="group relative overflow-hidden"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
-                                <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-amber-100 via-yellow-100 to-amber-100 border border-amber-300/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-lg group-hover:shadow-xl transition-all duration-300">
-                                    <Award size={14} className="sm:w-4 sm:h-4 text-amber-700" />
-                                    <span className="font-bold text-amber-800 text-xs sm:text-sm">{project.award}</span>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/90 backdrop-blur-sm border border-slate-200/60 rounded-lg sm:rounded-xl shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <Calendar size={14} className="sm:w-4 sm:h-4 text-slate-600" />
+                                    <span className="font-semibold text-slate-700 text-xs sm:text-sm">{project.year}</span>
                                 </div>
                             </motion.div>
-                        )}
-                    </div>
 
-                    {/* 액션 버튼들 */}
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
-                        {project.github && (
-                            <motion.a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
-                                whileHover={{ scale: 1.02, y: -2 }}
-                                whileTap={{ scale: 0.98 }}
+                            <motion.div
+                                className="group relative overflow-hidden"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <Github size={16} className="sm:w-5 sm:h-5 relative z-10" />
-                                <span className="relative z-10">GitHub</span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                            </motion.a>
-                        )}
-                        {project.live && (
-                            <motion.a
-                                href={project.live}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
-                                whileHover={{ scale: 1.02, y: -2 }}
-                                whileTap={{ scale: 0.98 }}
+                                <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/90 backdrop-blur-sm border border-blue-200/60 rounded-lg sm:rounded-xl shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <Code size={14} className="sm:w-4 sm:h-4 text-blue-600" />
+                                    <span className="font-semibold text-blue-700 text-xs sm:text-sm capitalize">{project.category}</span>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                className="group relative overflow-hidden"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                <ExternalLink size={16} className="sm:w-5 sm:h-5 relative z-10" />
-                                <span className="relative z-10">Live Demo</span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                            </motion.a>
-                        )}
+                                <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/90 backdrop-blur-sm border border-green-200/60 rounded-lg sm:rounded-xl shadow-sm group-hover:shadow-md transition-all duration-300">
+                                    <Clock size={14} className="sm:w-4 sm:h-4 text-green-600" />
+                                    <span className="font-semibold text-green-700 text-xs sm:text-sm capitalize">{t.projects.statusLabels?.[project.status] ?? project.status.replace('-', ' ')}</span>
+                                </div>
+                            </motion.div>
+
+                            {project.award && (
+                                <motion.div
+                                    className="group relative overflow-hidden"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-br from-amber-100 via-yellow-100 to-amber-100 border border-amber-300/60 rounded-lg sm:rounded-xl backdrop-blur-sm shadow-lg group-hover:shadow-xl transition-all duration-300">
+                                        <Award size={14} className="sm:w-4 sm:h-4 text-amber-700" />
+                                        <span className="font-bold text-amber-800 text-xs sm:text-sm">{project.award}</span>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </div>
+
+                        {/* 액션 버튼들 */}
+                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
+                            {project.github && (
+                                <motion.a
+                                    href={project.github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
+                                    whileHover={{ scale: 1.02, y: -2 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <Github size={16} className="sm:w-5 sm:h-5 relative z-10" />
+                                    <span className="relative z-10">{t.modal.github}</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                </motion.a>
+                            )}
+                            {project.live && (
+                                <motion.a
+                                    href={project.live}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-3 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white text-sm sm:text-base font-semibold rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden touch-manipulation"
+                                    whileHover={{ scale: 1.02, y: -2 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <ExternalLink size={16} className="sm:w-5 sm:h-5 relative z-10" />
+                                    <span className="relative z-10">{t.modal.liveDemo}</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                </motion.a>
+                            )}
+                        </div>
                     </div>
                 </motion.div>
 
@@ -151,7 +183,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                             <svg className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
                             </svg>
-                            <span className="text-sm sm:text-base md:text-lg pl-1">데모 영상</span>
+                            <span className="text-sm sm:text-base md:text-lg pl-1">{t.modal.demoVideo}</span>
                         </h3>
                         <div className="relative rounded-lg sm:rounded-xl overflow-hidden shadow-lg bg-gradient-to-br from-gray-900 to-gray-800" style={{ aspectRatio: '16 / 9' }}>
                             <video
@@ -161,7 +193,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                                 poster={project.detailImages?.[0] || project.image}
                             >
                                 <source src={project.demoVideo} type="video/mp4" />
-                                브라우저가 비디오 태그를 지원하지 않습니다.
+                                {t.modal.videoUnsupported}
                             </video>
                         </div>
                     </motion.div>
@@ -172,20 +204,20 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     <motion.div variants={itemVariants}>
                         <ImageGallery
                             images={project.detailImages}
-                            title="프로젝트 스크린샷"
+                            title={t.modal.projectScreenshots}
                         />
                     </motion.div>
                 )}
 
                 {/* 상세 설명 */}
-                {project.longDescription && (
+                {localized.longDescription && (
                     <motion.div variants={itemVariants} className="space-y-3">
                         <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
                             <Target size={20} className="text-blue-600" />
-                            프로젝트 개요
+                            {t.modal.overview}
                         </h3>
                         <p className="text-gray-700 leading-relaxed text-sm md:text-base pl-2 sm:pl-7">
-                            {project.longDescription}
+                            {localized.longDescription}
                         </p>
                     </motion.div>
                 )}
@@ -194,7 +226,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 <motion.div variants={itemVariants} className="space-y-3">
                     <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
                         <Code size={20} className="text-purple-600" />
-                        기술 스택
+                        {t.modal.techStack}
                     </h3>
                     <div className="flex flex-wrap gap-2 pl-2 sm:pl-7">
                         {project.technologies.map((tech, index) => (
@@ -215,56 +247,56 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                 </motion.div>
 
                 {/* 프로젝트 상세 정보 */}
-                {project.metrics && (
+                {(localized.metrics.note || localized.metrics.duration || localized.metrics.team || localized.metrics.role || localized.metrics.award) && (
                     <motion.div variants={itemVariants} className="space-y-4">
                         <h3 className="text-lg md:text-xl font-semibold text-gray-900 flex items-center gap-2">
                             <Lightbulb size={20} className="text-amber-600" />
-                            프로젝트 정보
+                            {t.modal.projectInfo}
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pl-2 sm:pl-7">
-                            {project.metrics.duration && (
+                            {localized.metrics.duration && (
                                 <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 rounded-xl">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Clock size={16} className="text-green-700" />
-                                        <h4 className="font-semibold text-green-900 text-sm">개발 기간</h4>
+                                        <h4 className="font-semibold text-green-900 text-sm">{t.modal.developmentPeriod}</h4>
                                     </div>
-                                    <p className="text-green-800 text-sm">{project.metrics.duration}</p>
+                                    <p className="text-green-800 text-sm">{localized.metrics.duration}</p>
                                 </div>
                             )}
-                            {project.metrics.team && (
+                            {localized.metrics.team && (
                                 <div className="p-4 bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-100 rounded-xl">
                                     <div className="flex items-center gap-2 mb-2">
                                         <UsersIcon size={16} className="text-purple-700" />
-                                        <h4 className="font-semibold text-purple-900 text-sm">팀 구성</h4>
+                                        <h4 className="font-semibold text-purple-900 text-sm">{t.modal.team}</h4>
                                     </div>
-                                    <p className="text-purple-800 text-sm">{project.metrics.team}</p>
+                                    <p className="text-purple-800 text-sm">{localized.metrics.team}</p>
                                 </div>
                             )}
-                            {project.metrics.note && (
+                            {localized.metrics.note && (
                                 <div className="p-4 bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-100 rounded-xl md:col-span-2">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Target size={16} className="text-blue-700" />
-                                        <h4 className="font-semibold text-blue-900 text-sm">프로젝트 배경</h4>
+                                        <h4 className="font-semibold text-blue-900 text-sm">{t.modal.background}</h4>
                                     </div>
-                                    <p className="text-blue-800 text-sm leading-relaxed">{project.metrics.note}</p>
+                                    <p className="text-blue-800 text-sm leading-relaxed">{localized.metrics.note}</p>
                                 </div>
                             )}
-                            {project.metrics.role && (
+                            {localized.metrics.role && (
                                 <div className="p-4 bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100 rounded-xl md:col-span-2">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Code size={16} className="text-orange-700" />
-                                        <h4 className="font-semibold text-orange-900 text-sm">담당 역할</h4>
+                                        <h4 className="font-semibold text-orange-900 text-sm">{t.modal.role}</h4>
                                     </div>
-                                    <p className="text-orange-800 text-sm leading-relaxed">{project.metrics.role}</p>
+                                    <p className="text-orange-800 text-sm leading-relaxed">{localized.metrics.role}</p>
                                 </div>
                             )}
-                            {project.metrics.award && (
+                            {localized.metrics.award && (
                                 <div className="p-4 bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-50 border border-amber-200 rounded-xl md:col-span-2 shadow-sm">
                                     <div className="flex items-center gap-2 mb-2">
                                         <Award size={16} className="text-amber-700" />
-                                        <h4 className="font-semibold text-amber-900 text-sm">수상 내역</h4>
+                                        <h4 className="font-semibold text-amber-900 text-sm">{t.modal.awards}</h4>
                                     </div>
-                                    <p className="text-amber-800 text-sm font-medium leading-relaxed">{project.metrics.award}</p>
+                                    <p className="text-amber-800 text-sm font-medium leading-relaxed">{localized.metrics.award}</p>
                                 </div>
                             )}
                         </div>

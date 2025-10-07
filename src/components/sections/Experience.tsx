@@ -248,6 +248,19 @@ export const Experience = () => {
                         transition={{ duration: 0.3, ease: "easeOut" }}
                     >
                         {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
+                        {/* Header */}
                         <div className="flex items-center justify-between mb-4 sm:mb-6 px-1">
                             <div className="flex items-center gap-3 sm:gap-4">
                                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl flex items-center justify-center border border-gray-200/50">
@@ -256,8 +269,8 @@ export const Experience = () => {
                                     </svg>
                                 </div>
                                 <div className="text-left">
-                                    <h2 className="text-xl sm:text-2xl font-bold text-apple-black leading-snug tracking-tight pl-2">관련 프로젝트</h2>
-                                    <p className="text-apple-gray-600 text-sm sm:text-base md:text-lg leading-relaxed break-keep pl-2">프로젝트를 선택해주세요</p>
+                                    <h2 className="text-xl sm:text-2xl font-bold text-apple-black leading-snug tracking-tight pl-2">{t.experience.modal.title}</h2>
+                                    <p className="text-apple-gray-600 text-sm sm:text-base md:text-lg leading-relaxed break-keep pl-2">{t.experience.modal.subtitle}</p>
                                 </div>
                             </div>
                             <button
@@ -302,8 +315,8 @@ export const Experience = () => {
                                             )}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <h3 className="text-base sm:text-lg font-semibold text-apple-black mb-1 sm:mb-2 leading-snug tracking-tight pl-1">{project.title}</h3>
-                                            <p className="text-apple-gray-700 text-[13px] sm:text-sm mb-2 sm:mb-3 leading-relaxed break-keep pl-1">{project.description}</p>
+                                            <h3 className="text-base sm:text-lg font-semibold text-apple-black mb-1 sm:mb-2 leading-snug tracking-tight pl-1">{(project.translations?.[language]?.title) || project.title}</h3>
+                                            <p className="text-apple-gray-700 text-[13px] sm:text-sm mb-2 sm:mb-3 leading-relaxed break-keep pl-1">{(project.translations?.[language]?.description) || project.description}</p>
                                             <div className="flex flex-wrap gap-1">
                                                 {project.technologies.slice(0, 3).map((tech) => (
                                                     <span
@@ -331,7 +344,7 @@ export const Experience = () => {
                                 onClick={handleCloseProjectSelector}
                                 className="px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-apple-gray-100 to-apple-gray-200 hover:from-apple-gray-200 hover:to-apple-gray-300 active:from-apple-gray-300 active:to-apple-gray-400 text-apple-gray-700 text-sm sm:text-base font-medium rounded-lg sm:rounded-xl transition-all duration-200 touch-manipulation"
                             >
-                                닫기
+                                {t.experience.modal.close}
                             </button>
                         </div>
                     </motion.div>

@@ -109,6 +109,19 @@ export const PROJECTS = [
             duration: "2024.09 - 2025.09",
             team: "팀 프로젝트",
             role: "백엔드 API 개발, OpenAI GPT API 연동, AI 챗봇 커리큘럼 추천 시스템, 데이터베이스 설계, JWT 인증, AWS S3 파일 저장, Swagger API 문서화"
+        },
+        translations: {
+            en: {
+                title: 'Backend TUK Navi',
+                description: 'Node.js-based API server for smart academic management with AI chatbot',
+                longDescription: 'AI chatbot-powered academic management backend built with Node.js and Express. Features curriculum recommendations via OpenAI GPT API, schedule optimization, JWT auth, course/user management APIs, MySQL with Sequelize ORM, AWS S3 file storage, Swagger docs, and Google OAuth.',
+                metrics: {
+                    note: 'Comprehensive academic management system for KPU students. Full-stack web application built as a capstone project.',
+                    duration: 'Sep 2024 - Sep 2025',
+                    team: 'Team project',
+                    role: 'Backend API development, OpenAI GPT integration, curriculum recommendation, DB design, JWT auth, AWS S3 storage, Swagger docs'
+                }
+            }
         }
     },
     {
@@ -159,6 +172,19 @@ export const PROJECTS = [
             duration: "2024.09 - 2025.09",
             team: "팀 프로젝트",
             role: "프론트엔드 개발, AI 챗봇 UI/UX 설계, React Query 상태관리, Material-UI 컴포넌트 설계, Framer Motion 애니메이션 구현"
+        },
+        translations: {
+            en: {
+                title: 'Frontend TUK Navi',
+                description: 'AI chatbot-powered smart academic management frontend built with React + TypeScript',
+                longDescription: 'React + TypeScript SPA providing curriculum recommendations, schedule optimization, graduation analysis, course search, responsive design, dark mode, and more for academic management.',
+                metrics: {
+                    note: 'React + TypeScript SPA for smart academic management as a university capstone project',
+                    duration: 'Sep 2024 - Sep 2025',
+                    team: 'Team project',
+                    role: 'Frontend development, AI chatbot UI/UX, React Query state management, MUI components, Framer Motion animations'
+                }
+            }
         }
     },
     {
@@ -224,6 +250,20 @@ export const PROJECTS = [
             team: "팀 프로젝트",
             role: "백엔드 API 개발, YOLOv5 객체인식 시스템, AI 소리 감지 시스템, MQTT 통신, AWS S3 클라우드 저장, JWT 인증, Twilio SMS 알림",
             award: "K-하이테크 플랫폼 사업단에서 시행한 K-Digital Training 「IoT 스마트 융합 프로젝트 경진대회」 최우수상 수상"
+        },
+        translations: {
+            en: {
+                title: 'TUK K-Digital Backend API Server',
+                description: 'Node.js backend for AI smart robot homecam monitoring system',
+                longDescription: 'Backend system featuring YOLOv5 object detection, real-time camera streaming, AI sound detection, user auth, MQTT communication, and more.',
+                metrics: {
+                    note: 'K-Digital Training capstone project: AI smart robot homecam monitoring system',
+                    duration: 'Sep 2024 - Jun 2025',
+                    team: 'Team project',
+                    role: 'Backend API, YOLOv5, AI sound detection, MQTT, AWS S3, JWT, Twilio SMS',
+                    award: 'Won Excellence Award at K-Digital Training IoT Smart Convergence Project'
+                }
+            }
         }
     },
     {
@@ -289,6 +329,20 @@ export const PROJECTS = [
             team: "팀 프로젝트",
             role: "모바일 앱 개발, React Native UI/UX 구현, WebRTC 스트리밍, Redux 상태관리, 생체 인증 보안",
             award: "K-하이테크 플랫폼 사업단에서 시행한 K-Digital Training 「IoT 스마트 융합 프로젝트 경진대회」 최우수상 수상"
+        },
+        translations: {
+            en: {
+                title: 'TUK K-Digital Frontend APP - TIBO',
+                description: 'React Native app for managing AI smart robot homecam',
+                longDescription: 'AI homecam management app built with React Native + Expo. Offers real-time PTZ control, WebRTC streaming, AI motion/sound detection, biometric app lock, and recording management.',
+                metrics: {
+                    note: 'K-Digital Training. Apple-inspired design mobile app with real-time PTZ and WebRTC',
+                    duration: 'Jun 2025 - Sep 2025',
+                    team: 'Team project',
+                    role: 'Mobile app development, RN UI/UX, WebRTC streaming, Redux state, biometric security',
+                    award: 'Won Excellence Award at K-Digital Training competition'
+                }
+            }
         }
     },
     {
@@ -336,6 +390,19 @@ export const PROJECTS = [
             duration: "2025.06 - 진행 중",
             team: "개인 프로젝트",
             role: "모바일 앱 개발, React Native UI/UX 구현, WebRTC 스트리밍, 생체 인증 보안, PTZ 카메라 제어"
+        },
+        translations: {
+            en: {
+                title: 'MIMO Camera Mobile App',
+                description: 'React Native + Expo mobile app for real-time homecam streaming',
+                longDescription: 'Mobile app for a homecam solution using spare phones. Features QR/PIN viewer pairing, WebRTC streaming, biometric security, PTZ control, event notifications, and recording management for iOS/Android.',
+                metrics: {
+                    note: 'Mobile app for the homecam solution with complete camera control',
+                    duration: 'Jun 2025 - In progress',
+                    team: 'Solo project',
+                    role: 'Mobile app dev, RN UI/UX, WebRTC, biometric security, PTZ control'
+                }
+            }
         }
     },
     {
@@ -384,6 +451,19 @@ export const PROJECTS = [
             duration: "2025.06 - 진행 중",
             team: "개인 프로젝트",
             role: "백엔드 API 개발, JWT 인증, WebSocket 실시간 통신, AWS S3 클라우드 저장, 이벤트 알림 시스템, PTZ 카메라 제어"
+        },
+        translations: {
+            en: {
+                title: 'MIMO Camera Backend API',
+                description: 'Node.js + Express + MySQL + S3 backend for homecam system',
+                longDescription: 'Backend API for the homecam solution. Provides JWT auth, Google OAuth, QR/PIN pairing, WebSocket communication, WebRTC streaming, AWS S3 storage, event notifications, and PTZ camera control.',
+                metrics: {
+                    note: 'Backend API providing full homecam infrastructure',
+                    duration: 'Jun 2025 - In progress',
+                    team: 'Solo project',
+                    role: 'Backend API dev, JWT auth, WebSocket, AWS S3 storage, events system, PTZ control'
+                }
+            }
         }
     },
     {
@@ -423,6 +503,19 @@ export const PROJECTS = [
             duration: "2025.06 - 진행 중",
             team: "개인 프로젝트",
             role: "프론트엔드 개발, React 컴포넌트 설계, Framer Motion 애니메이션, 다국어 지원, 반응형 디자인, 이메일 폼 구현"
+        },
+        translations: {
+            en: {
+                title: 'Portfolio Website',
+                description: 'Personal portfolio website built with React + TypeScript + Vite',
+                longDescription: 'Modern portfolio site with Apple-inspired design. Multilingual (KR/EN), responsive, scroll animations, email form, and detailed project modal.',
+                metrics: {
+                    note: 'Modern React 19 + TypeScript + Tailwind CSS 4 portfolio website',
+                    duration: 'Jun 2025 - In progress',
+                    team: 'Solo project',
+                    role: 'Frontend development, components, animations, i18n, responsive design, contact form'
+                }
+            }
         }
     }
 ] as const
