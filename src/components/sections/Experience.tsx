@@ -61,9 +61,9 @@ export const Experience = () => {
     // Get related projects for each experience
     const getRelatedProjects = (experienceId: number): Project[] => {
         const projectMapping: Record<number, string[]> = {
-            1: ['1', '2'], // K-Digital: TIBO Backend, TIBO Frontend
-            2: ['3'],      // Capstone: TUK Navi
-            3: ['4']       // Personal: MIMO Homecam
+            1: ['3', '4'], // K-Digital: TIBO Backend, TIBO Frontend
+            2: ['1', '2'], // Capstone: TUK Navi Backend, TUK Navi Frontend
+            3: ['5', '6']  // Personal: MIMO Mobile App, MIMO Backend API
         };
 
         const projectIds = projectMapping[experienceId] || [];
