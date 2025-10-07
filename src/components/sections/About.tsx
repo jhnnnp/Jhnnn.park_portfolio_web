@@ -29,23 +29,23 @@ export const About = () => {
                         {/* Header */}
                         <div className="text-center space-y-4 sm:space-y-6">
                             <div className="space-y-3 sm:space-y-4">
-                                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-apple-black pl-2 sm:pl-4">
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-apple-black px-4 sm:px-6">
                                     {SITE_CONFIG.name}
                                 </h2>
-                                <h3 className="text-xl sm:text-2xl md:text-3xl text-apple-blue font-semibold pl-4 sm:pl-6">
+                                <h3 className="text-xl sm:text-2xl md:text-3xl text-apple-blue font-semibold px-4 sm:px-6">
                                     {t.about.title}
                                 </h3>
                             </div>
 
                             {/* Description */}
-                            <p className="text-base sm:text-lg md:text-xl text-apple-gray-600 leading-relaxed max-w-3xl mx-auto pl-6 sm:pl-8">
+                            <p className="text-base sm:text-lg md:text-xl text-apple-gray-600 leading-relaxed max-w-3xl mx-auto px-6 sm:px-8">
                                 {t.about.description}
                             </p>
                         </div>
 
                         {/* Skills */}
                         <div className="space-y-6 sm:space-y-8">
-                            <h4 className="text-xl sm:text-2xl font-semibold text-apple-black text-center pl-8 sm:pl-10">{t.about.skills}</h4>
+                            <h4 className="text-xl sm:text-2xl font-semibold text-apple-black text-center px-8 sm:px-10">{t.about.skills}</h4>
                             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                                 {Object.entries(SKILLS).map(([category, skills], index) => (
                                     <motion.div
@@ -125,7 +125,7 @@ export const About = () => {
                                                     whileHover={{ y: -2 }}
                                                     transition={{ duration: 0.2 }}
                                                 >
-                                                    <span className="text-xs sm:text-sm font-bold text-gray-700 uppercase tracking-wider drop-shadow-sm group-hover:text-sky-600 transition-colors duration-300 block px-1 pl-2 sm:pl-3">
+                                                    <span className="text-xs sm:text-sm font-bold text-gray-700 uppercase tracking-wider drop-shadow-sm group-hover:text-sky-600 transition-colors duration-300 block px-2 sm:px-3">
                                                         {t.about.categories[category as keyof typeof t.about.categories]}
                                                     </span>
                                                     <div className="mt-1 w-6 sm:w-8 h-0.5 bg-gradient-to-r from-sky-400 to-blue-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
