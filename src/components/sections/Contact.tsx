@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Mail, Send, CheckCircle, Github, ArrowUpRight, Sparkles, MessageCircle, Smartphone, Navigation } from 'lucide-react';
+import { Send, CheckCircle, Github, ArrowUpRight, Sparkles, MessageCircle, Smartphone, Navigation } from 'lucide-react';
 import { SITE_CONFIG } from '../../lib/constants';
 import { useStaggerAnimation } from '../../hooks/useScrollAnimation';
 import { useEmailForm } from '../../hooks/useEmailForm';
@@ -35,23 +35,16 @@ export const Contact = () => {
             value: 'Seoul, South Korea',
             href: 'https://maps.google.com/?q=Seoul,South+Korea',
             color: 'from-violet-400 to-purple-500'
+        },
+        {
+            icon: Github,
+            title: 'GitHub',
+            value: 'Check out my projects',
+            href: SITE_CONFIG.github,
+            color: 'from-gray-600 to-gray-800'
         }
     ];
 
-    const socialLinks = [
-        {
-            icon: Github,
-            href: SITE_CONFIG.github,
-            label: 'GitHub',
-            color: 'hover:bg-gray-900'
-        },
-        {
-            icon: Mail,
-            href: `mailto:${SITE_CONFIG.email}`,
-            label: 'Email',
-            color: 'hover:bg-red-500'
-        }
-    ];
 
     return (
         <section id="contact" className="relative section-padding bg-gradient-to-br from-gray-50 via-white to-blue-50 overflow-hidden">
@@ -85,7 +78,7 @@ export const Contact = () => {
                     <div className="grid lg:grid-cols-5 gap-8 sm:gap-12 lg:gap-16">
                         {/* Contact Information - 2 columns */}
                         <motion.div
-                            className="lg:col-span-2 space-y-6 sm:space-y-8"
+                            className="lg:col-span-2 space-y-6 sm:space-y-8 mt-8 sm:mt-12"
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -101,81 +94,38 @@ export const Contact = () => {
                             </div>
 
                             {/* Contact Info Cards */}
-                            <div className="space-y-4 sm:space-y-5">
+                            <div className="grid gap-3 sm:gap-4 mt-6 sm:mt-8">
                                 {contactInfo.map((info, index) => (
                                     <motion.a
                                         key={info.title}
                                         href={info.href}
                                         target={info.href.startsWith('http') ? '_blank' : undefined}
                                         rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                        className="group relative flex items-center gap-4 sm:gap-5 p-5 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-lg hover:shadow-2xl border border-gray-100/50 transition-all duration-500 overflow-hidden touch-manipulation hover:scale-[1.02] hover:-translate-y-1"
-                                        initial={{ opacity: 0, y: 20 }}
+                                        className="group relative flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200/60 hover:border-gray-300/80 transition-all duration-300 hover:bg-white/80 hover:shadow-md"
+                                        initial={{ opacity: 0, y: 10 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1 }}
-                                        whileHover={{ x: 8 }}
+                                        transition={{ delay: index * 0.05 }}
+                                        whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.98 }}
                                     >
-                                        {/* 배경 그라데이션 효과 */}
-                                        <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-transparent to-gray-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                                        {/* 아이콘 컨테이너 */}
-                                        <div className={`relative w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br ${info.color} rounded-2xl sm:rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl flex-shrink-0 transition-all duration-300 group-hover:scale-105 overflow-hidden`}>
-                                            <info.icon size={22} className="sm:w-6 sm:h-6 text-white relative z-10 drop-shadow-sm" />
-                                            {/* 미묘한 내부 하이라이트 */}
-                                            <div className="absolute top-1 left-1 right-1 h-1/3 bg-gradient-to-b from-white/20 to-transparent rounded-t-2xl sm:rounded-t-3xl" />
-                                            {/* 호버 시 반짝임 효과 */}
-                                            <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                        {/* 아이콘 */}
+                                        <div className={`w-10 h-10 sm:w-11 sm:h-11 bg-gradient-to-br ${info.color} rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105`}>
+                                            <info.icon size={18} className="sm:w-5 sm:h-5 text-white" />
                                         </div>
 
                                         {/* 텍스트 정보 */}
-                                        <div className="flex-1 min-w-0 relative z-10">
-                                            <h4 className="font-bold text-base sm:text-lg text-gray-900 mb-1 sm:mb-2 group-hover:text-gray-800 transition-colors duration-300">{info.title}</h4>
-                                            <p className="text-gray-600 text-sm sm:text-base font-medium truncate group-hover:text-gray-700 transition-colors duration-300">{info.value}</p>
+                                        <div className="flex-1 min-w-0">
+                                            <h4 className="font-semibold text-sm sm:text-base text-gray-900 group-hover:text-gray-800 transition-colors duration-300">{info.title}</h4>
+                                            <p className="text-gray-600 text-xs sm:text-sm truncate group-hover:text-gray-700 transition-colors duration-300">{info.value}</p>
                                         </div>
 
-                                        {/* 액션 아이콘 */}
-                                        <div className="relative z-10 flex-shrink-0">
-                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 group-hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                                                <ArrowUpRight size={20} className="sm:w-6 sm:h-6 text-gray-500 group-hover:text-blue-600 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
-                                            </div>
-                                        </div>
-
-                                        {/* 호버 시 나타나는 미묘한 테두리 */}
-                                        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl border-2 border-transparent group-hover:border-blue-200/50 transition-colors duration-500" />
+                                        {/* 화살표 아이콘 */}
+                                        <ArrowUpRight size={16} className="sm:w-4 sm:h-4 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 flex-shrink-0" />
                                     </motion.a>
                                 ))}
                             </div>
 
-                            {/* Social Links */}
-                            <motion.div
-                                className="pt-4 sm:pt-6 border-t border-gray-200"
-                                initial={{ opacity: 0 }}
-                                whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }}
-                            >
-                                <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-5 pl-12 sm:pl-14">{t.contact.followMe}</h4>
-                                <div className="flex gap-3">
-                                    {socialLinks.map((social, index) => (
-                                        <motion.a
-                                            key={social.label}
-                                            href={social.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`group relative w-12 h-12 sm:w-14 sm:h-14 bg-gray-100 rounded-xl flex items-center justify-center text-gray-700 ${social.color} hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden touch-manipulation`}
-                                            initial={{ opacity: 0, scale: 0.8 }}
-                                            whileInView={{ opacity: 1, scale: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: index * 0.1 }}
-                                            whileHover={{ y: -4, scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            aria-label={social.label}
-                                        >
-                                            <social.icon size={20} className="sm:w-[22px] sm:h-[22px] relative z-10" />
-                                        </motion.a>
-                                    ))}
-                                </div>
-                            </motion.div>
                         </motion.div>
 
                         {/* Contact Form - 3 columns */}
